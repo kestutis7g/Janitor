@@ -589,10 +589,9 @@ namespace Janitor_V1
 
             var checkedItems = treeListView1.CheckedObjects;
 
-            foreach (Models.Node item in checkedItems)
+            foreach (Node item in checkedItems)
             {
-                //item.ReferencedConfiguration = "TESTAS";
-                //item.ComponentName = "TESTAS";
+                MessageBox.Show(item.GetFileLocation() + "\n" + item.GetReferencedConfiguration());
             }
         }
 
