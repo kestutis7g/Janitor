@@ -24,7 +24,7 @@ namespace Janitor_V1
             InitializeComponent();
             //AddTree();
             //InitializeData();
-
+            string testas = "TESTAS";
 
             //FillTree();
             //FillAssembliesTree();
