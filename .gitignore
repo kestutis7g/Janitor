@@ -3,3 +3,7 @@
 /obj
 .git
 /packages
+Janitor_V1.csproj
+Janitor_V1.csproj.user
+Janitor_V1.sln
+packages.config
