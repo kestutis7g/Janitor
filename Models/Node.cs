@@ -81,6 +81,19 @@ namespace Janitor_V1.Models
             return -999;
         }
 
+        public string GetDescription()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Description;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.Description;
+            }
+            return "Unknown";
+        }
+
         public string GetFileLocation()
         {
             if (this.ComponentType == NodeType.Part)
@@ -93,5 +106,152 @@ namespace Janitor_V1.Models
             }
             return "Unknown";
         }
+        public double? GetChildNodeAssemblyDuration()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.ChildNodeAssemblyDuration;
+            }
+            return -999;
+        }
+        public double? GetIndividualComponentAssemblyDuration()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.IndividualComponentAssemblyDuration;
+            }
+            return -999;
+        }
+        public double? GetAssemblyToParentNodeDuration()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.AssemblyToParentNodeDuration;
+            }
+            return -999;
+        }
+        public double? GetCombinedAssemblyTime()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.CombinedAssemblyTime;
+            }
+            return -999;
+        }
+
+        public double? GetSurfaceArea()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.SurfaceArea;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
+        public double? GetWeight()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Weight;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
+        public bool? GetWelded()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Welded;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return false;
+        }
+        public bool? GetBent()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Bent;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return false;
+        }
+        public string GetMaterial()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Material;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return "";
+            }
+            return "Unknown";
+        }
+        public string GetCoverage()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Coverage;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return "";
+            }
+            return "Unknown";
+        }
+        public double? GetPrice()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Price;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
+        public double? GetSheetThickness()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.SheetThickness;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
+
+
     }
 }

@@ -22,12 +22,6 @@ namespace Janitor_V1
         public MainForm()
         {
             InitializeComponent();
-            //AddTree();
-            //InitializeData();
-
-            //FillTree();
-            //FillAssembliesTree();
-            //FillPartsTree();
 
             this.ContextMenuStrip = contextMenuStrip1;
 
@@ -37,9 +31,6 @@ namespace Janitor_V1
             this.splitContainer3.SplitterDistance = (80 * this.splitContainer3.Size.Width / 100);
             this.Prices = new Prices();
             this.Calculations = new Calculations();
-
-            //RefreshCalculations();
-
         }
 
         public void Start()
@@ -82,37 +73,81 @@ namespace Janitor_V1
             colComponentType.Width = 100;
 
             var colChildNodeAssemblyDuration = new OLVColumn("ChildNodeAssemblyDuration", "ChildNodeAssemblyDuration");
-            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).Assembly.ChildNodeAssemblyDuration;
+            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
             colChildNodeAssemblyDuration.Width = 100;
+            colChildNodeAssemblyDuration.IsVisible = false;
 
             var colIndividualComponentAssemblyDuration = new OLVColumn("IndividualComponentAssemblyDuration", "IndividualComponentAssemblyDuration");
-            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).Assembly.IndividualComponentAssemblyDuration;
+            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
             colIndividualComponentAssemblyDuration.Width = 100;
+            colIndividualComponentAssemblyDuration.IsVisible = false;
 
             var colAssemblyToParentNodeDuration = new OLVColumn("AssemblyToParentNodeDuration", "AssemblyToParentNodeDuration");
-            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).Assembly.AssemblyToParentNodeDuration;
+            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
             colAssemblyToParentNodeDuration.Width = 100;
+            colAssemblyToParentNodeDuration.IsVisible = false;
 
             var colCombinedAssemblyTime = new OLVColumn("CombinedAssemblyTime", "CombinedAssemblyTime");
-            colCombinedAssemblyTime.AspectGetter = x => (x as Node).Assembly.CombinedAssemblyTime;
+            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
             colCombinedAssemblyTime.Width = 100;
+            colCombinedAssemblyTime.IsVisible = false;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
             colFileLocation.MinimumWidth = 100;
             colFileLocation.IsVisible = false;
 
+            var colDescription = new OLVColumn("Description", "Description");
+            colDescription.AspectGetter = x => (x as Node).GetDescription();
+            colDescription.MinimumWidth = 100;
+
+            var colSurfaceArea = new OLVColumn("SurfaceArea", "SurfaceArea");
+            colSurfaceArea.AspectGetter = x => (x as Node).GetSurfaceArea();
+            colSurfaceArea.Width = 100;
+            colSurfaceArea.IsVisible = false;
+
+            var colWeight = new OLVColumn("Weight", "Weight");
+            colWeight.AspectGetter = x => (x as Node).GetWeight();
+            colWeight.Width = 100;
+            colWeight.IsVisible = false;
+
+            var colWelded = new OLVColumn("Welded", "Welded");
+            colWelded.AspectGetter = x => (x as Node).GetWelded();
+            colWelded.Width = 100;
+            colWelded.IsVisible = false;
+
+            var colBent = new OLVColumn("Bent", "Bent");
+            colBent.AspectGetter = x => (x as Node).GetBent();
+            colBent.Width = 100;
+            colBent.IsVisible = false;
+
+            var colMaterial = new OLVColumn("Material", "Material");
+            colMaterial.AspectGetter = x => (x as Node).GetMaterial();
+            colMaterial.Width = 100;
+            colMaterial.IsVisible = false;
+
+            var colCoverage = new OLVColumn("Coverage", "Coverage");
+            colCoverage.AspectGetter = x => (x as Node).GetCoverage();
+            colCoverage.Width = 100;
+            colCoverage.IsVisible = false;
+
+            var colPrice = new OLVColumn("Price", "Price");
+            colPrice.AspectGetter = x => (x as Node).GetPrice();
+            colPrice.MinimumWidth = 100;
+            colPrice.IsVisible = false;
+
+            var colSheetThickness = new OLVColumn("SheetThickness", "SheetThickness");
+            colSheetThickness.AspectGetter = x => (x as Node).GetSheetThickness();
+            colSheetThickness.MinimumWidth = 100;
+            colSheetThickness.IsVisible = false;
+
+
             // add the columns to the tree
             this.treeListView1.Columns.Add(colItemNumber);
             this.treeListView1.Columns.Add(colComponentName);
             this.treeListView1.Columns.Add(colReferencedConfiguration);
-            //this.treeListView1.Columns.Add(colComponentID);
             this.treeListView1.Columns.Add(colComponentType);
-            this.treeListView1.Columns.Add(colChildNodeAssemblyDuration);
-            this.treeListView1.Columns.Add(colIndividualComponentAssemblyDuration);
-            this.treeListView1.Columns.Add(colAssemblyToParentNodeDuration);
-            this.treeListView1.Columns.Add(colCombinedAssemblyTime);
-            //this.treeListView1.Columns.Add(colFileLocation);
+            this.treeListView1.Columns.Add(colDescription);
 
             //add columns for column hiding
             this.treeListView1.AllColumns.Add(colItemNumber);
@@ -125,6 +160,15 @@ namespace Janitor_V1
             this.treeListView1.AllColumns.Add(colAssemblyToParentNodeDuration);
             this.treeListView1.AllColumns.Add(colCombinedAssemblyTime);
             this.treeListView1.AllColumns.Add(colFileLocation);
+            this.treeListView1.AllColumns.Add(colDescription);
+            this.treeListView1.AllColumns.Add(colSurfaceArea);
+            this.treeListView1.AllColumns.Add(colWeight);
+            this.treeListView1.AllColumns.Add(colWelded);
+            this.treeListView1.AllColumns.Add(colBent);
+            this.treeListView1.AllColumns.Add(colMaterial);
+            this.treeListView1.AllColumns.Add(colCoverage);
+            this.treeListView1.AllColumns.Add(colPrice);
+            this.treeListView1.AllColumns.Add(colSheetThickness);
 
 
             // set the tree roots
@@ -164,25 +208,30 @@ namespace Janitor_V1
             colComponentType.Width = 100;
 
             var colChildNodeAssemblyDuration = new OLVColumn("ChildNodeAssemblyDuration", "ChildNodeAssemblyDuration");
-            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).Assembly.ChildNodeAssemblyDuration;
+            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
             colChildNodeAssemblyDuration.Width = 100;
 
             var colIndividualComponentAssemblyDuration = new OLVColumn("IndividualComponentAssemblyDuration", "IndividualComponentAssemblyDuration");
-            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).Assembly.IndividualComponentAssemblyDuration;
+            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
             colIndividualComponentAssemblyDuration.Width = 100;
 
             var colAssemblyToParentNodeDuration = new OLVColumn("AssemblyToParentNodeDuration", "AssemblyToParentNodeDuration");
-            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetFileLocation();
+            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
             colAssemblyToParentNodeDuration.Width = 100;
 
             var colCombinedAssemblyTime = new OLVColumn("CombinedAssemblyTime", "CombinedAssemblyTime");
-            colCombinedAssemblyTime.AspectGetter = x => (x as Node).Assembly.CombinedAssemblyTime;
+            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
             colCombinedAssemblyTime.Width = 100;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
             colFileLocation.MinimumWidth = 100;
             colFileLocation.IsVisible = false;
+
+            var colDescription = new OLVColumn("Description", "Description");
+            colDescription.AspectGetter = x => (x as Node).GetDescription();
+            colDescription.MinimumWidth = 100;
+            colDescription.IsVisible = false;
 
             // add the columns to the tree
             this.treeListView3.Columns.Add(colItemNumber);
@@ -207,6 +256,7 @@ namespace Janitor_V1
             this.treeListView3.AllColumns.Add(colAssemblyToParentNodeDuration);
             this.treeListView3.AllColumns.Add(colCombinedAssemblyTime);
             this.treeListView3.AllColumns.Add(colFileLocation);
+            this.treeListView3.AllColumns.Add(colDescription);
 
             // set the tree roots (filter only Assembly type nodes)
             this.treeListView3.Roots = Data.Where(x => x.ComponentType.ToString() == "Assembly");
@@ -236,7 +286,7 @@ namespace Janitor_V1
             colReferencedConfiguration.Width = 100;
 
             var colDescription = new OLVColumn("Description", "Description");
-            colDescription.AspectGetter = x => (x as Node).Part.Description;
+            colDescription.AspectGetter = x => (x as Node).GetDescription();
             colDescription.Width = 100;
 
             var colComponentID = new OLVColumn("ComponentID", "ComponentID");
@@ -276,6 +326,11 @@ namespace Janitor_V1
             colSheetThickness.AspectGetter = x => (x as Node).Part.SheetThickness;
             colSheetThickness.MinimumWidth = 100;
 
+            var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
+            colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
+            colFileLocation.MinimumWidth = 100;
+            colFileLocation.IsVisible = false;
+
 
             // add the columns to the tree
             this.treeListView2.Columns.Add(colItemNumber);
@@ -305,6 +360,7 @@ namespace Janitor_V1
             this.treeListView2.AllColumns.Add(colCoverage);
             this.treeListView2.AllColumns.Add(colPrice);
             this.treeListView2.AllColumns.Add(colSheetThickness);
+            this.treeListView2.AllColumns.Add(colFileLocation);
 
             // set the tree roots
             this.treeListView2.Roots = PartsData;
@@ -320,34 +376,34 @@ namespace Janitor_V1
         /// <summary>
         /// Initialize data tree
         /// </summary>
-        //private void InitializeData()
-        //{
-        //    Data = new List<Models.Node>();
-        //    PartsData = new List<Models.Node>(); 
+        public void InitializeData()
+        {
+            Data = new List<Node>();
+            PartsData = new List<Node>();
 
-        //    var text = File.ReadAllText("..\\..\\Data.csv");
+            var text = File.ReadAllText("..\\..\\Data.csv");
 
-        //    var parts = text.Split('\n');
-        //    //skip header line
-        //    parts = parts.Skip(1).ToArray();
-        //    //remove empty lines
-        //    parts = parts.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            var parts = text.Split('\n');
+            //skip header line
+            parts = parts.Skip(1).ToArray();
+            //remove empty lines
+            parts = parts.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
-        //    foreach (var partInfo in parts)
-        //    {
-        //        var info = partInfo.Split(';');
+            foreach (var partInfo in parts)
+            {
+                var info = partInfo.Split(';');
 
-        //        if (info[0].Split('.').Length > 1)
-        //        {
-        //            //child node
-        //            FindDataParent(info[0], Data, partInfo);
-        //            continue;
-        //        }
-        //        //root node
-        //        AddNode(Data, partInfo);
-        //    }
-        //    CalculateChildNodeAssemblyDuration(Data);
-        //}
+                if (info[0].Split('.').Length > 1)
+                {
+                    //child node
+                    FindDataParent(info[0], Data, partInfo);
+                    continue;
+                }
+                //root node
+                AddNode(Data, partInfo);
+            }
+            CalculateChildNodeAssemblyDuration(Data);
+        }
 
         /// <summary>
         /// Find parent of the node recursively
@@ -356,68 +412,83 @@ namespace Janitor_V1
         /// <param name="nodes">current level nodes</param>
         /// <param name="partInfo">child node data</param>
         /// <param name="currentLevel">parent search level</param>
-        //private void FindDataParent(string nodeNumber, List<Models.Node> nodes, string partInfo, int currentLevel = 1)
-        //{
-        //    var parent = String.Join(".", nodeNumber.Split('.').Take(currentLevel));
+        private void FindDataParent(string nodeNumber, List<Node> nodes, string partInfo, int currentLevel = 1)
+        {
+            var parent = String.Join(".", nodeNumber.Split('.').Take(currentLevel));
 
-        //    var parentNode = nodes.FirstOrDefault(x => x.GetItemNumber() == parent);
+            var parentNode = nodes.FirstOrDefault(x => x.GetItemNumber() == parent);
 
-        //    if (parentNode == null)
-        //    {
-        //        return;
-        //    }
+            if (parentNode == null)
+            {
+                return;
+            }
 
-        //    if (currentLevel + 1 == nodeNumber.Split('.').Count())
-        //    {
-        //        //parent was found
-        //        AddNode(parentNode.Children, partInfo);
-        //        return;
-        //    }
-        //    FindDataParent(nodeNumber, parentNode.Children, partInfo, currentLevel + 1);
-        //}
+            if (currentLevel + 1 == nodeNumber.Split('.').Count())
+            {
+                //parent was found
+                AddNode(parentNode.Children, partInfo);
+                return;
+            }
+            FindDataParent(nodeNumber, parentNode.Children, partInfo, currentLevel + 1);
+        }
 
-        //private Models.Node FormatNode(string data)
-        //{
-        //    var info = data.Split(';');
-        //    double temp1, temp2, temp3, temp4;
-        //    NodeType type;
+        private Node FormatNode(string data)
+        {
+            var info = data.Split(';');
+            double temp1, temp2, temp3, temp4;
+            NodeType type;
 
-        //    Enum.TryParse(info[4], out type);
-        //    double.TryParse(info[5], out temp1);
-        //    double.TryParse(info[6], out temp2);
-        //    double.TryParse(info[7], out temp3);
-        //    double.TryParse(info[8], out temp4);
+            Enum.TryParse(info[4], out type);
+            double.TryParse(info[5], out temp1);
+            double.TryParse(info[6], out temp2);
+            double.TryParse(info[7], out temp3);
+            double.TryParse(info[8], out temp4);
 
-        //    return new Models.Node(info[0],
-        //                        info[1],
-        //                        info[2],
-        //                        int.Parse(info[3]),
-        //                        type,
-        //                        temp1,
-        //                        temp2,
-        //                        temp3,
-        //                        temp4,
-        //                        info[9]
-        //                        );
-        //}
+            var node = new Node();
+            node.ComponentType = type;
+
+            if(type == NodeType.Part)
+            {
+                node.Part.ItemNumber = info[0];
+                node.Part.ComponentName = info[1];
+                node.Part.ReferencedConfiguration = info[2];
+                node.Part.ComponentID = int.Parse(info[3]);
+                node.Part.FileLocation = info[9];
+                return node;
+            }
+            else if(type == NodeType.Assembly)
+            {
+                node.Assembly.ItemNumber = info[0];
+                node.Assembly.ComponentName = info[1];
+                node.Assembly.ReferencedConfiguration = info[2];
+                node.Assembly.ComponentID = int.Parse(info[3]);
+                node.Assembly.ChildNodeAssemblyDuration = temp1;
+                node.Assembly.IndividualComponentAssemblyDuration = temp2;
+                node.Assembly.AssemblyToParentNodeDuration = temp3;
+                node.Assembly.CombinedAssemblyTime = temp4;
+                node.Assembly.FileLocation = info[9];
+                return node;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Add node to List<Node>
         /// </summary>
         /// <param name="list">list of nodes</param>
         /// <param name="data">string data of the node</param>
-        //private void AddNode(List<Models.Node> list, string data)
-        //{
-        //    var node = FormatNode(data);
-        //    list.Add(node);
+        private void AddNode(List<Node> list, string data)
+        {
+            var node = FormatNode(data);
+            list.Add(node);
 
-        //    if(node.ComponentType.ToString() == "Part")
-        //    {
-        //        PartsData.Add(node);
-        //    }
-        //}
+            if (node.ComponentType.ToString() == "Part")
+            {
+                PartsData.Add(node);
+            }
+        }
 
-        private void CalculateChildNodeAssemblyDuration(List<Models.Node> nodes)
+        private void CalculateChildNodeAssemblyDuration(List<Node> nodes)
         {
             nodes.ForEach(x => {
                 if (x.ComponentType.ToString() == "Assembly")
@@ -430,7 +501,7 @@ namespace Janitor_V1
             });
         }
 
-        private double GetChildrenAssemblyDuration(List<Models.Node> nodes)
+        private double GetChildrenAssemblyDuration(List<Node> nodes)
         {
             double assemblyDuration = 0;
             foreach (var node in nodes)//jei vaiku nera taj 0
@@ -514,7 +585,7 @@ namespace Janitor_V1
         /// <param name="e"></param>
         private void treeListView_ItemActivate(object sender, EventArgs e)
         {
-            foreach (Models.Node item in (sender as TreeListView).SelectedObjects)
+            foreach (Node item in (sender as TreeListView).SelectedObjects)
             {
                 OpenItemDetailedView(item, (sender as TreeListView).Name == "treeListView2");
             }
@@ -556,7 +627,7 @@ namespace Janitor_V1
             }
         }
 
-        private void OpenItemDetailedView(Models.Node item, bool showControls = false)
+        private void OpenItemDetailedView(Node item, bool showControls = false)
         {
             var detailsForm = new DetailsForm(item, this.PartsData, showControls);
             //detailsForm.Data = item;

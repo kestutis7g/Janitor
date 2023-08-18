@@ -7,12 +7,12 @@ namespace Janitor_V1
 {
     public partial class DetailsForm : Form
     {
-        public Models.Node Data { set; get; }
-        public List<Models.Node> List { set; get; }
+        public Node Data { set; get; }
+        public List<Node> List { set; get; }
         public bool ShowControls { set; get; }
         int index;
 
-        public DetailsForm(Models.Node data, List<Models.Node> list, bool showControls)
+        public DetailsForm(Node data, List<Node> list, bool showControls)
         {
             InitializeComponent();
             this.Data = data;
@@ -38,49 +38,52 @@ namespace Janitor_V1
         {
             this.index = this.List.IndexOf(Data);
             UpdateControls();
-            if(Data.ComponentType.ToString() == "Assembly")
+            if(Data.ComponentType == NodeType.Assembly)
             {
                 RemoveTabs("assembly");
                 ResizeTabControl("assembly");
             }
-            else if(Data.ComponentType.ToString() == "Part")
+            else if(Data.ComponentType == NodeType.Part)
             {
                 RemoveTabs("part");
                 ResizeTabControl("part");
             }
 
-            DynamicTypeDescriptor dt = new DynamicTypeDescriptor(typeof(Models.Node));
+            //DynamicTypeDescriptor dt = new DynamicTypeDescriptor(typeof(Node));
             //hide unwanted properties
-            if (Data.ComponentType.ToString() == "Assembly")
+            if (Data.ComponentType == NodeType.Assembly)
             {
-                dt.RemoveProperty("Material");
-                dt.RemoveProperty("Weight");
-                dt.RemoveProperty("SurfaceArea");
-                dt.RemoveProperty("SheetThickness");
-                dt.RemoveProperty("Coverage");
-                dt.RemoveProperty("Price");
-                dt.RemoveProperty("Markup");
-                dt.RemoveProperty("PurchasePrice");
-                dt.RemoveProperty("MetalPrice");
-                dt.RemoveProperty("PaintingCost");
-                dt.RemoveProperty("CuttingCost");
-                dt.RemoveProperty("PunchingCost");
-                dt.RemoveProperty("BendingCost");
-                dt.RemoveProperty("CutLength");
-                dt.RemoveProperty("NumberOfBends");
-                dt.RemoveProperty("NumberOfPunches");
-                dt.RemoveProperty("Welded");
-                dt.RemoveProperty("Bent");
+                //dt.RemoveProperty("Material");
+                //dt.RemoveProperty("Weight");
+                //dt.RemoveProperty("SurfaceArea");
+                //dt.RemoveProperty("SheetThickness");
+                //dt.RemoveProperty("Coverage");
+                //dt.RemoveProperty("Price");
+                //dt.RemoveProperty("Markup");
+                //dt.RemoveProperty("PurchasePrice");
+                //dt.RemoveProperty("MetalPrice");
+                //dt.RemoveProperty("PaintingCost");
+                //dt.RemoveProperty("CuttingCost");
+                //dt.RemoveProperty("PunchingCost");
+                //dt.RemoveProperty("BendingCost");
+                //dt.RemoveProperty("CutLength");
+                //dt.RemoveProperty("NumberOfBends");
+                //dt.RemoveProperty("NumberOfPunches");
+                //dt.RemoveProperty("Welded");
+                //dt.RemoveProperty("Bent");
+                propertyGrid1.SelectedObject = Data.Assembly;
             }
-            if(Data.ComponentType.ToString() == "Part")
+            if(Data.ComponentType == NodeType.Part)
             {
-                dt.RemoveProperty("ChildNodeAssemblyDuration");
-                dt.RemoveProperty("IndividualComponentAssemblyDuration");
-                dt.RemoveProperty("AssemblyToParentNodeDuration");
-                dt.RemoveProperty("CombinedAssemblyTime");
+                //dt.RemoveProperty("ChildNodeAssemblyDuration");
+                //dt.RemoveProperty("IndividualComponentAssemblyDuration");
+                //dt.RemoveProperty("AssemblyToParentNodeDuration");
+                //dt.RemoveProperty("CombinedAssemblyTime");
+                propertyGrid1.SelectedObject = Data.Part;
             }
 
-            propertyGrid1.SelectedObject = dt.FromComponent(Data);
+            //propertyGrid1.SelectedObject = dt.FromComponent(Data);
+            
         }
 
         private void nextButton_Click(object sender, System.EventArgs e)

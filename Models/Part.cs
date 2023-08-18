@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
 {
