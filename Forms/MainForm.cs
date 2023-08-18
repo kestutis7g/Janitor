@@ -666,11 +666,6 @@ namespace Janitor_V1
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            int a = 0;
-        }
-
         private void pricesButton_Click(object sender, EventArgs e)
         {
             var pricesForm = new PricesForm();
@@ -711,6 +706,33 @@ namespace Janitor_V1
         {
             this.StainlessSteelToolbox = this.useStainlessSteel.Checked;
             RefreshCalculations();
+        }
+
+        private void openItemButton_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Name == "tabPageGeneral")
+            {
+                openItemInSolidWorks(this.treeListView1, e);
+            }
+            else if (tabControl1.SelectedTab.Name == "tabPageParts")
+            {
+                openItemInSolidWorks(this.treeListView2, e);
+            }
+            else if (tabControl1.SelectedTab.Name == "tabPageAssemblies")
+            {
+                openItemInSolidWorks(this.treeListView3, e);
+            }
+        }
+
+        private void openItemInSolidWorks(object sender, EventArgs e)
+        {
+            foreach (Node item in (sender as TreeListView).CheckedObjects)
+            {
+                MessageBox.Show(item.GetItemNumber() + "\n" + item.GetReferencedConfiguration() + "\n" + item.GetFileLocation());
+                //sitoi vietoj turi buti atidarymas
+
+
+            }
         }
     }
 }

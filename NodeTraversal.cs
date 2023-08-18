@@ -118,6 +118,9 @@ namespace Janitor_V1
                 node.Part.SheetThickness = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Skardos storis_mm");
 
+                string temp = (string)swModel.CustomInfo2[swChildComp.ReferencedConfiguration, "Skardos storis_mm"];
+                int a = 0;
+
                 node.Part.Bent = ReadPropertiesFromSolidworks_boolOut(
                     swModel, swChildComp.ReferencedConfiguration, "Lankstymas");
 
@@ -223,6 +226,7 @@ namespace Janitor_V1
         public double ReadPropertiesFromSolidworks_doubleOut(ModelDoc2 swModel, string Configuration, string PropertyName)
         {
             string temp = (string)swModel.CustomInfo2[Configuration, PropertyName];
+            temp = temp.Replace(',', '.');
             double value = 0;
             double.TryParse(temp, out value);
             return value;

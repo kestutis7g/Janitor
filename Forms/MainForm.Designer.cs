@@ -114,20 +114,22 @@
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageParts);
             this.tabControl1.Controls.Add(this.tabPageAssemblies);
-            this.tabControl1.Location = new System.Drawing.Point(2, 51);
+            this.tabControl1.Location = new System.Drawing.Point(2, 41);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1334, 875);
+            this.tabControl1.Size = new System.Drawing.Size(1186, 700);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPageGeneral
             // 
             this.tabPageGeneral.Controls.Add(this.splitContainer1);
             this.tabPageGeneral.Controls.Add(this.panel4);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 29);
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 25);
+            this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(1326, 842);
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageGeneral.Size = new System.Drawing.Size(1178, 671);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -139,6 +141,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -152,18 +155,19 @@
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1323, 740);
-            this.splitContainer1.SplitterDistance = 1085;
+            this.splitContainer1.Size = new System.Drawing.Size(1176, 592);
+            this.splitContainer1.SplitterDistance = 938;
             this.splitContainer1.TabIndex = 5;
             // 
             // treeListView1
             // 
-            //this.treeListView1.AllowCellEditorsToProcessMouseWheel = false;
             this.treeListView1.AllowColumnReorder = true;
+            this.treeListView1.CellEditUseWholeCell = false;
             this.treeListView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeListView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.treeListView1.HideSelection = false;
-            this.treeListView1.Location = new System.Drawing.Point(0, 35);
+            this.treeListView1.Location = new System.Drawing.Point(0, 27);
+            this.treeListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeListView1.Name = "treeListView1";
             this.treeListView1.SelectColumnsMenuStaysOpen = false;
             this.treeListView1.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -171,7 +175,7 @@
             this.treeListView1.ShowGroups = false;
             this.treeListView1.ShowImagesOnSubItems = true;
             this.treeListView1.ShowItemToolTips = true;
-            this.treeListView1.Size = new System.Drawing.Size(1085, 705);
+            this.treeListView1.Size = new System.Drawing.Size(938, 565);
             this.treeListView1.TabIndex = 3;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.UseFilterIndicator = true;
@@ -186,9 +190,10 @@
             this.seachTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seachTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.seachTextBox1.Location = new System.Drawing.Point(3, 2);
+            this.seachTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.seachTextBox1.Name = "seachTextBox1";
-            this.seachTextBox1.Size = new System.Drawing.Size(1078, 26);
+            this.seachTextBox1.Size = new System.Drawing.Size(933, 22);
             this.seachTextBox1.TabIndex = 4;
             this.seachTextBox1.TextChanged += new System.EventHandler(this.seachTextBox1_TextChanged);
             // 
@@ -199,27 +204,30 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(208, 789);
+            this.panel1.Size = new System.Drawing.Size(213, 631);
             this.panel1.TabIndex = 2;
             // 
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.Location = new System.Drawing.Point(0, 37);
+            this.button2.Location = new System.Drawing.Point(0, 30);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(208, 42);
+            this.button2.Size = new System.Drawing.Size(213, 34);
             this.button2.TabIndex = 0;
-            this.button2.Text = "Other";
+            this.button2.Text = "Open item";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.openItemButton_Click);
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(208, 37);
+            this.button1.Size = new System.Drawing.Size(213, 30);
             this.button1.TabIndex = 1;
             this.button1.Text = "Do stuff";
             this.button1.UseVisualStyleBackColor = true;
@@ -231,35 +239,36 @@
             this.panel4.Controls.Add(this.totalAssemblyCostGeneralLabel);
             this.panel4.Controls.Add(this.totalPartsTabCostGeneralLabel);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(3, 739);
+            this.panel4.Location = new System.Drawing.Point(3, 589);
+            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1320, 100);
+            this.panel4.Size = new System.Drawing.Size(1172, 80);
             this.panel4.TabIndex = 2;
             // 
             // finalPriceLabel
             // 
             this.finalPriceLabel.AutoSize = true;
-            this.finalPriceLabel.Location = new System.Drawing.Point(371, 19);
+            this.finalPriceLabel.Location = new System.Drawing.Point(330, 15);
             this.finalPriceLabel.Name = "finalPriceLabel";
-            this.finalPriceLabel.Size = new System.Drawing.Size(111, 20);
+            this.finalPriceLabel.Size = new System.Drawing.Size(92, 16);
             this.finalPriceLabel.TabIndex = 12;
             this.finalPriceLabel.Text = "Final price: 0 €";
             // 
             // totalAssemblyCostGeneralLabel
             // 
             this.totalAssemblyCostGeneralLabel.AutoSize = true;
-            this.totalAssemblyCostGeneralLabel.Location = new System.Drawing.Point(15, 58);
+            this.totalAssemblyCostGeneralLabel.Location = new System.Drawing.Point(13, 46);
             this.totalAssemblyCostGeneralLabel.Name = "totalAssemblyCostGeneralLabel";
-            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(178, 20);
+            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(151, 16);
             this.totalAssemblyCostGeneralLabel.TabIndex = 11;
             this.totalAssemblyCostGeneralLabel.Text = "Total assembly cost: 0 €";
             // 
             // totalPartsTabCostGeneralLabel
             // 
             this.totalPartsTabCostGeneralLabel.AutoSize = true;
-            this.totalPartsTabCostGeneralLabel.Location = new System.Drawing.Point(15, 19);
+            this.totalPartsTabCostGeneralLabel.Location = new System.Drawing.Point(13, 15);
             this.totalPartsTabCostGeneralLabel.Name = "totalPartsTabCostGeneralLabel";
-            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(234, 20);
+            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(195, 16);
             this.totalPartsTabCostGeneralLabel.TabIndex = 10;
             this.totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: 0 €";
             // 
@@ -267,10 +276,11 @@
             // 
             this.tabPageParts.Controls.Add(this.panel5);
             this.tabPageParts.Controls.Add(this.splitContainer2);
-            this.tabPageParts.Location = new System.Drawing.Point(4, 29);
+            this.tabPageParts.Location = new System.Drawing.Point(4, 25);
+            this.tabPageParts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageParts.Name = "tabPageParts";
-            this.tabPageParts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageParts.Size = new System.Drawing.Size(1326, 842);
+            this.tabPageParts.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageParts.Size = new System.Drawing.Size(1178, 671);
             this.tabPageParts.TabIndex = 2;
             this.tabPageParts.Text = "Parts";
             this.tabPageParts.UseVisualStyleBackColor = true;
@@ -288,43 +298,45 @@
             this.panel5.Controls.Add(this.totalPartsCostLabel);
             this.panel5.Controls.Add(this.totalPartsLabel);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(3, 739);
+            this.panel5.Location = new System.Drawing.Point(3, 589);
+            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1320, 100);
+            this.panel5.Size = new System.Drawing.Size(1172, 80);
             this.panel5.TabIndex = 7;
             // 
             // totalPartsTabCostLabel
             // 
             this.totalPartsTabCostLabel.AutoSize = true;
-            this.totalPartsTabCostLabel.Location = new System.Drawing.Point(813, 42);
+            this.totalPartsTabCostLabel.Location = new System.Drawing.Point(723, 34);
             this.totalPartsTabCostLabel.Name = "totalPartsTabCostLabel";
-            this.totalPartsTabCostLabel.Size = new System.Drawing.Size(234, 20);
+            this.totalPartsTabCostLabel.Size = new System.Drawing.Size(195, 16);
             this.totalPartsTabCostLabel.TabIndex = 9;
             this.totalPartsTabCostLabel.Text = "Total parts and toolbox cost: 0 €";
             // 
             // toolboxTotalPriceLabel
             // 
             this.toolboxTotalPriceLabel.AutoSize = true;
-            this.toolboxTotalPriceLabel.Location = new System.Drawing.Point(519, 72);
+            this.toolboxTotalPriceLabel.Location = new System.Drawing.Point(461, 58);
             this.toolboxTotalPriceLabel.Name = "toolboxTotalPriceLabel";
-            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(132, 20);
+            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(113, 16);
             this.toolboxTotalPriceLabel.TabIndex = 8;
             this.toolboxTotalPriceLabel.Text = "Toolbox price: 0 €";
             // 
             // toolboxPriceLabel
             // 
             this.toolboxPriceLabel.AutoSize = true;
-            this.toolboxPriceLabel.Location = new System.Drawing.Point(519, 44);
+            this.toolboxPriceLabel.Location = new System.Drawing.Point(461, 35);
             this.toolboxPriceLabel.Name = "toolboxPriceLabel";
-            this.toolboxPriceLabel.Size = new System.Drawing.Size(153, 20);
+            this.toolboxPriceLabel.Size = new System.Drawing.Size(132, 16);
             this.toolboxPriceLabel.TabIndex = 7;
             this.toolboxPriceLabel.Text = "Toolbox price: 0 €/kg";
             // 
             // toolboxWeightTextBox
             // 
-            this.toolboxWeightTextBox.Location = new System.Drawing.Point(639, 10);
+            this.toolboxWeightTextBox.Location = new System.Drawing.Point(568, 8);
+            this.toolboxWeightTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.toolboxWeightTextBox.Name = "toolboxWeightTextBox";
-            this.toolboxWeightTextBox.Size = new System.Drawing.Size(100, 26);
+            this.toolboxWeightTextBox.Size = new System.Drawing.Size(89, 22);
             this.toolboxWeightTextBox.TabIndex = 6;
             this.toolboxWeightTextBox.Text = "0";
             this.toolboxWeightTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -333,27 +345,28 @@
             // toolboxWeightLabel
             // 
             this.toolboxWeightLabel.AutoSize = true;
-            this.toolboxWeightLabel.Location = new System.Drawing.Point(519, 13);
+            this.toolboxWeightLabel.Location = new System.Drawing.Point(461, 10);
             this.toolboxWeightLabel.Name = "toolboxWeightLabel";
-            this.toolboxWeightLabel.Size = new System.Drawing.Size(114, 20);
+            this.toolboxWeightLabel.Size = new System.Drawing.Size(98, 16);
             this.toolboxWeightLabel.TabIndex = 5;
             this.toolboxWeightLabel.Text = "Toolbox weight";
             // 
             // toolboxTypeLabel
             // 
             this.toolboxTypeLabel.AutoSize = true;
-            this.toolboxTypeLabel.Location = new System.Drawing.Point(302, 13);
+            this.toolboxTypeLabel.Location = new System.Drawing.Point(268, 10);
             this.toolboxTypeLabel.Name = "toolboxTypeLabel";
-            this.toolboxTypeLabel.Size = new System.Drawing.Size(102, 20);
+            this.toolboxTypeLabel.Size = new System.Drawing.Size(89, 16);
             this.toolboxTypeLabel.TabIndex = 4;
             this.toolboxTypeLabel.Text = "Toolbox type:";
             // 
             // useStainlessSteel
             // 
             this.useStainlessSteel.AutoSize = true;
-            this.useStainlessSteel.Location = new System.Drawing.Point(306, 70);
+            this.useStainlessSteel.Location = new System.Drawing.Point(272, 56);
+            this.useStainlessSteel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.useStainlessSteel.Name = "useStainlessSteel";
-            this.useStainlessSteel.Size = new System.Drawing.Size(137, 24);
+            this.useStainlessSteel.Size = new System.Drawing.Size(115, 20);
             this.useStainlessSteel.TabIndex = 3;
             this.useStainlessSteel.Text = "Stainless steel";
             this.useStainlessSteel.UseVisualStyleBackColor = true;
@@ -363,9 +376,10 @@
             // 
             this.useBlackSteel.AutoSize = true;
             this.useBlackSteel.Checked = true;
-            this.useBlackSteel.Location = new System.Drawing.Point(306, 40);
+            this.useBlackSteel.Location = new System.Drawing.Point(272, 32);
+            this.useBlackSteel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.useBlackSteel.Name = "useBlackSteel";
-            this.useBlackSteel.Size = new System.Drawing.Size(111, 24);
+            this.useBlackSteel.Size = new System.Drawing.Size(94, 20);
             this.useBlackSteel.TabIndex = 2;
             this.useBlackSteel.TabStop = true;
             this.useBlackSteel.Text = "Black steel";
@@ -375,18 +389,18 @@
             // totalPartsCostLabel
             // 
             this.totalPartsCostLabel.AutoSize = true;
-            this.totalPartsCostLabel.Location = new System.Drawing.Point(15, 49);
+            this.totalPartsCostLabel.Location = new System.Drawing.Point(13, 39);
             this.totalPartsCostLabel.Name = "totalPartsCostLabel";
-            this.totalPartsCostLabel.Size = new System.Drawing.Size(148, 20);
+            this.totalPartsCostLabel.Size = new System.Drawing.Size(122, 16);
             this.totalPartsCostLabel.TabIndex = 1;
             this.totalPartsCostLabel.Text = "Total parts cost: 0 €";
             // 
             // totalPartsLabel
             // 
             this.totalPartsLabel.AutoSize = true;
-            this.totalPartsLabel.Location = new System.Drawing.Point(15, 13);
+            this.totalPartsLabel.Location = new System.Drawing.Point(13, 10);
             this.totalPartsLabel.Name = "totalPartsLabel";
-            this.totalPartsLabel.Size = new System.Drawing.Size(101, 20);
+            this.totalPartsLabel.Size = new System.Drawing.Size(84, 16);
             this.totalPartsLabel.TabIndex = 0;
             this.totalPartsLabel.Text = "Total parts: 0";
             // 
@@ -397,6 +411,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -409,17 +424,18 @@
             this.splitContainer2.Panel2.AutoScroll = true;
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer2.Panel2.Controls.Add(this.panel2);
-            this.splitContainer2.Size = new System.Drawing.Size(1326, 733);
-            this.splitContainer2.SplitterDistance = 1077;
+            this.splitContainer2.Size = new System.Drawing.Size(1179, 586);
+            this.splitContainer2.SplitterDistance = 930;
             this.splitContainer2.TabIndex = 6;
             // 
             // treeListView2
             // 
-            //this.treeListView2.AllowCellEditorsToProcessMouseWheel = false;
             this.treeListView2.AllowColumnReorder = true;
+            this.treeListView2.CellEditUseWholeCell = false;
             this.treeListView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.treeListView2.HideSelection = false;
-            this.treeListView2.Location = new System.Drawing.Point(0, 35);
+            this.treeListView2.Location = new System.Drawing.Point(0, 27);
+            this.treeListView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeListView2.Name = "treeListView2";
             this.treeListView2.SelectColumnsMenuStaysOpen = false;
             this.treeListView2.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -427,7 +443,7 @@
             this.treeListView2.ShowGroups = false;
             this.treeListView2.ShowImagesOnSubItems = true;
             this.treeListView2.ShowItemToolTips = true;
-            this.treeListView2.Size = new System.Drawing.Size(1077, 698);
+            this.treeListView2.Size = new System.Drawing.Size(930, 559);
             this.treeListView2.TabIndex = 4;
             this.treeListView2.UseCompatibleStateImageBehavior = false;
             this.treeListView2.UseFilterIndicator = true;
@@ -442,9 +458,10 @@
             this.seachTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seachTextBox2.Location = new System.Drawing.Point(3, 3);
+            this.seachTextBox2.Location = new System.Drawing.Point(3, 2);
+            this.seachTextBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.seachTextBox2.Name = "seachTextBox2";
-            this.seachTextBox2.Size = new System.Drawing.Size(1071, 26);
+            this.seachTextBox2.Size = new System.Drawing.Size(925, 22);
             this.seachTextBox2.TabIndex = 5;
             // 
             // panel2
@@ -453,28 +470,32 @@
             this.panel2.Controls.Add(this.button3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(219, 833);
+            this.panel2.Size = new System.Drawing.Size(224, 666);
             this.panel2.TabIndex = 0;
             // 
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Top;
             this.button3.Location = new System.Drawing.Point(0, 0);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(219, 39);
+            this.button3.Size = new System.Drawing.Size(224, 31);
             this.button3.TabIndex = 0;
-            this.button3.Text = "button3";
+            this.button3.Text = "Open item";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.openItemButton_Click);
             // 
             // tabPageAssemblies
             // 
             this.tabPageAssemblies.Controls.Add(this.panel6);
             this.tabPageAssemblies.Controls.Add(this.splitContainer3);
-            this.tabPageAssemblies.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAssemblies.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAssemblies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageAssemblies.Name = "tabPageAssemblies";
-            this.tabPageAssemblies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAssemblies.Size = new System.Drawing.Size(1326, 842);
+            this.tabPageAssemblies.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageAssemblies.Size = new System.Drawing.Size(1178, 671);
             this.tabPageAssemblies.TabIndex = 3;
             this.tabPageAssemblies.Text = "Assemblies";
             this.tabPageAssemblies.UseVisualStyleBackColor = true;
@@ -490,26 +511,27 @@
             this.panel6.Controls.Add(this.individualComponentsAssemblyLabel);
             this.panel6.Controls.Add(this.rootChildNodeAssemblyTime);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(3, 736);
+            this.panel6.Location = new System.Drawing.Point(3, 587);
+            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1320, 103);
+            this.panel6.Size = new System.Drawing.Size(1172, 82);
             this.panel6.TabIndex = 1;
             // 
             // totalAssemblyCostLabel
             // 
             this.totalAssemblyCostLabel.AutoSize = true;
-            this.totalAssemblyCostLabel.Location = new System.Drawing.Point(495, 79);
+            this.totalAssemblyCostLabel.Location = new System.Drawing.Point(440, 63);
             this.totalAssemblyCostLabel.Name = "totalAssemblyCostLabel";
-            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(178, 20);
+            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(151, 16);
             this.totalAssemblyCostLabel.TabIndex = 8;
             this.totalAssemblyCostLabel.Text = "Total assembly cost: 0 €";
             // 
             // assemblyCostLabel
             // 
             this.assemblyCostLabel.AutoSize = true;
-            this.assemblyCostLabel.Location = new System.Drawing.Point(495, 44);
+            this.assemblyCostLabel.Location = new System.Drawing.Point(440, 35);
             this.assemblyCostLabel.Name = "assemblyCostLabel";
-            this.assemblyCostLabel.Size = new System.Drawing.Size(154, 20);
+            this.assemblyCostLabel.Size = new System.Drawing.Size(129, 16);
             this.assemblyCostLabel.TabIndex = 7;
             this.assemblyCostLabel.Text = "Assembly cost: 0 €/h";
             // 
@@ -517,18 +539,19 @@
             // 
             this.combinedAssemblyDurationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.combinedAssemblyDurationLabel.AutoSize = true;
-            this.combinedAssemblyDurationLabel.Location = new System.Drawing.Point(495, 11);
+            this.combinedAssemblyDurationLabel.Location = new System.Drawing.Point(440, 9);
             this.combinedAssemblyDurationLabel.Name = "combinedAssemblyDurationLabel";
-            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(217, 20);
+            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(185, 16);
             this.combinedAssemblyDurationLabel.TabIndex = 6;
             this.combinedAssemblyDurationLabel.Text = "Combined assembly duration:";
             // 
             // assemblyToParentTextBox
             // 
             this.assemblyToParentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.assemblyToParentTextBox.Location = new System.Drawing.Point(331, 73);
+            this.assemblyToParentTextBox.Location = new System.Drawing.Point(294, 58);
+            this.assemblyToParentTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.assemblyToParentTextBox.Name = "assemblyToParentTextBox";
-            this.assemblyToParentTextBox.Size = new System.Drawing.Size(100, 26);
+            this.assemblyToParentTextBox.Size = new System.Drawing.Size(89, 22);
             this.assemblyToParentTextBox.TabIndex = 5;
             this.assemblyToParentTextBox.Text = "0";
             this.assemblyToParentTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -538,18 +561,19 @@
             // 
             this.assemblyToParentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.assemblyToParentLabel.AutoSize = true;
-            this.assemblyToParentLabel.Location = new System.Drawing.Point(13, 79);
+            this.assemblyToParentLabel.Location = new System.Drawing.Point(12, 63);
             this.assemblyToParentLabel.Name = "assemblyToParentLabel";
-            this.assemblyToParentLabel.Size = new System.Drawing.Size(207, 20);
+            this.assemblyToParentLabel.Size = new System.Drawing.Size(173, 16);
             this.assemblyToParentLabel.TabIndex = 4;
             this.assemblyToParentLabel.Text = "Assembly to parent duration";
             // 
             // individualComponentsAssemblyTextBox
             // 
             this.individualComponentsAssemblyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.individualComponentsAssemblyTextBox.Location = new System.Drawing.Point(331, 41);
+            this.individualComponentsAssemblyTextBox.Location = new System.Drawing.Point(294, 33);
+            this.individualComponentsAssemblyTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.individualComponentsAssemblyTextBox.Name = "individualComponentsAssemblyTextBox";
-            this.individualComponentsAssemblyTextBox.Size = new System.Drawing.Size(100, 26);
+            this.individualComponentsAssemblyTextBox.Size = new System.Drawing.Size(89, 22);
             this.individualComponentsAssemblyTextBox.TabIndex = 3;
             this.individualComponentsAssemblyTextBox.Text = "0";
             this.individualComponentsAssemblyTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -559,9 +583,9 @@
             // 
             this.individualComponentsAssemblyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.individualComponentsAssemblyLabel.AutoSize = true;
-            this.individualComponentsAssemblyLabel.Location = new System.Drawing.Point(13, 44);
+            this.individualComponentsAssemblyLabel.Location = new System.Drawing.Point(12, 35);
             this.individualComponentsAssemblyLabel.Name = "individualComponentsAssemblyLabel";
-            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(299, 20);
+            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(254, 16);
             this.individualComponentsAssemblyLabel.TabIndex = 2;
             this.individualComponentsAssemblyLabel.Text = "Individual components assembly duration";
             // 
@@ -569,9 +593,9 @@
             // 
             this.rootChildNodeAssemblyTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rootChildNodeAssemblyTime.AutoSize = true;
-            this.rootChildNodeAssemblyTime.Location = new System.Drawing.Point(13, 11);
+            this.rootChildNodeAssemblyTime.Location = new System.Drawing.Point(12, 9);
             this.rootChildNodeAssemblyTime.Name = "rootChildNodeAssemblyTime";
-            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(196, 20);
+            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(167, 16);
             this.rootChildNodeAssemblyTime.TabIndex = 1;
             this.rootChildNodeAssemblyTime.Text = "Child node assembly time: ";
             // 
@@ -581,6 +605,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -593,8 +618,8 @@
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer3.Panel2.Controls.Add(this.panel3);
-            this.splitContainer3.Size = new System.Drawing.Size(1326, 733);
-            this.splitContainer3.SplitterDistance = 1078;
+            this.splitContainer3.Size = new System.Drawing.Size(1179, 586);
+            this.splitContainer3.SplitterDistance = 958;
             this.splitContainer3.TabIndex = 0;
             // 
             // seachTextBox3
@@ -602,19 +627,21 @@
             this.seachTextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.seachTextBox3.Location = new System.Drawing.Point(3, 3);
+            this.seachTextBox3.Location = new System.Drawing.Point(3, 2);
+            this.seachTextBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.seachTextBox3.Name = "seachTextBox3";
-            this.seachTextBox3.Size = new System.Drawing.Size(1071, 26);
+            this.seachTextBox3.Size = new System.Drawing.Size(952, 22);
             this.seachTextBox3.TabIndex = 6;
             this.seachTextBox3.TextChanged += new System.EventHandler(this.seachTextBox3_TextChanged);
             // 
             // treeListView3
             // 
-            //this.treeListView3.AllowCellEditorsToProcessMouseWheel = false;
             this.treeListView3.AllowColumnReorder = true;
+            this.treeListView3.CellEditUseWholeCell = false;
             this.treeListView3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.treeListView3.HideSelection = false;
-            this.treeListView3.Location = new System.Drawing.Point(0, 35);
+            this.treeListView3.Location = new System.Drawing.Point(0, 27);
+            this.treeListView3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeListView3.Name = "treeListView3";
             this.treeListView3.SelectColumnsMenuStaysOpen = false;
             this.treeListView3.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -622,7 +649,7 @@
             this.treeListView3.ShowGroups = false;
             this.treeListView3.ShowImagesOnSubItems = true;
             this.treeListView3.ShowItemToolTips = true;
-            this.treeListView3.Size = new System.Drawing.Size(1078, 698);
+            this.treeListView3.Size = new System.Drawing.Size(958, 559);
             this.treeListView3.TabIndex = 5;
             this.treeListView3.UseCompatibleStateImageBehavior = false;
             this.treeListView3.UseFilterIndicator = true;
@@ -637,19 +664,22 @@
             this.panel3.Controls.Add(this.button4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(218, 975);
+            this.panel3.Size = new System.Drawing.Size(196, 780);
             this.panel3.TabIndex = 0;
             // 
             // button4
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
             this.button4.Location = new System.Drawing.Point(0, 0);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(218, 40);
+            this.button4.Size = new System.Drawing.Size(196, 32);
             this.button4.TabIndex = 0;
-            this.button4.Text = "button4";
+            this.button4.Text = "Open item";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.openItemButton_Click);
             // 
             // contextMenuStrip1
             // 
@@ -657,13 +687,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Open});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(129, 36);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 28);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(128, 32);
+            this.Open.Size = new System.Drawing.Size(114, 24);
             this.Open.Text = "Open";
             this.Open.Click += new System.EventHandler(this.contextMenuToolStripMenuItem_Click);
             // 
@@ -672,15 +702,17 @@
             this.panel7.Controls.Add(this.pricesButton);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1336, 45);
+            this.panel7.Size = new System.Drawing.Size(1188, 36);
             this.panel7.TabIndex = 1;
             // 
             // pricesButton
             // 
-            this.pricesButton.Location = new System.Drawing.Point(3, 3);
+            this.pricesButton.Location = new System.Drawing.Point(3, 2);
+            this.pricesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pricesButton.Name = "pricesButton";
-            this.pricesButton.Size = new System.Drawing.Size(82, 37);
+            this.pricesButton.Size = new System.Drawing.Size(73, 30);
             this.pricesButton.TabIndex = 0;
             this.pricesButton.Text = "Prices";
             this.pricesButton.UseVisualStyleBackColor = true;
@@ -688,12 +720,13 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 927);
+            this.ClientSize = new System.Drawing.Size(1188, 742);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.tabControl1);
-            this.MinimumSize = new System.Drawing.Size(1000, 500);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(891, 409);
             this.Name = "MainForm";
             this.Text = "Janitor";
             this.tabControl1.ResumeLayout(false);
