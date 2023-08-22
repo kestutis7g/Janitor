@@ -8,7 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace Janitor_V1.Solidworks_control_tools
 {
-    public static class Solidwork_control_tools
+    public static class Solidworks_control_tools
     {
 
         public static void OpenItem(string fileLocation, int DocumentType, string Configuration)
@@ -27,6 +27,21 @@ namespace Janitor_V1.Solidworks_control_tools
             swModelDoc = (ModelDoc2)swApp.ActivateDoc3(swModelDoc.GetTitle(), false, (int)swRebuildOnActivation_e.swUserDecision, ref errors);
             Debug.Print("Error code after document activation: " + errors.ToString());
 
+        }
+
+        public static int CheckToolboxComponents(ModelDoc2 swModel)
+        {
+
+
+            ModelDocExtension modelDocExt;
+            int IsToolboxComponent;
+
+
+            // Tikrinama ar komponentas nera Toolbox
+
+            modelDocExt = swModel.Extension;
+            IsToolboxComponent = modelDocExt.ToolboxPartType;
+            return IsToolboxComponent;
         }
     }
 }

@@ -19,6 +19,10 @@ namespace Janitor_V1.Models
         [Category("General"),
         Description("Name of the component")]
         public string ComponentName { get; set; }
+        
+        [Category("General"),
+        Description("Part type")]
+        public PartType PartType { get; set; }
 
         [Category("General"),
         Description("Description of the component")]

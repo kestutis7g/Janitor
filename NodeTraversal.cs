@@ -1,9 +1,12 @@
 ﻿using Janitor_V1.Models;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Remoting.Lifetime;
 using System.Windows.Forms;
+using static BrightIdeasSoftware.TreeListView;
 
 namespace Janitor_V1
 {
@@ -25,12 +28,21 @@ namespace Janitor_V1
             ConfigurationManager swConfMgr = swModel.ConfigurationManager;
             Configuration swConf = swConfMgr.ActiveConfiguration;
             Component2 swRootComp = swConf.GetRootComponent3(true);
+            AssemblyDoc swAssy;
+            int errors = 0;
             //double StartTime = Timer(); // Start time (use Stopwatch for more precision)
             Debug.Print("File = " + swModel.GetPathName());
 
+           
+
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
+
+                // Resolve all lightweight components
+                swAssy = (AssemblyDoc)swModel;
+                errors = swAssy.ResolveAllLightWeightComponents(true);
                 var root = new Node();
+
                 TraverseComponent(swRootComp, 1, "", root);
                 this.AssemblingoNariai = root.Children;
             }
@@ -50,6 +62,7 @@ namespace Janitor_V1
             object[] vChildComp = (object[])swComp.GetChildren();
             int numberOfMembers = vChildComp.Length;
             Debug.WriteLine($"Number of members in the array: {numberOfMembers}");
+            
 
             for (int i = 0; i < vChildComp.Length; i++)
             {
@@ -68,6 +81,8 @@ namespace Janitor_V1
                             if(node.ComponentType == NodeType.Part)
                             {
                                 PartsOnly.Add(node);
+
+
                             }
                             parent.Children.Add(node);
                             TraverseComponent(swChildComp, nLevel + 1, itemNumber, node);
@@ -88,6 +103,8 @@ namespace Janitor_V1
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
+              
+
                 node.ComponentType = NodeType.Part;
                 node.Part.ItemNumber = itemNumber;
                 node.Part.ComponentName = swChildComp.Name2;
@@ -150,6 +167,17 @@ namespace Janitor_V1
 
                 node.Part.BendingCost = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Skardos sulenkimo kaina_Eur uz vnt");
+
+                if (Solidworks_control_tools.Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
+                {
+                    node.Part.PartType = PartType.Toolbox;
+                }
+                else
+                {
+                    node.Part.PartType = PartType.Other;
+                }
+
+                //MessageBox.Show("Komponento " + node.GetComponentName().ToString() + "Toolbox tipas:" + IsToolboxComponent.ToString());
 
                 return node;
             }
@@ -234,5 +262,17 @@ namespace Janitor_V1
             double.TryParse(temp, out value);
             return value;
         }
-    }
-}
+
+       
+            }
+        }
+    
+
+
+
+
+
+
+
+    
+

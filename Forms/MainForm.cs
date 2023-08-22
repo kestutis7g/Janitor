@@ -735,11 +735,11 @@ namespace Janitor_V1
                 //sitoi vietoj turi buti atidarymas
                 if (item.ComponentType == NodeType.Part) 
                     {
-                    Solidwork_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
                      }
                 else if (item.ComponentType == NodeType.Assembly)
                     {
-                    Solidwork_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
 
             }

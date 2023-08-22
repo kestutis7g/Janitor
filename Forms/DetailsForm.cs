@@ -30,7 +30,7 @@ namespace Janitor_V1
                 tabControl1.Dock = DockStyle.Top;
             }
 
-            this.Text = Data.GetReferencedConfiguration();
+            this.Text = Data.GetComponentName() + " | " + Data.GetReferencedConfiguration();
         }
 
         private void DetailsForm_Load(object sender, System.EventArgs e)
