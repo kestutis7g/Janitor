@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Janitor_V1.Models
 {
@@ -106,6 +107,34 @@ namespace Janitor_V1.Models
             }
             return "Unknown";
         }
+        public Image GetSmallImage()
+        {
+            return Image.FromFile("C:\\Users\\02\\Desktop\\Janitor\\Assets\\placeholder-small.jpg");
+
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Image;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.Image;
+            }
+        }
+        public Image GetBigImage()
+        {
+            return Image.FromFile("C:\\Users\\02\\Desktop\\Janitor\\Assets\\placeholder-big.jpg");
+
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Image;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.Image;
+            }
+        }
+
+
         public double? GetChildNodeAssemblyDuration()
         {
             if (this.ComponentType == NodeType.Part)
