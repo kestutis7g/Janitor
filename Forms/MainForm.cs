@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Janitor_V1.Forms;
 using Janitor_V1.Models;
 using Janitor_V1.Solidworks_control_tools;
 using Janitor_V1.Utils;
@@ -41,6 +42,7 @@ namespace Janitor_V1
             FillAssembliesTree();
             FillPartsTree();
 
+            CalculateChildNodeAssemblyDuration(Data);
             RefreshCalculations();
         }
 
@@ -404,7 +406,7 @@ namespace Janitor_V1
                 //root node
                 AddNode(Data, partInfo);
             }
-            CalculateChildNodeAssemblyDuration(Data);
+            //CalculateChildNodeAssemblyDuration(Data);
         }
 
         /// <summary>
@@ -631,7 +633,7 @@ namespace Janitor_V1
 
         private void OpenItemDetailedView(Node item, bool showControls = false)
         {
-            var detailsForm = new DetailsForm(item, this.PartsData, showControls);
+            var detailsForm = new DetailsForm(item, this.PartsData, () => UpdateWindow(), showControls);
             //detailsForm.Data = item;
             detailsForm.Show();
         }
@@ -684,8 +686,7 @@ namespace Janitor_V1
                 e.KeyChar = ',';
             }
 
-            //Allow user to input numbers from 1 to 15
-            if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as System.Windows.Forms.TextBox).Text + e.KeyChar, out count) && count >= 0) ||
+            if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
                 (e.KeyChar == ',')))
             {
@@ -693,7 +694,7 @@ namespace Janitor_V1
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == ',') && ((sender as System.Windows.Forms.TextBox).Text.IndexOf(',') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
             {
                 e.Handled = true;
             }
@@ -742,6 +743,30 @@ namespace Janitor_V1
                 }
 
             }
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            CalculateChildNodeAssemblyDuration(Data);
+            RefreshCalculations();
+
+            UpdateWindow();
+        }
+
+        public void UpdateWindow()
+        {
+            treeListView1.Update();
+            treeListView2.Update();
+            treeListView3.Update();
+            treeListView1.Refresh();
+            treeListView2.Refresh();
+            treeListView3.Refresh();
+        }
+
+        private void deviceButton_Click(object sender, EventArgs e)
+        {
+            var deviceForm = new DeviceForm();
+            deviceForm.ShowDialog();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Janitor_V1
+﻿using System.Windows.Forms;
+
+namespace Janitor_V1
 {
     partial class DetailsForm
     {
@@ -31,6 +33,13 @@
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.manufacturingTabPage = new System.Windows.Forms.TabPage();
+            this.programmingCostTextBox = new System.Windows.Forms.TextBox();
+            this.singlePieceProgrammingDurationTextBox = new System.Windows.Forms.TextBox();
+            this.manufacturingCostTextBox = new System.Windows.Forms.TextBox();
+            this.programmingDurationTextBox = new System.Windows.Forms.TextBox();
+            this.amountOfThisPartTextBox = new System.Windows.Forms.TextBox();
+            this.materialCostTextBox = new System.Windows.Forms.TextBox();
+            this.materialWeightTextBox = new System.Windows.Forms.TextBox();
             this.manufacturingCostLabel = new System.Windows.Forms.Label();
             this.singlePieceProgrammingDurationLabel = new System.Windows.Forms.Label();
             this.programmingCostLabel = new System.Windows.Forms.Label();
@@ -41,6 +50,11 @@
             this.partDescriptionLabel = new System.Windows.Forms.Label();
             this.partDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.stripsTabPage = new System.Windows.Forms.TabPage();
+            this.markupForStripTextBox = new System.Windows.Forms.TextBox();
+            this.stripPurchaseCostTextBox = new System.Windows.Forms.TextBox();
+            this.stripWidthTextBox = new System.Windows.Forms.TextBox();
+            this.stripLengthTextBox = new System.Windows.Forms.TextBox();
+            this.stripMaterialCostTextBox = new System.Windows.Forms.TextBox();
             this.markupForStripLabel = new System.Windows.Forms.Label();
             this.stripPurchaseCostLabel = new System.Windows.Forms.Label();
             this.stripWidthLabel = new System.Windows.Forms.Label();
@@ -49,17 +63,46 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.stripTypeLabel = new System.Windows.Forms.Label();
             this.purchasesTabPage = new System.Windows.Forms.TabPage();
+            this.markupCostPurchaseTextBox = new System.Windows.Forms.TextBox();
+            this.purchaseCostTextBox = new System.Windows.Forms.TextBox();
+            this.technicalParametersTextBox = new System.Windows.Forms.TextBox();
+            this.componentArticleTextBox = new System.Windows.Forms.TextBox();
+            this.supplierTextBox = new System.Windows.Forms.TextBox();
+            this.purchaseDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.markupCostPurchaseLabel = new System.Windows.Forms.Label();
             this.purchaseCostLabel = new System.Windows.Forms.Label();
             this.technicalParametersLabel = new System.Windows.Forms.Label();
             this.componentArticleLabel = new System.Windows.Forms.Label();
             this.supplierLabel = new System.Windows.Forms.Label();
             this.purchaseDescriptionLabel = new System.Windows.Forms.Label();
-            this.designingTabPage = new System.Windows.Forms.TabPage();
             this.weldingTabPage = new System.Windows.Forms.TabPage();
-            this.assemblyAndPackagingTabPage = new System.Windows.Forms.TabPage();
-            this.partsTabPage = new System.Windows.Forms.TabPage();
+            this.realWeldingDurationTextBox = new System.Windows.Forms.TextBox();
+            this.plannedWeldingDurationTextBox = new System.Windows.Forms.TextBox();
+            this.realWeldingDurationLabel = new System.Windows.Forms.Label();
+            this.plannedWeldingDurationLabel = new System.Windows.Forms.Label();
+            this.assemblyTabPage = new System.Windows.Forms.TabPage();
+            this.minutesLabel = new System.Windows.Forms.Label();
+            this.hoursLabel = new System.Windows.Forms.Label();
+            this.realAssemblyDurationMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.assemblyToParentNodeDurationMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.combinedAssemblyTimeMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.individualComponentAssemblyDurationMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.childNodeAssemblyDurationMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.realAssemblyDurationHourTextBox = new System.Windows.Forms.TextBox();
+            this.assemblyToParentNodeDurationHourTextBox = new System.Windows.Forms.TextBox();
+            this.combinedAssemblyTimeHourTextBox = new System.Windows.Forms.TextBox();
+            this.individualComponentAssemblyDurationHourTextBox = new System.Windows.Forms.TextBox();
+            this.childNodeAssemblyDurationHourTextBox = new System.Windows.Forms.TextBox();
+            this.realAssemblyDurationLabel = new System.Windows.Forms.Label();
+            this.combinedAssemblyTimeLabel = new System.Windows.Forms.Label();
+            this.assemblyToParentNodeDurationLabel = new System.Windows.Forms.Label();
+            this.individualComponentAssemblyDurationLabel = new System.Windows.Forms.Label();
+            this.childNodeAssemblyDurationLabel = new System.Windows.Forms.Label();
             this.otherCostsTabPage = new System.Windows.Forms.TabPage();
+            this.otherCostsTextBox = new System.Windows.Forms.TextBox();
+            this.otherCostsDescriptionTextBox = new System.Windows.Forms.TextBox();
+            this.otherCostsDescriptionLabel = new System.Windows.Forms.Label();
+            this.otherCostsLabel = new System.Windows.Forms.Label();
             this.propertiesTabPage = new System.Windows.Forms.TabPage();
             this.calculatedPriceLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
@@ -67,26 +110,14 @@
             this.controlsPanel = new System.Windows.Forms.Panel();
             this.partDetailsPanel = new System.Windows.Forms.Panel();
             this.assemblyDetailsPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.savePartButton = new System.Windows.Forms.Button();
+            this.saveAssemblyButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.manufacturingTabPage.SuspendLayout();
             this.stripsTabPage.SuspendLayout();
             this.purchasesTabPage.SuspendLayout();
-            this.designingTabPage.SuspendLayout();
             this.weldingTabPage.SuspendLayout();
+            this.assemblyTabPage.SuspendLayout();
             this.otherCostsTabPage.SuspendLayout();
             this.propertiesTabPage.SuspendLayout();
             this.controlsPanel.SuspendLayout();
@@ -101,16 +132,15 @@
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(946, 584);
             this.propertyGrid1.TabIndex = 0;
+            this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.manufacturingTabPage);
             this.tabControl1.Controls.Add(this.stripsTabPage);
             this.tabControl1.Controls.Add(this.purchasesTabPage);
-            this.tabControl1.Controls.Add(this.designingTabPage);
             this.tabControl1.Controls.Add(this.weldingTabPage);
-            this.tabControl1.Controls.Add(this.assemblyAndPackagingTabPage);
-            this.tabControl1.Controls.Add(this.partsTabPage);
+            this.tabControl1.Controls.Add(this.assemblyTabPage);
             this.tabControl1.Controls.Add(this.otherCostsTabPage);
             this.tabControl1.Controls.Add(this.propertiesTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -122,6 +152,13 @@
             // 
             // manufacturingTabPage
             // 
+            this.manufacturingTabPage.Controls.Add(this.programmingCostTextBox);
+            this.manufacturingTabPage.Controls.Add(this.singlePieceProgrammingDurationTextBox);
+            this.manufacturingTabPage.Controls.Add(this.manufacturingCostTextBox);
+            this.manufacturingTabPage.Controls.Add(this.programmingDurationTextBox);
+            this.manufacturingTabPage.Controls.Add(this.amountOfThisPartTextBox);
+            this.manufacturingTabPage.Controls.Add(this.materialCostTextBox);
+            this.manufacturingTabPage.Controls.Add(this.materialWeightTextBox);
             this.manufacturingTabPage.Controls.Add(this.manufacturingCostLabel);
             this.manufacturingTabPage.Controls.Add(this.singlePieceProgrammingDurationLabel);
             this.manufacturingTabPage.Controls.Add(this.programmingCostLabel);
@@ -138,6 +175,55 @@
             this.manufacturingTabPage.TabIndex = 0;
             this.manufacturingTabPage.Text = "Manufacturing";
             this.manufacturingTabPage.UseVisualStyleBackColor = true;
+            // 
+            // programmingCostTextBox
+            // 
+            this.programmingCostTextBox.Location = new System.Drawing.Point(422, 300);
+            this.programmingCostTextBox.Name = "programmingCostTextBox";
+            this.programmingCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.programmingCostTextBox.TabIndex = 15;
+            // 
+            // singlePieceProgrammingDurationTextBox
+            // 
+            this.singlePieceProgrammingDurationTextBox.Location = new System.Drawing.Point(422, 340);
+            this.singlePieceProgrammingDurationTextBox.Name = "singlePieceProgrammingDurationTextBox";
+            this.singlePieceProgrammingDurationTextBox.Size = new System.Drawing.Size(100, 26);
+            this.singlePieceProgrammingDurationTextBox.TabIndex = 14;
+            // 
+            // manufacturingCostTextBox
+            // 
+            this.manufacturingCostTextBox.Location = new System.Drawing.Point(422, 383);
+            this.manufacturingCostTextBox.Name = "manufacturingCostTextBox";
+            this.manufacturingCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.manufacturingCostTextBox.TabIndex = 13;
+            // 
+            // programmingDurationTextBox
+            // 
+            this.programmingDurationTextBox.Location = new System.Drawing.Point(422, 260);
+            this.programmingDurationTextBox.Name = "programmingDurationTextBox";
+            this.programmingDurationTextBox.Size = new System.Drawing.Size(100, 26);
+            this.programmingDurationTextBox.TabIndex = 12;
+            // 
+            // amountOfThisPartTextBox
+            // 
+            this.amountOfThisPartTextBox.Location = new System.Drawing.Point(422, 217);
+            this.amountOfThisPartTextBox.Name = "amountOfThisPartTextBox";
+            this.amountOfThisPartTextBox.Size = new System.Drawing.Size(100, 26);
+            this.amountOfThisPartTextBox.TabIndex = 11;
+            // 
+            // materialCostTextBox
+            // 
+            this.materialCostTextBox.Location = new System.Drawing.Point(422, 178);
+            this.materialCostTextBox.Name = "materialCostTextBox";
+            this.materialCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.materialCostTextBox.TabIndex = 10;
+            // 
+            // materialWeightTextBox
+            // 
+            this.materialWeightTextBox.Location = new System.Drawing.Point(422, 136);
+            this.materialWeightTextBox.Name = "materialWeightTextBox";
+            this.materialWeightTextBox.Size = new System.Drawing.Size(100, 26);
+            this.materialWeightTextBox.TabIndex = 9;
             // 
             // manufacturingCostLabel
             // 
@@ -221,6 +307,11 @@
             // 
             // stripsTabPage
             // 
+            this.stripsTabPage.Controls.Add(this.markupForStripTextBox);
+            this.stripsTabPage.Controls.Add(this.stripPurchaseCostTextBox);
+            this.stripsTabPage.Controls.Add(this.stripWidthTextBox);
+            this.stripsTabPage.Controls.Add(this.stripLengthTextBox);
+            this.stripsTabPage.Controls.Add(this.stripMaterialCostTextBox);
             this.stripsTabPage.Controls.Add(this.markupForStripLabel);
             this.stripsTabPage.Controls.Add(this.stripPurchaseCostLabel);
             this.stripsTabPage.Controls.Add(this.stripWidthLabel);
@@ -235,6 +326,41 @@
             this.stripsTabPage.TabIndex = 2;
             this.stripsTabPage.Text = "Strips";
             this.stripsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // markupForStripTextBox
+            // 
+            this.markupForStripTextBox.Location = new System.Drawing.Point(426, 284);
+            this.markupForStripTextBox.Name = "markupForStripTextBox";
+            this.markupForStripTextBox.Size = new System.Drawing.Size(100, 26);
+            this.markupForStripTextBox.TabIndex = 11;
+            // 
+            // stripPurchaseCostTextBox
+            // 
+            this.stripPurchaseCostTextBox.Location = new System.Drawing.Point(426, 234);
+            this.stripPurchaseCostTextBox.Name = "stripPurchaseCostTextBox";
+            this.stripPurchaseCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.stripPurchaseCostTextBox.TabIndex = 10;
+            // 
+            // stripWidthTextBox
+            // 
+            this.stripWidthTextBox.Location = new System.Drawing.Point(426, 185);
+            this.stripWidthTextBox.Name = "stripWidthTextBox";
+            this.stripWidthTextBox.Size = new System.Drawing.Size(100, 26);
+            this.stripWidthTextBox.TabIndex = 9;
+            // 
+            // stripLengthTextBox
+            // 
+            this.stripLengthTextBox.Location = new System.Drawing.Point(426, 144);
+            this.stripLengthTextBox.Name = "stripLengthTextBox";
+            this.stripLengthTextBox.Size = new System.Drawing.Size(100, 26);
+            this.stripLengthTextBox.TabIndex = 8;
+            // 
+            // stripMaterialCostTextBox
+            // 
+            this.stripMaterialCostTextBox.Location = new System.Drawing.Point(426, 99);
+            this.stripMaterialCostTextBox.Name = "stripMaterialCostTextBox";
+            this.stripMaterialCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.stripMaterialCostTextBox.TabIndex = 7;
             // 
             // markupForStripLabel
             // 
@@ -305,6 +431,12 @@
             // 
             // purchasesTabPage
             // 
+            this.purchasesTabPage.Controls.Add(this.markupCostPurchaseTextBox);
+            this.purchasesTabPage.Controls.Add(this.purchaseCostTextBox);
+            this.purchasesTabPage.Controls.Add(this.technicalParametersTextBox);
+            this.purchasesTabPage.Controls.Add(this.componentArticleTextBox);
+            this.purchasesTabPage.Controls.Add(this.supplierTextBox);
+            this.purchasesTabPage.Controls.Add(this.purchaseDescriptionTextBox);
             this.purchasesTabPage.Controls.Add(this.markupCostPurchaseLabel);
             this.purchasesTabPage.Controls.Add(this.purchaseCostLabel);
             this.purchasesTabPage.Controls.Add(this.technicalParametersLabel);
@@ -318,10 +450,53 @@
             this.purchasesTabPage.Text = "Purchases";
             this.purchasesTabPage.UseVisualStyleBackColor = true;
             // 
+            // markupCostPurchaseTextBox
+            // 
+            this.markupCostPurchaseTextBox.Location = new System.Drawing.Point(256, 299);
+            this.markupCostPurchaseTextBox.Name = "markupCostPurchaseTextBox";
+            this.markupCostPurchaseTextBox.Size = new System.Drawing.Size(100, 26);
+            this.markupCostPurchaseTextBox.TabIndex = 11;
+            // 
+            // purchaseCostTextBox
+            // 
+            this.purchaseCostTextBox.Location = new System.Drawing.Point(256, 255);
+            this.purchaseCostTextBox.Name = "purchaseCostTextBox";
+            this.purchaseCostTextBox.Size = new System.Drawing.Size(100, 26);
+            this.purchaseCostTextBox.TabIndex = 10;
+            // 
+            // technicalParametersTextBox
+            // 
+            this.technicalParametersTextBox.Location = new System.Drawing.Point(256, 209);
+            this.technicalParametersTextBox.Name = "technicalParametersTextBox";
+            this.technicalParametersTextBox.Size = new System.Drawing.Size(100, 26);
+            this.technicalParametersTextBox.TabIndex = 9;
+            // 
+            // componentArticleTextBox
+            // 
+            this.componentArticleTextBox.Location = new System.Drawing.Point(256, 162);
+            this.componentArticleTextBox.Name = "componentArticleTextBox";
+            this.componentArticleTextBox.Size = new System.Drawing.Size(100, 26);
+            this.componentArticleTextBox.TabIndex = 8;
+            // 
+            // supplierTextBox
+            // 
+            this.supplierTextBox.Location = new System.Drawing.Point(256, 120);
+            this.supplierTextBox.Name = "supplierTextBox";
+            this.supplierTextBox.Size = new System.Drawing.Size(100, 26);
+            this.supplierTextBox.TabIndex = 7;
+            // 
+            // purchaseDescriptionTextBox
+            // 
+            this.purchaseDescriptionTextBox.Location = new System.Drawing.Point(256, 20);
+            this.purchaseDescriptionTextBox.Multiline = true;
+            this.purchaseDescriptionTextBox.Name = "purchaseDescriptionTextBox";
+            this.purchaseDescriptionTextBox.Size = new System.Drawing.Size(688, 73);
+            this.purchaseDescriptionTextBox.TabIndex = 6;
+            // 
             // markupCostPurchaseLabel
             // 
             this.markupCostPurchaseLabel.AutoSize = true;
-            this.markupCostPurchaseLabel.Location = new System.Drawing.Point(27, 266);
+            this.markupCostPurchaseLabel.Location = new System.Drawing.Point(27, 302);
             this.markupCostPurchaseLabel.Name = "markupCostPurchaseLabel";
             this.markupCostPurchaseLabel.Size = new System.Drawing.Size(173, 20);
             this.markupCostPurchaseLabel.TabIndex = 5;
@@ -330,16 +505,16 @@
             // purchaseCostLabel
             // 
             this.purchaseCostLabel.AutoSize = true;
-            this.purchaseCostLabel.Location = new System.Drawing.Point(27, 220);
+            this.purchaseCostLabel.Location = new System.Drawing.Point(27, 258);
             this.purchaseCostLabel.Name = "purchaseCostLabel";
-            this.purchaseCostLabel.Size = new System.Drawing.Size(220, 20);
+            this.purchaseCostLabel.Size = new System.Drawing.Size(221, 20);
             this.purchaseCostLabel.TabIndex = 4;
-            this.purchaseCostLabel.Text = "PurchaseCost, € without VAT:";
+            this.purchaseCostLabel.Text = "Purchase cost, € without VAT:";
             // 
             // technicalParametersLabel
             // 
             this.technicalParametersLabel.AutoSize = true;
-            this.technicalParametersLabel.Location = new System.Drawing.Point(27, 172);
+            this.technicalParametersLabel.Location = new System.Drawing.Point(27, 212);
             this.technicalParametersLabel.Name = "technicalParametersLabel";
             this.technicalParametersLabel.Size = new System.Drawing.Size(165, 20);
             this.technicalParametersLabel.TabIndex = 3;
@@ -348,7 +523,7 @@
             // componentArticleLabel
             // 
             this.componentArticleLabel.AutoSize = true;
-            this.componentArticleLabel.Location = new System.Drawing.Point(27, 117);
+            this.componentArticleLabel.Location = new System.Drawing.Point(27, 165);
             this.componentArticleLabel.Name = "componentArticleLabel";
             this.componentArticleLabel.Size = new System.Drawing.Size(142, 20);
             this.componentArticleLabel.TabIndex = 2;
@@ -357,7 +532,7 @@
             // supplierLabel
             // 
             this.supplierLabel.AutoSize = true;
-            this.supplierLabel.Location = new System.Drawing.Point(27, 65);
+            this.supplierLabel.Location = new System.Drawing.Point(27, 123);
             this.supplierLabel.Name = "supplierLabel";
             this.supplierLabel.Size = new System.Drawing.Size(71, 20);
             this.supplierLabel.TabIndex = 1;
@@ -372,29 +547,12 @@
             this.purchaseDescriptionLabel.TabIndex = 0;
             this.purchaseDescriptionLabel.Text = "Description:";
             // 
-            // designingTabPage
-            // 
-            this.designingTabPage.Controls.Add(this.textBox4);
-            this.designingTabPage.Controls.Add(this.textBox3);
-            this.designingTabPage.Controls.Add(this.label9);
-            this.designingTabPage.Controls.Add(this.label8);
-            this.designingTabPage.Controls.Add(this.label7);
-            this.designingTabPage.Controls.Add(this.label6);
-            this.designingTabPage.Location = new System.Drawing.Point(4, 29);
-            this.designingTabPage.Name = "designingTabPage";
-            this.designingTabPage.Size = new System.Drawing.Size(952, 590);
-            this.designingTabPage.TabIndex = 4;
-            this.designingTabPage.Text = "Designing";
-            this.designingTabPage.UseVisualStyleBackColor = true;
-            // 
             // weldingTabPage
             // 
-            this.weldingTabPage.Controls.Add(this.textBox2);
-            this.weldingTabPage.Controls.Add(this.textBox1);
-            this.weldingTabPage.Controls.Add(this.label5);
-            this.weldingTabPage.Controls.Add(this.label4);
-            this.weldingTabPage.Controls.Add(this.label3);
-            this.weldingTabPage.Controls.Add(this.label2);
+            this.weldingTabPage.Controls.Add(this.realWeldingDurationTextBox);
+            this.weldingTabPage.Controls.Add(this.plannedWeldingDurationTextBox);
+            this.weldingTabPage.Controls.Add(this.realWeldingDurationLabel);
+            this.weldingTabPage.Controls.Add(this.plannedWeldingDurationLabel);
             this.weldingTabPage.Location = new System.Drawing.Point(4, 29);
             this.weldingTabPage.Name = "weldingTabPage";
             this.weldingTabPage.Size = new System.Drawing.Size(952, 590);
@@ -402,33 +560,252 @@
             this.weldingTabPage.Text = "Welding";
             this.weldingTabPage.UseVisualStyleBackColor = true;
             // 
-            // assemblyAndPackagingTabPage
+            // realWeldingDurationTextBox
             // 
-            this.assemblyAndPackagingTabPage.Location = new System.Drawing.Point(4, 29);
-            this.assemblyAndPackagingTabPage.Name = "assemblyAndPackagingTabPage";
-            this.assemblyAndPackagingTabPage.Size = new System.Drawing.Size(952, 590);
-            this.assemblyAndPackagingTabPage.TabIndex = 6;
-            this.assemblyAndPackagingTabPage.Text = "Assembly and packaging";
-            this.assemblyAndPackagingTabPage.UseVisualStyleBackColor = true;
+            this.realWeldingDurationTextBox.Location = new System.Drawing.Point(221, 98);
+            this.realWeldingDurationTextBox.Name = "realWeldingDurationTextBox";
+            this.realWeldingDurationTextBox.Size = new System.Drawing.Size(119, 26);
+            this.realWeldingDurationTextBox.TabIndex = 5;
             // 
-            // partsTabPage
+            // plannedWeldingDurationTextBox
             // 
-            this.partsTabPage.Location = new System.Drawing.Point(4, 29);
-            this.partsTabPage.Name = "partsTabPage";
-            this.partsTabPage.Size = new System.Drawing.Size(952, 590);
-            this.partsTabPage.TabIndex = 7;
-            this.partsTabPage.Text = "Parts";
-            this.partsTabPage.UseVisualStyleBackColor = true;
+            this.plannedWeldingDurationTextBox.Location = new System.Drawing.Point(221, 41);
+            this.plannedWeldingDurationTextBox.Name = "plannedWeldingDurationTextBox";
+            this.plannedWeldingDurationTextBox.Size = new System.Drawing.Size(119, 26);
+            this.plannedWeldingDurationTextBox.TabIndex = 4;
+            // 
+            // realWeldingDurationLabel
+            // 
+            this.realWeldingDurationLabel.AutoSize = true;
+            this.realWeldingDurationLabel.Location = new System.Drawing.Point(34, 101);
+            this.realWeldingDurationLabel.Name = "realWeldingDurationLabel";
+            this.realWeldingDurationLabel.Size = new System.Drawing.Size(165, 20);
+            this.realWeldingDurationLabel.TabIndex = 1;
+            this.realWeldingDurationLabel.Text = "Real welding duration:";
+            // 
+            // plannedWeldingDurationLabel
+            // 
+            this.plannedWeldingDurationLabel.AutoSize = true;
+            this.plannedWeldingDurationLabel.Location = new System.Drawing.Point(34, 44);
+            this.plannedWeldingDurationLabel.Name = "plannedWeldingDurationLabel";
+            this.plannedWeldingDurationLabel.Size = new System.Drawing.Size(181, 20);
+            this.plannedWeldingDurationLabel.TabIndex = 0;
+            this.plannedWeldingDurationLabel.Text = "Planned wlding duration:";
+            // 
+            // assemblyTabPage
+            // 
+            this.assemblyTabPage.Controls.Add(this.minutesLabel);
+            this.assemblyTabPage.Controls.Add(this.hoursLabel);
+            this.assemblyTabPage.Controls.Add(this.realAssemblyDurationMinuteTextBox);
+            this.assemblyTabPage.Controls.Add(this.assemblyToParentNodeDurationMinuteTextBox);
+            this.assemblyTabPage.Controls.Add(this.combinedAssemblyTimeMinuteTextBox);
+            this.assemblyTabPage.Controls.Add(this.individualComponentAssemblyDurationMinuteTextBox);
+            this.assemblyTabPage.Controls.Add(this.childNodeAssemblyDurationMinuteTextBox);
+            this.assemblyTabPage.Controls.Add(this.realAssemblyDurationHourTextBox);
+            this.assemblyTabPage.Controls.Add(this.assemblyToParentNodeDurationHourTextBox);
+            this.assemblyTabPage.Controls.Add(this.combinedAssemblyTimeHourTextBox);
+            this.assemblyTabPage.Controls.Add(this.individualComponentAssemblyDurationHourTextBox);
+            this.assemblyTabPage.Controls.Add(this.childNodeAssemblyDurationHourTextBox);
+            this.assemblyTabPage.Controls.Add(this.realAssemblyDurationLabel);
+            this.assemblyTabPage.Controls.Add(this.combinedAssemblyTimeLabel);
+            this.assemblyTabPage.Controls.Add(this.assemblyToParentNodeDurationLabel);
+            this.assemblyTabPage.Controls.Add(this.individualComponentAssemblyDurationLabel);
+            this.assemblyTabPage.Controls.Add(this.childNodeAssemblyDurationLabel);
+            this.assemblyTabPage.Location = new System.Drawing.Point(4, 29);
+            this.assemblyTabPage.Name = "assemblyTabPage";
+            this.assemblyTabPage.Size = new System.Drawing.Size(952, 590);
+            this.assemblyTabPage.TabIndex = 6;
+            this.assemblyTabPage.Text = "Assembly";
+            this.assemblyTabPage.UseVisualStyleBackColor = true;
+            // 
+            // minutesLabel
+            // 
+            this.minutesLabel.AutoSize = true;
+            this.minutesLabel.Location = new System.Drawing.Point(578, 28);
+            this.minutesLabel.Name = "minutesLabel";
+            this.minutesLabel.Size = new System.Drawing.Size(65, 20);
+            this.minutesLabel.TabIndex = 16;
+            this.minutesLabel.Text = "Minutes";
+            // 
+            // hoursLabel
+            // 
+            this.hoursLabel.AutoSize = true;
+            this.hoursLabel.Location = new System.Drawing.Point(425, 28);
+            this.hoursLabel.Name = "hoursLabel";
+            this.hoursLabel.Size = new System.Drawing.Size(52, 20);
+            this.hoursLabel.TabIndex = 15;
+            this.hoursLabel.Text = "Hours";
+            // 
+            // realAssemblyDurationMinuteTextBox
+            // 
+            this.realAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(558, 281);
+            this.realAssemblyDurationMinuteTextBox.Name = "realAssemblyDurationMinuteTextBox";
+            this.realAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.realAssemblyDurationMinuteTextBox.TabIndex = 14;
+            this.realAssemblyDurationMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // assemblyToParentNodeDurationMinuteTextBox
+            // 
+            this.assemblyToParentNodeDurationMinuteTextBox.Location = new System.Drawing.Point(558, 170);
+            this.assemblyToParentNodeDurationMinuteTextBox.Name = "assemblyToParentNodeDurationMinuteTextBox";
+            this.assemblyToParentNodeDurationMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.assemblyToParentNodeDurationMinuteTextBox.TabIndex = 13;
+            this.assemblyToParentNodeDurationMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // combinedAssemblyTimeMinuteTextBox
+            // 
+            this.combinedAssemblyTimeMinuteTextBox.Location = new System.Drawing.Point(558, 225);
+            this.combinedAssemblyTimeMinuteTextBox.Name = "combinedAssemblyTimeMinuteTextBox";
+            this.combinedAssemblyTimeMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.combinedAssemblyTimeMinuteTextBox.TabIndex = 12;
+            this.combinedAssemblyTimeMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // individualComponentAssemblyDurationMinuteTextBox
+            // 
+            this.individualComponentAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(558, 117);
+            this.individualComponentAssemblyDurationMinuteTextBox.Name = "individualComponentAssemblyDurationMinuteTextBox";
+            this.individualComponentAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.individualComponentAssemblyDurationMinuteTextBox.TabIndex = 11;
+            this.individualComponentAssemblyDurationMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // childNodeAssemblyDurationMinuteTextBox
+            // 
+            this.childNodeAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(558, 62);
+            this.childNodeAssemblyDurationMinuteTextBox.Name = "childNodeAssemblyDurationMinuteTextBox";
+            this.childNodeAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.childNodeAssemblyDurationMinuteTextBox.TabIndex = 10;
+            this.childNodeAssemblyDurationMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // realAssemblyDurationHourTextBox
+            // 
+            this.realAssemblyDurationHourTextBox.Location = new System.Drawing.Point(402, 281);
+            this.realAssemblyDurationHourTextBox.Name = "realAssemblyDurationHourTextBox";
+            this.realAssemblyDurationHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.realAssemblyDurationHourTextBox.TabIndex = 9;
+            this.realAssemblyDurationHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // assemblyToParentNodeDurationHourTextBox
+            // 
+            this.assemblyToParentNodeDurationHourTextBox.Location = new System.Drawing.Point(402, 170);
+            this.assemblyToParentNodeDurationHourTextBox.Name = "assemblyToParentNodeDurationHourTextBox";
+            this.assemblyToParentNodeDurationHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.assemblyToParentNodeDurationHourTextBox.TabIndex = 8;
+            this.assemblyToParentNodeDurationHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // combinedAssemblyTimeHourTextBox
+            // 
+            this.combinedAssemblyTimeHourTextBox.Location = new System.Drawing.Point(402, 225);
+            this.combinedAssemblyTimeHourTextBox.Name = "combinedAssemblyTimeHourTextBox";
+            this.combinedAssemblyTimeHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.combinedAssemblyTimeHourTextBox.TabIndex = 7;
+            this.combinedAssemblyTimeHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // individualComponentAssemblyDurationHourTextBox
+            // 
+            this.individualComponentAssemblyDurationHourTextBox.Location = new System.Drawing.Point(402, 117);
+            this.individualComponentAssemblyDurationHourTextBox.Name = "individualComponentAssemblyDurationHourTextBox";
+            this.individualComponentAssemblyDurationHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.individualComponentAssemblyDurationHourTextBox.TabIndex = 6;
+            this.individualComponentAssemblyDurationHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // childNodeAssemblyDurationHourTextBox
+            // 
+            this.childNodeAssemblyDurationHourTextBox.Location = new System.Drawing.Point(402, 62);
+            this.childNodeAssemblyDurationHourTextBox.Name = "childNodeAssemblyDurationHourTextBox";
+            this.childNodeAssemblyDurationHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.childNodeAssemblyDurationHourTextBox.TabIndex = 5;
+            this.childNodeAssemblyDurationHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // realAssemblyDurationLabel
+            // 
+            this.realAssemblyDurationLabel.AutoSize = true;
+            this.realAssemblyDurationLabel.Location = new System.Drawing.Point(27, 284);
+            this.realAssemblyDurationLabel.Name = "realAssemblyDurationLabel";
+            this.realAssemblyDurationLabel.Size = new System.Drawing.Size(178, 20);
+            this.realAssemblyDurationLabel.TabIndex = 4;
+            this.realAssemblyDurationLabel.Text = "Real assembly duration:";
+            // 
+            // combinedAssemblyTimeLabel
+            // 
+            this.combinedAssemblyTimeLabel.AutoSize = true;
+            this.combinedAssemblyTimeLabel.Location = new System.Drawing.Point(27, 228);
+            this.combinedAssemblyTimeLabel.Name = "combinedAssemblyTimeLabel";
+            this.combinedAssemblyTimeLabel.Size = new System.Drawing.Size(189, 20);
+            this.combinedAssemblyTimeLabel.TabIndex = 3;
+            this.combinedAssemblyTimeLabel.Text = "Combined assembly time:";
+            // 
+            // assemblyToParentNodeDurationLabel
+            // 
+            this.assemblyToParentNodeDurationLabel.AutoSize = true;
+            this.assemblyToParentNodeDurationLabel.Location = new System.Drawing.Point(27, 173);
+            this.assemblyToParentNodeDurationLabel.Name = "assemblyToParentNodeDurationLabel";
+            this.assemblyToParentNodeDurationLabel.Size = new System.Drawing.Size(251, 20);
+            this.assemblyToParentNodeDurationLabel.TabIndex = 2;
+            this.assemblyToParentNodeDurationLabel.Text = "Assembly to parent node duration:";
+            // 
+            // individualComponentAssemblyDurationLabel
+            // 
+            this.individualComponentAssemblyDurationLabel.AutoSize = true;
+            this.individualComponentAssemblyDurationLabel.Location = new System.Drawing.Point(27, 120);
+            this.individualComponentAssemblyDurationLabel.Name = "individualComponentAssemblyDurationLabel";
+            this.individualComponentAssemblyDurationLabel.Size = new System.Drawing.Size(295, 20);
+            this.individualComponentAssemblyDurationLabel.TabIndex = 1;
+            this.individualComponentAssemblyDurationLabel.Text = "Individual component assembly duration:";
+            // 
+            // childNodeAssemblyDurationLabel
+            // 
+            this.childNodeAssemblyDurationLabel.AutoSize = true;
+            this.childNodeAssemblyDurationLabel.Location = new System.Drawing.Point(27, 65);
+            this.childNodeAssemblyDurationLabel.Name = "childNodeAssemblyDurationLabel";
+            this.childNodeAssemblyDurationLabel.Size = new System.Drawing.Size(220, 20);
+            this.childNodeAssemblyDurationLabel.TabIndex = 0;
+            this.childNodeAssemblyDurationLabel.Text = "Child node assembly duration:";
             // 
             // otherCostsTabPage
             // 
-            this.otherCostsTabPage.Controls.Add(this.label10);
+            this.otherCostsTabPage.Controls.Add(this.otherCostsTextBox);
+            this.otherCostsTabPage.Controls.Add(this.otherCostsDescriptionTextBox);
+            this.otherCostsTabPage.Controls.Add(this.otherCostsDescriptionLabel);
+            this.otherCostsTabPage.Controls.Add(this.otherCostsLabel);
             this.otherCostsTabPage.Location = new System.Drawing.Point(4, 29);
             this.otherCostsTabPage.Name = "otherCostsTabPage";
             this.otherCostsTabPage.Size = new System.Drawing.Size(952, 590);
             this.otherCostsTabPage.TabIndex = 8;
             this.otherCostsTabPage.Text = "Other costs";
             this.otherCostsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // otherCostsTextBox
+            // 
+            this.otherCostsTextBox.Location = new System.Drawing.Point(273, 19);
+            this.otherCostsTextBox.Name = "otherCostsTextBox";
+            this.otherCostsTextBox.Size = new System.Drawing.Size(100, 26);
+            this.otherCostsTextBox.TabIndex = 5;
+            // 
+            // otherCostsDescriptionTextBox
+            // 
+            this.otherCostsDescriptionTextBox.Location = new System.Drawing.Point(24, 91);
+            this.otherCostsDescriptionTextBox.Multiline = true;
+            this.otherCostsDescriptionTextBox.Name = "otherCostsDescriptionTextBox";
+            this.otherCostsDescriptionTextBox.Size = new System.Drawing.Size(903, 128);
+            this.otherCostsDescriptionTextBox.TabIndex = 2;
+            // 
+            // otherCostsDescriptionLabel
+            // 
+            this.otherCostsDescriptionLabel.AutoSize = true;
+            this.otherCostsDescriptionLabel.Location = new System.Drawing.Point(20, 68);
+            this.otherCostsDescriptionLabel.Name = "otherCostsDescriptionLabel";
+            this.otherCostsDescriptionLabel.Size = new System.Drawing.Size(172, 20);
+            this.otherCostsDescriptionLabel.TabIndex = 1;
+            this.otherCostsDescriptionLabel.Text = "Other costs description";
+            // 
+            // otherCostsLabel
+            // 
+            this.otherCostsLabel.AutoSize = true;
+            this.otherCostsLabel.Location = new System.Drawing.Point(20, 22);
+            this.otherCostsLabel.Name = "otherCostsLabel";
+            this.otherCostsLabel.Size = new System.Drawing.Size(228, 20);
+            this.otherCostsLabel.TabIndex = 0;
+            this.otherCostsLabel.Text = "Other costs, EUR without VAT:";
             // 
             // propertiesTabPage
             // 
@@ -486,6 +863,7 @@
             // partDetailsPanel
             // 
             this.partDetailsPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.partDetailsPanel.Controls.Add(this.savePartButton);
             this.partDetailsPanel.Controls.Add(this.calculatedPriceLabel);
             this.partDetailsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.partDetailsPanel.Location = new System.Drawing.Point(0, 739);
@@ -496,130 +874,34 @@
             // assemblyDetailsPanel
             // 
             this.assemblyDetailsPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.assemblyDetailsPanel.Controls.Add(this.label1);
+            this.assemblyDetailsPanel.Controls.Add(this.saveAssemblyButton);
             this.assemblyDetailsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.assemblyDetailsPanel.Location = new System.Drawing.Point(0, 667);
+            this.assemblyDetailsPanel.Location = new System.Drawing.Point(0, 644);
             this.assemblyDetailsPanel.Name = "assemblyDetailsPanel";
-            this.assemblyDetailsPanel.Size = new System.Drawing.Size(960, 72);
+            this.assemblyDetailsPanel.Size = new System.Drawing.Size(960, 95);
             this.assemblyDetailsPanel.TabIndex = 12;
             // 
-            // label1
+            // savePartButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.savePartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.savePartButton.Location = new System.Drawing.Point(831, 31);
+            this.savePartButton.Name = "savePartButton";
+            this.savePartButton.Size = new System.Drawing.Size(125, 40);
+            this.savePartButton.TabIndex = 4;
+            this.savePartButton.Text = "Save";
+            this.savePartButton.UseVisualStyleBackColor = true;
+            this.savePartButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // label2
+            // saveAssemblyButton
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 20);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Planned wlding duration:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(503, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Real welding duration:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 99);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(250, 20);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Welding cost, EUR/h without VAT:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(34, 199);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(214, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Calculated welding total cost:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(221, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(119, 26);
-            this.textBox1.TabIndex = 4;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(674, 41);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(119, 26);
-            this.textBox2.TabIndex = 5;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(36, 44);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(205, 20);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Planned designing duration:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(491, 44);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(180, 20);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Real designing duration:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(36, 97);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(260, 20);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Designing cost EUR/h without VAT:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(36, 193);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(229, 20);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Calculated designing total cost:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(256, 41);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 26);
-            this.textBox3.TabIndex = 4;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(677, 41);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 26);
-            this.textBox4.TabIndex = 5;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 22);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(228, 20);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Other costs, EUR without VAT:";
+            this.saveAssemblyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveAssemblyButton.Location = new System.Drawing.Point(831, 52);
+            this.saveAssemblyButton.Name = "saveAssemblyButton";
+            this.saveAssemblyButton.Size = new System.Drawing.Size(125, 40);
+            this.saveAssemblyButton.TabIndex = 10;
+            this.saveAssemblyButton.Text = "Save";
+            this.saveAssemblyButton.UseVisualStyleBackColor = true;
+            this.saveAssemblyButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // DetailsForm
             // 
@@ -640,10 +922,10 @@
             this.stripsTabPage.PerformLayout();
             this.purchasesTabPage.ResumeLayout(false);
             this.purchasesTabPage.PerformLayout();
-            this.designingTabPage.ResumeLayout(false);
-            this.designingTabPage.PerformLayout();
             this.weldingTabPage.ResumeLayout(false);
             this.weldingTabPage.PerformLayout();
+            this.assemblyTabPage.ResumeLayout(false);
+            this.assemblyTabPage.PerformLayout();
             this.otherCostsTabPage.ResumeLayout(false);
             this.otherCostsTabPage.PerformLayout();
             this.propertiesTabPage.ResumeLayout(false);
@@ -651,7 +933,6 @@
             this.partDetailsPanel.ResumeLayout(false);
             this.partDetailsPanel.PerformLayout();
             this.assemblyDetailsPanel.ResumeLayout(false);
-            this.assemblyDetailsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -667,7 +948,7 @@
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Button previousButton;
         private System.Windows.Forms.Label partDescriptionLabel;
-        private System.Windows.Forms.TextBox partDescriptionTextBox;
+        private TextBox partDescriptionTextBox;
         private System.Windows.Forms.Label calculatedPriceLabel;
         private System.Windows.Forms.Label manufacturingCostLabel;
         private System.Windows.Forms.Label singlePieceProgrammingDurationLabel;
@@ -689,27 +970,56 @@
         private System.Windows.Forms.Label purchaseDescriptionLabel;
         private System.Windows.Forms.Label markupCostPurchaseLabel;
         private System.Windows.Forms.Label purchaseCostLabel;
-        private System.Windows.Forms.TabPage designingTabPage;
         private System.Windows.Forms.TabPage weldingTabPage;
-        private System.Windows.Forms.TabPage assemblyAndPackagingTabPage;
-        private System.Windows.Forms.TabPage partsTabPage;
+        private System.Windows.Forms.TabPage assemblyTabPage;
         private System.Windows.Forms.TabPage otherCostsTabPage;
         private System.Windows.Forms.Panel controlsPanel;
         private System.Windows.Forms.Panel partDetailsPanel;
         private System.Windows.Forms.Panel assemblyDetailsPanel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label10;
+        private TextBox realWeldingDurationTextBox;
+        private TextBox plannedWeldingDurationTextBox;
+        private System.Windows.Forms.Label realWeldingDurationLabel;
+        private System.Windows.Forms.Label plannedWeldingDurationLabel;
+        private System.Windows.Forms.Label otherCostsLabel;
+        private TextBox programmingCostTextBox;
+        private TextBox singlePieceProgrammingDurationTextBox;
+        private TextBox manufacturingCostTextBox;
+        private TextBox programmingDurationTextBox;
+        private TextBox amountOfThisPartTextBox;
+        private TextBox materialCostTextBox;
+        private TextBox materialWeightTextBox;
+        private TextBox markupForStripTextBox;
+        private TextBox stripPurchaseCostTextBox;
+        private TextBox stripWidthTextBox;
+        private TextBox stripLengthTextBox;
+        private TextBox stripMaterialCostTextBox;
+        private TextBox markupCostPurchaseTextBox;
+        private TextBox purchaseCostTextBox;
+        private TextBox technicalParametersTextBox;
+        private TextBox componentArticleTextBox;
+        private TextBox supplierTextBox;
+        private TextBox purchaseDescriptionTextBox;
+        private TextBox otherCostsTextBox;
+        private TextBox otherCostsDescriptionTextBox;
+        private System.Windows.Forms.Label otherCostsDescriptionLabel;
+        private System.Windows.Forms.Label realAssemblyDurationLabel;
+        private System.Windows.Forms.Label combinedAssemblyTimeLabel;
+        private System.Windows.Forms.Label assemblyToParentNodeDurationLabel;
+        private System.Windows.Forms.Label individualComponentAssemblyDurationLabel;
+        private System.Windows.Forms.Label childNodeAssemblyDurationLabel;
+        private TextBox realAssemblyDurationHourTextBox;
+        private TextBox assemblyToParentNodeDurationHourTextBox;
+        private TextBox combinedAssemblyTimeHourTextBox;
+        private TextBox individualComponentAssemblyDurationHourTextBox;
+        private TextBox childNodeAssemblyDurationHourTextBox;
+        private TextBox realAssemblyDurationMinuteTextBox;
+        private TextBox assemblyToParentNodeDurationMinuteTextBox;
+        private TextBox combinedAssemblyTimeMinuteTextBox;
+        private TextBox individualComponentAssemblyDurationMinuteTextBox;
+        private TextBox childNodeAssemblyDurationMinuteTextBox;
+        private System.Windows.Forms.Label minutesLabel;
+        private System.Windows.Forms.Label hoursLabel;
+        private Button savePartButton;
+        private Button saveAssemblyButton;
     }
 }
