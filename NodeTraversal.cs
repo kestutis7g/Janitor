@@ -80,7 +80,10 @@ namespace Janitor_V1
         public Node ReadProperties(ModelDoc2 swModel, Component2 swChildComp, string itemNumber)
         {
             Node node = new Node();
-
+            if(swModel == null)
+            {
+                return null;
+            }
             int swModelType = swModel.GetType();
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)

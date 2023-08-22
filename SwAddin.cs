@@ -410,6 +410,7 @@ namespace Janitor_V1
 
             //Iðkvieèiama duomenø surinkimo ið Solidworks programa
 
+            //MessageBox.Show("test");
             NodeTraversal nodeTraversal = new NodeTraversal();
             nodeTraversal.swApp = (SldWorks)iSwApp;
             nodeTraversal.AssemblingoNariuSurinkimas();
@@ -417,7 +418,6 @@ namespace Janitor_V1
             //Application.Run(this.mainForm);
             this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly);
             this.mainForm.Show();
-            //MessageBox.Show("test1");
             this.mainForm.Start();
             //MessageBox.Show("test2");
  
