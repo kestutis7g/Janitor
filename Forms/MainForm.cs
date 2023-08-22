@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -58,6 +59,24 @@ namespace Janitor_V1
             colItemNumber.AspectGetter = x => (x as Node).GetItemNumber();
             colItemNumber.MinimumWidth = 80;
             colItemNumber.HeaderCheckBox = true;
+
+            this.treeListView1.SmallImageList = new ImageList();
+            this.treeListView1.LargeImageList = new ImageList();
+
+            var colImage = new OLVColumn("Image", "Image");
+            colImage.ImageGetter = delegate (object row) {
+                String key = (row as Node).GetItemNumber();
+                if (!this.treeListView1.LargeImageList.Images.ContainsKey(key))
+                {
+                    Image smallImage = (row as Node).GetSmallImage();
+                    Image largeImage = (row as Node).GetBigImage();
+                    this.treeListView1.SmallImageList.Images.Add(key, smallImage);
+                    this.treeListView1.LargeImageList.Images.Add(key, largeImage);
+                }
+                return key;
+            };
+            colImage.Width = 45;
+            colImage.MinimumWidth = 40;
 
             var colComponentName = new OLVColumn("ComponentName", "ComponentName");
             colComponentName.AspectGetter = x => (x as Node).GetComponentName();
@@ -148,6 +167,7 @@ namespace Janitor_V1
 
             // add the columns to the tree
             this.treeListView1.Columns.Add(colItemNumber);
+            this.treeListView1.Columns.Add(colImage);
             this.treeListView1.Columns.Add(colComponentName);
             this.treeListView1.Columns.Add(colReferencedConfiguration);
             this.treeListView1.Columns.Add(colComponentType);
@@ -155,6 +175,7 @@ namespace Janitor_V1
 
             //add columns for column hiding
             this.treeListView1.AllColumns.Add(colItemNumber);
+            this.treeListView1.AllColumns.Add(colImage);
             this.treeListView1.AllColumns.Add(colComponentName);
             this.treeListView1.AllColumns.Add(colReferencedConfiguration);
             this.treeListView1.AllColumns.Add(colComponentID);
@@ -734,14 +755,13 @@ namespace Janitor_V1
                 //MessageBox.Show(item.GetItemNumber() + "\n" + item.GetReferencedConfiguration() + "\n" + item.GetFileLocation());
                 //sitoi vietoj turi buti atidarymas
                 if (item.ComponentType == NodeType.Part) 
-                    {
+                {
                     Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
-                     }
+                }
                 else if (item.ComponentType == NodeType.Assembly)
-                    {
+                {
                     Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
-
             }
         }
 
@@ -767,6 +787,21 @@ namespace Janitor_V1
         {
             var deviceForm = new DeviceForm();
             deviceForm.ShowDialog();
+        }
+
+        private void treeListView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            var selected = (sender as TreeListView).SelectedObject as Node;
+
+            if(selected != null)
+            {
+                this.pictureBox1.BackgroundImage = selected.GetBigImage();
+            }
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            this.pictureBox1.Height = (this.pictureBox1.Width * 2 / 3);
         }
     }
 }
