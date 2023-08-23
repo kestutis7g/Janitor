@@ -283,6 +283,18 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public PartType? GetPartType()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.PartType;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return null;
+        }
 
 
     }
