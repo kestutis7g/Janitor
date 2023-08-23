@@ -762,6 +762,7 @@ namespace Janitor_V1
                 {
                     Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
+                Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
             }
         }
 

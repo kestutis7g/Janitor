@@ -100,16 +100,16 @@ namespace Janitor_V1
                 return null;
             }
             int swModelType = swModel.GetType();
+            node.swModel = swModel;
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
-              
-
                 node.ComponentType = NodeType.Part;
                 node.Part.ItemNumber = itemNumber;
                 node.Part.ComponentName = swChildComp.Name2;
                 node.Part.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
                 node.Part.FileLocation = swChildComp.GetPathName();
+                
 
                 node.Part.SurfaceArea = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Pavirsiaus plotas_m2");
@@ -172,8 +172,6 @@ namespace Janitor_V1
                 {
                     node.Part.PartType = PartType.Toolbox;
                     node.Part.Weight = Solidworks_control_tools.Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
-                    //MessageBox.Show("Komponento " + node.GetComponentName().ToString() + "\n Svoris:" + node.Part.Weight);
-
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
 {
@@ -22,6 +23,8 @@ namespace Janitor_V1.Models
         [Category("Other"),
         Description("All child nodes")]
         public List<Node> Children { get; set; }
+
+        public ModelDoc2 swModel { get; set; }
 
         public Node()
         {

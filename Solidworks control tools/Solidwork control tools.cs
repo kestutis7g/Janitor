@@ -1,10 +1,7 @@
-﻿using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
-using System.Runtime.InteropServices;
-using System;
+﻿using System;
 using System.Diagnostics;
-using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices.ComTypes;
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 
 namespace Janitor_V1.Solidworks_control_tools
 {
@@ -46,34 +43,42 @@ namespace Janitor_V1.Solidworks_control_tools
 
 
 
-            public static double WeightOfComponent(ISldWorks swApp,string componentPath, string Configuration)
-            {
-                ModelDoc2 swModel;
-                int fileError=0;
-                int fileWarning = 0;
-                swModel = (ModelDoc2)swApp.OpenDoc6(componentPath, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, Configuration, ref fileError, ref fileWarning);
-                swModel.ForceRebuild3(true);
+        public static double WeightOfComponent(ISldWorks swApp,string componentPath, string Configuration)
+        {
+            ModelDoc2 swModel;
+            int fileError=0;
+            int fileWarning = 0;
+            swModel = (ModelDoc2)swApp.OpenDoc6(componentPath, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, Configuration, ref fileError, ref fileWarning);
+            swModel.ForceRebuild3(true);
 
 
-                double[] massprops;
-                int status=0;
-                double[] MassProperties = (double[])swModel.Extension.GetMassProperties(1, ref status);
-                massprops = MassProperties;
+            double[] massprops;
+            int status=0;
+            double[] MassProperties = (double[])swModel.Extension.GetMassProperties(1, ref status);
+            massprops = MassProperties;
 
-                //double ToolboxKomponentoMase = (double)massprops[5];
+            //double ToolboxKomponentoMase = (double)massprops[5];
 
-                 //float konvertuotaMase = (float)ToolboxKomponentoMase;
+                //float konvertuotaMase = (float)ToolboxKomponentoMase;
 
-                //System.Diagnostics.Debug.Print("Toolbox komponento mase, kg: ", ToolboxKomponentoMase.ToString());
+            //System.Diagnostics.Debug.Print("Toolbox komponento mase, kg: ", ToolboxKomponentoMase.ToString());
 
-                swApp.CloseDoc(swModel.GetTitle());
+            swApp.CloseDoc(swModel.GetTitle());
 
-                 return Math.Round(massprops[5], 2);
+                return Math.Round(massprops[5], 2);
         }
 
-            
+        public static void TakePictureOfItem(ModelDoc2 swModel, string pictureName)
+        {
+            // Named View
+            //swModel.ForceRebuild3(true);
+            swModel.ShowNamedView2("*Isometric", 7);
+            swModel.ViewZoomtofit2();
+
+            // Save As
+            swModel.SaveAs3("C:\\bbb\\" + pictureName + ".PNG", 0, 0);
         }
+        
     }
-
-
+}
 
