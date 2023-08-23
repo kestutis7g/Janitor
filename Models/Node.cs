@@ -109,7 +109,7 @@ namespace Janitor_V1.Models
         }
         public Image GetSmallImage()
         {
-            return Image.FromFile("C:\\Users\\02\\Desktop\\Janitor\\Assets\\placeholder-small.jpg");
+            return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-small.jpg");
 
             if (this.ComponentType == NodeType.Part)
             {
@@ -122,7 +122,7 @@ namespace Janitor_V1.Models
         }
         public Image GetBigImage()
         {
-            return Image.FromFile("C:\\Users\\02\\Desktop\\Janitor\\Assets\\placeholder-big.jpg");
+            return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-big.jpg");
 
             if (this.ComponentType == NodeType.Part)
             {

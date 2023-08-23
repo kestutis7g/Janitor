@@ -171,6 +171,9 @@ namespace Janitor_V1
                 if (Solidworks_control_tools.Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
                 {
                     node.Part.PartType = PartType.Toolbox;
+                    node.Part.Weight = Solidworks_control_tools.Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
+                    //MessageBox.Show("Komponento " + node.GetComponentName().ToString() + "\n Svoris:" + node.Part.Weight);
+
                 }
                 else
                 {
