@@ -38,6 +38,7 @@ namespace Janitor_V1
             this.treeListView1 = new BrightIdeasSoftware.TreeListView();
             this.seachTextBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -60,6 +61,7 @@ namespace Janitor_V1
             this.treeListView2 = new BrightIdeasSoftware.TreeListView();
             this.seachTextBox2 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.tabPageAssemblies = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -75,6 +77,7 @@ namespace Janitor_V1
             this.seachTextBox3 = new System.Windows.Forms.TextBox();
             this.treeListView3 = new BrightIdeasSoftware.TreeListView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Open = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +85,6 @@ namespace Janitor_V1
             this.deviceButton = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.pricesButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -91,6 +93,7 @@ namespace Janitor_V1
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.tabPageParts.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -100,6 +103,7 @@ namespace Janitor_V1
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView2)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPageAssemblies.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -108,9 +112,9 @@ namespace Janitor_V1
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView3)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -162,11 +166,11 @@ namespace Janitor_V1
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(882, 481);
-            this.splitContainer1.SplitterDistance = 645;
+            this.splitContainer1.Size = new System.Drawing.Size(879, 475);
+            this.splitContainer1.SplitterDistance = 647;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 5;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             // 
             // treeListView1
             // 
@@ -186,7 +190,7 @@ namespace Janitor_V1
             this.treeListView1.ShowGroups = false;
             this.treeListView1.ShowImagesOnSubItems = true;
             this.treeListView1.ShowItemToolTips = true;
-            this.treeListView1.Size = new System.Drawing.Size(641, 457);
+            this.treeListView1.Size = new System.Drawing.Size(643, 451);
             this.treeListView1.TabIndex = 3;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.UseFilterIndicator = true;
@@ -195,7 +199,7 @@ namespace Janitor_V1
             this.treeListView1.View = System.Windows.Forms.View.Details;
             this.treeListView1.VirtualMode = true;
             this.treeListView1.ItemActivate += new System.EventHandler(this.treeListView_ItemActivate);
-            this.treeListView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.treeListView1_ItemSelectionChanged);
+            this.treeListView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.treeListView_ItemSelectionChanged);
             // 
             // seachTextBox1
             // 
@@ -203,7 +207,7 @@ namespace Janitor_V1
             this.seachTextBox1.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox1.Name = "seachTextBox1";
-            this.seachTextBox1.Size = new System.Drawing.Size(645, 20);
+            this.seachTextBox1.Size = new System.Drawing.Size(647, 20);
             this.seachTextBox1.TabIndex = 4;
             this.seachTextBox1.TextChanged += new System.EventHandler(this.seachTextBox1_TextChanged);
             // 
@@ -217,8 +221,18 @@ namespace Janitor_V1
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 513);
+            this.panel1.Size = new System.Drawing.Size(212, 513);
             this.panel1.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 52);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(212, 120);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // button2
             // 
@@ -226,7 +240,7 @@ namespace Janitor_V1
             this.button2.Location = new System.Drawing.Point(0, 25);
             this.button2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(217, 27);
+            this.button2.Size = new System.Drawing.Size(212, 27);
             this.button2.TabIndex = 0;
             this.button2.Text = "Open item";
             this.button2.UseVisualStyleBackColor = true;
@@ -238,7 +252,7 @@ namespace Janitor_V1
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 25);
+            this.button1.Size = new System.Drawing.Size(212, 25);
             this.button1.TabIndex = 1;
             this.button1.Text = "Do stuff";
             this.button1.UseVisualStyleBackColor = true;
@@ -445,7 +459,7 @@ namespace Janitor_V1
             this.splitContainer2.Panel2.AutoScroll = true;
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer2.Panel2.Controls.Add(this.panel2);
-            this.splitContainer2.Size = new System.Drawing.Size(884, 476);
+            this.splitContainer2.Size = new System.Drawing.Size(879, 475);
             this.splitContainer2.SplitterDistance = 636;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
@@ -467,7 +481,7 @@ namespace Janitor_V1
             this.treeListView2.ShowGroups = false;
             this.treeListView2.ShowImagesOnSubItems = true;
             this.treeListView2.ShowItemToolTips = true;
-            this.treeListView2.Size = new System.Drawing.Size(634, 453);
+            this.treeListView2.Size = new System.Drawing.Size(634, 452);
             this.treeListView2.TabIndex = 4;
             this.treeListView2.UseCompatibleStateImageBehavior = false;
             this.treeListView2.UseFilterIndicator = true;
@@ -476,6 +490,7 @@ namespace Janitor_V1
             this.treeListView2.View = System.Windows.Forms.View.Details;
             this.treeListView2.VirtualMode = true;
             this.treeListView2.ItemActivate += new System.EventHandler(this.treeListView_ItemActivate);
+            this.treeListView2.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.treeListView_ItemSelectionChanged);
             // 
             // seachTextBox2
             // 
@@ -489,13 +504,24 @@ namespace Janitor_V1
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightGray;
+            this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(228, 541);
+            this.panel2.Size = new System.Drawing.Size(223, 541);
             this.panel2.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 25);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(223, 120);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
             // 
             // button3
             // 
@@ -503,7 +529,7 @@ namespace Janitor_V1
             this.button3.Location = new System.Drawing.Point(0, 0);
             this.button3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(228, 25);
+            this.button3.Size = new System.Drawing.Size(223, 25);
             this.button3.TabIndex = 0;
             this.button3.Text = "Open item";
             this.button3.UseVisualStyleBackColor = true;
@@ -646,8 +672,8 @@ namespace Janitor_V1
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer3.Panel2.Controls.Add(this.panel3);
-            this.splitContainer3.Size = new System.Drawing.Size(884, 476);
-            this.splitContainer3.SplitterDistance = 718;
+            this.splitContainer3.Size = new System.Drawing.Size(879, 474);
+            this.splitContainer3.SplitterDistance = 713;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -657,7 +683,7 @@ namespace Janitor_V1
             this.seachTextBox3.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox3.Name = "seachTextBox3";
-            this.seachTextBox3.Size = new System.Drawing.Size(718, 20);
+            this.seachTextBox3.Size = new System.Drawing.Size(713, 20);
             this.seachTextBox3.TabIndex = 6;
             this.seachTextBox3.TextChanged += new System.EventHandler(this.seachTextBox3_TextChanged);
             // 
@@ -678,7 +704,7 @@ namespace Janitor_V1
             this.treeListView3.ShowGroups = false;
             this.treeListView3.ShowImagesOnSubItems = true;
             this.treeListView3.ShowItemToolTips = true;
-            this.treeListView3.Size = new System.Drawing.Size(714, 452);
+            this.treeListView3.Size = new System.Drawing.Size(709, 450);
             this.treeListView3.TabIndex = 5;
             this.treeListView3.UseCompatibleStateImageBehavior = false;
             this.treeListView3.UseFilterIndicator = true;
@@ -687,9 +713,11 @@ namespace Janitor_V1
             this.treeListView3.View = System.Windows.Forms.View.Details;
             this.treeListView3.VirtualMode = true;
             this.treeListView3.ItemActivate += new System.EventHandler(this.treeListView_ItemActivate);
+            this.treeListView3.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.treeListView_ItemSelectionChanged);
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.pictureBox3);
             this.panel3.Controls.Add(this.button4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -697,6 +725,16 @@ namespace Janitor_V1
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(146, 634);
             this.panel3.TabIndex = 0;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox3.Location = new System.Drawing.Point(0, 26);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(146, 120);
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
             // 
             // button4
             // 
@@ -772,16 +810,6 @@ namespace Janitor_V1
             this.pricesButton.UseVisualStyleBackColor = true;
             this.pricesButton.Click += new System.EventHandler(this.pricesButton_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 52);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(217, 120);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -802,6 +830,7 @@ namespace Janitor_V1
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.tabPageParts.ResumeLayout(false);
@@ -814,6 +843,7 @@ namespace Janitor_V1
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView2)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPageAssemblies.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -824,9 +854,9 @@ namespace Janitor_V1
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView3)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -884,6 +914,8 @@ namespace Janitor_V1
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button deviceButton;
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
     }
 }
 

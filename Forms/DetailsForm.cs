@@ -1,5 +1,4 @@
 ﻿using Janitor_V1.Models;
-using Janitor_V1.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -29,8 +28,6 @@ namespace Janitor_V1
                 controlsPanel.Visible = false;
                 tabControl1.Dock = DockStyle.Top;
             }
-
-            this.Text = Data.GetComponentName() + " | " + Data.GetReferencedConfiguration();
         }
 
         private void DetailsForm_Load(object sender, System.EventArgs e)
@@ -55,7 +52,9 @@ namespace Janitor_V1
                 ResizeTabControl("part");
 
                 ReloadPart();
-            }            
+            }
+            this.Text = Data.GetComponentName() + " | " + Data.GetReferencedConfiguration();
+            this.pictureBox1.BackgroundImage = Data.GetBigImage();
         }
 
         private void nextButton_Click(object sender, System.EventArgs e)
