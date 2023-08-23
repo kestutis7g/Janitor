@@ -7,15 +7,18 @@ namespace Janitor_V1
 {
     public partial class DetailsForm : Form
     {
+        public string WorkingDirectory { set; get; }
         public Node Data { set; get; }
         public List<Node> List { set; get; }
         public bool ShowControls { set; get; }
         private Action UpdateMainForm { set; get; }
         int index;
 
-        public DetailsForm(Node data, List<Node> list, Action updateMainForm, bool showControls)
+        public DetailsForm(string workingDirectory, Node data, List<Node> list, Action updateMainForm, bool showControls)
         {
             InitializeComponent();
+
+            this.WorkingDirectory = workingDirectory;
             this.Data = data;
             this.List = list;
             this.ShowControls = showControls;
@@ -54,7 +57,7 @@ namespace Janitor_V1
                 ReloadPart();
             }
             this.Text = Data.GetComponentName() + " | " + Data.GetReferencedConfiguration();
-            this.pictureBox1.BackgroundImage = Data.GetBigImage();
+            this.pictureBox1.BackgroundImage = Data.GetBigImage(this.WorkingDirectory);
         }
 
         private void nextButton_Click(object sender, System.EventArgs e)

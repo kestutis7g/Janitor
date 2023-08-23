@@ -48,6 +48,10 @@ namespace Janitor_V1.Models
         [Category("Image"),
         Description("Image of the part")]
         public Image Image { get; set; }
+        
+        [Category("Image"),
+        Description("Image file location")]
+        public string ImageLocation { get; set; }
 
         public Assembly() 
         {

@@ -9,17 +9,20 @@ namespace Janitor_V1.Models
 {
     internal class Prices
     {
+        private OleDbConnection mdbConnection { get; set; }
+
         private List<Price> allData = new List<Price>();
         private List<Price> workPrices = new List<Price>();
         private List<Price> materialPrices = new List<Price>();
 
         //private OleDbConnection mdbConnection = new OleDbConnection(
-        //    "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\DB\\Database.mdb"));
-        private OleDbConnection mdbConnection = new OleDbConnection(
-            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\DB\\Database.mdb");
+        //    "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\DB\\Database.mdb");
 
-        public Prices() 
+        public Prices(string workingDirectory) 
         {
+            this.mdbConnection = new OleDbConnection(
+                "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path.Combine(workingDirectory, "DB\\Database.mdb"));
+
             //create table in Access database if table is not present
             mdbConnection.Open();
             DataTable dTable = mdbConnection.GetSchema("TABLES", new string[] { null, null, "Prices" });

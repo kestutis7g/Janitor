@@ -13,14 +13,14 @@ namespace Janitor_V1
 {
     public partial class PricesForm : Form
     {
-        Prices prices = new Prices();
-        public PricesForm()
+        Prices Prices { get; set; }
+        public PricesForm(string workingDirectory)
         {
             InitializeComponent();
-
-            prices.Refresh();
-            var workPricesData = prices.GetWorkPrices();
-            var materialPricesData = prices.GetMaterialPrices();
+            this.Prices = new Prices(workingDirectory);
+            this.Prices.Refresh();
+            var workPricesData = Prices.GetWorkPrices();
+            var materialPricesData = Prices.GetMaterialPrices();
 
             //INITIALIZE WORK PRICES TABLE
             DataTable wdt = new DataTable();
@@ -65,7 +65,7 @@ namespace Janitor_V1
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            var data = prices.GetAllPrices();
+            var data = Prices.GetAllPrices();
             foreach (DataGridViewRow row in workDataGridView.Rows)
             {
                 SaveTableRow(row, data, "Darbo");
@@ -96,14 +96,14 @@ namespace Janitor_V1
 
             if (price == null)
             {
-                prices.Add(new Price(row.Cells["Name"].Value.ToString(),
+                Prices.Add(new Price(row.Cells["Name"].Value.ToString(),
                                      (double)row.Cells["Value"].Value,
                                      priceGroup));
                 return true;
             }
             else if (!EqualPrices(price, row))
             {
-                prices.Update(id, new Price(row.Cells["Name"].Value.ToString(),
+                Prices.Update(id, new Price(row.Cells["Name"].Value.ToString(),
                                             (double)row.Cells["Value"].Value,
                                             priceGroup));
                 return true;

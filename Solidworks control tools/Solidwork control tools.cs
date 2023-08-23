@@ -23,34 +23,25 @@ namespace Janitor_V1.Solidworks_control_tools
             // Activate the loaded document and prompt for rebuild if the model changed
             swModelDoc = (ModelDoc2)swApp.ActivateDoc3(swModelDoc.GetTitle(), false, (int)swRebuildOnActivation_e.swUserDecision, ref errors);
             Debug.Print("Error code after document activation: " + errors.ToString());
-
         }
 
         public static int CheckToolboxComponents(ModelDoc2 swModel)
         {
-
-
             ModelDocExtension modelDocExt;
-            int IsToolboxComponent;
-
 
             // Tikrinama ar komponentas nera Toolbox
 
             modelDocExt = swModel.Extension;
-            IsToolboxComponent = modelDocExt.ToolboxPartType;
-            return IsToolboxComponent;
+            return modelDocExt.ToolboxPartType;
         }
-
-
 
         public static double WeightOfComponent(ISldWorks swApp,string componentPath, string Configuration)
         {
             ModelDoc2 swModel;
-            int fileError=0;
+            int fileError = 0;
             int fileWarning = 0;
             swModel = (ModelDoc2)swApp.OpenDoc6(componentPath, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, Configuration, ref fileError, ref fileWarning);
             swModel.ForceRebuild3(true);
-
 
             double[] massprops;
             int status=0;
@@ -59,26 +50,24 @@ namespace Janitor_V1.Solidworks_control_tools
 
             //double ToolboxKomponentoMase = (double)massprops[5];
 
-                //float konvertuotaMase = (float)ToolboxKomponentoMase;
+            //float konvertuotaMase = (float)ToolboxKomponentoMase;
 
             //System.Diagnostics.Debug.Print("Toolbox komponento mase, kg: ", ToolboxKomponentoMase.ToString());
 
             swApp.CloseDoc(swModel.GetTitle());
-
-                return Math.Round(massprops[5], 2);
+            return Math.Round(massprops[5], 2);
         }
 
-        public static void TakePictureOfItem(ModelDoc2 swModel, string pictureName)
+        public static string TakePictureOfItem(ModelDoc2 swModel, string pictureName)
         {
-            // Named View
-            //swModel.ForceRebuild3(true);
             swModel.ShowNamedView2("*Isometric", 7);
             swModel.ViewZoomtofit2();
+            var location = "C:\\bbb\\" + pictureName + ".PNG";
 
             // Save As
-            swModel.SaveAs3("C:\\bbb\\" + pictureName + ".PNG", 0, 0);
+            swModel.SaveAs3(location , 0, 0);
+            return location;
         }
-        
     }
 }
 
