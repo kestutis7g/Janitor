@@ -9,6 +9,7 @@ using Janitor_V1.Forms;
 using Janitor_V1.Models;
 using Janitor_V1.Solidworks_control_tools;
 using Janitor_V1.Utils;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
 namespace Janitor_V1
@@ -22,8 +23,10 @@ namespace Janitor_V1
         private Prices Prices;
         private bool StainlessSteelToolbox = false;
 
+        private SldWorks SwApp;
+
         // constructor
-        public MainForm()
+        public MainForm(SldWorks swApp)
         {
             InitializeComponent();
 
@@ -35,6 +38,7 @@ namespace Janitor_V1
             this.splitContainer3.SplitterDistance = (80 * this.splitContainer3.Size.Width / 100);
             this.Prices = new Prices();
             this.Calculations = new Calculations();
+            this.SwApp = swApp;
         }
 
         public void Start()
@@ -804,11 +808,11 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Part) 
                 {
-                    //Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(this.SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
                 }
                 else if (item.ComponentType == NodeType.Assembly)
                 {
-                    //Solidworks_control_tools.Solidworks_control_tools.OpenItem(item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
                 Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
             }

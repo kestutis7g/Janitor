@@ -1,4 +1,5 @@
 ﻿using Janitor_V1.Models;
+using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
@@ -101,6 +102,12 @@ namespace Janitor_V1
             }
             int swModelType = swModel.GetType();
             node.swModel = swModel;
+            
+            //CustPropMgr = swModel.Extension.CustomPropertyManager[""];
+          
+            CustomPropertyManager CustPropMgr = swModel.Extension.get_CustomPropertyManager(swChildComp.ReferencedConfiguration);
+
+
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
@@ -112,10 +119,10 @@ namespace Janitor_V1
                 
 
                 node.Part.SurfaceArea = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Pavirsiaus plotas_m2");
+                    swModel, swChildComp.ReferencedConfiguration, "Pavirsiaus plotas_m2", CustPropMgr);
 
                 node.Part.Weight = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Detales mase_kg");
+                    swModel, swChildComp.ReferencedConfiguration, "Detales mase_kg", CustPropMgr);
 
                 node.Part.Welded = ReadPropertiesFromSolidworks_boolOut(
                     swModel, swChildComp.ReferencedConfiguration, "Virinimas");
@@ -127,16 +134,16 @@ namespace Janitor_V1
                     swModel, swChildComp.ReferencedConfiguration, "Padengimas");
 
                 node.Part.PurchasePrice = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Pirkimo kaina");
+                    swModel, swChildComp.ReferencedConfiguration, "Pirkimo kaina", CustPropMgr);
 
                 node.Part.Markup = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Musu dedamas antkainis");
+                    swModel, swChildComp.ReferencedConfiguration, "Musu dedamas antkainis", CustPropMgr);
 
                 node.Part.Price = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "KAINA_EUR");
+                    swModel, swChildComp.ReferencedConfiguration, "KAINA_EUR", CustPropMgr);
 
                 node.Part.SheetThickness = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Skardos storis_mm");
+                    swModel, swChildComp.ReferencedConfiguration, "Skardos storis_mm", CustPropMgr);
 
                 string temp = (string)swModel.CustomInfo2[swChildComp.ReferencedConfiguration, "Skardos storis_mm"];
                 int a = 0;
@@ -148,25 +155,25 @@ namespace Janitor_V1
                     swModel, swChildComp.ReferencedConfiguration, "Lenkimu skaicius");
 
                 node.Part.CutLength = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Pjuvio ilgis_m");
+                    swModel, swChildComp.ReferencedConfiguration, "Pjuvio ilgis_m", CustPropMgr);
 
                 node.Part.NumberOfPunches = ReadPropertiesFromSolidworks_intOut(
                     swModel, swChildComp.ReferencedConfiguration, "Pramusimu skaicius");
 
                 node.Part.MetalPrice = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Metalo kaina_EUR uz kg");
+                    swModel, swChildComp.ReferencedConfiguration, "Metalo kaina_EUR uz kg", CustPropMgr);
 
                 node.Part.PaintingCost = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Dazymo Miltel Budu Kaina_EUR uz m2");
+                    swModel, swChildComp.ReferencedConfiguration, "Dazymo Miltel Budu Kaina_EUR uz m2", CustPropMgr);
 
                 node.Part.CuttingCost = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Pjovimo kaina_Eur uz 1m");
+                    swModel, swChildComp.ReferencedConfiguration, "Pjovimo kaina_Eur uz 1m", CustPropMgr);
 
                 node.Part.PunchingCost = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Skardos pramusimo kaina_Eur");
+                    swModel, swChildComp.ReferencedConfiguration, "Skardos pramusimo kaina_Eur", CustPropMgr);
 
                 node.Part.BendingCost = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Skardos sulenkimo kaina_Eur uz vnt");
+                    swModel, swChildComp.ReferencedConfiguration, "Skardos sulenkimo kaina_Eur uz vnt", CustPropMgr);
 
                 if (Solidworks_control_tools.Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
                 {
@@ -192,16 +199,16 @@ namespace Janitor_V1
                 node.Assembly.FileLocation = swChildComp.GetPathName();
 
                 node.Assembly.ChildNodeAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Pomazgiu sumontavimo trukme_val");
+                    swModel, swChildComp.ReferencedConfiguration, "Pomazgiu sumontavimo trukme_val", CustPropMgr);
 
                 node.Assembly.IndividualComponentAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Palaidu komponentu sumontavimo trukme_val");
+                    swModel, swChildComp.ReferencedConfiguration, "Palaidu komponentu sumontavimo trukme_val", CustPropMgr);
 
                 node.Assembly.AssemblyToParentNodeDuration = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Sumontavimo i kita mazga trukme_val");
+                    swModel, swChildComp.ReferencedConfiguration, "Sumontavimo i kita mazga trukme_val", CustPropMgr);
 
                 node.Assembly.CombinedAssemblyTime = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Sumine planuojama mazgo montavimo trukme_val");
+                    swModel, swChildComp.ReferencedConfiguration, "Sumine planuojama mazgo montavimo trukme_val", CustPropMgr);
 
                 return node;
             }
@@ -255,18 +262,47 @@ namespace Janitor_V1
             return true;
         }
 
-        public double ReadPropertiesFromSolidworks_doubleOut(ModelDoc2 swModel, string Configuration, string PropertyName)
+        public double ReadPropertiesFromSolidworks_doubleOut(ModelDoc2 swModel, string Configuration, string PropertyName, CustomPropertyManager CustPropMgr)
         {
-            string temp = (string)swModel.CustomInfo2[Configuration, PropertyName];
-            temp = temp.Replace(',', '.');
+            string ValOut;
+            string ResValue;
+            bool WasResolved;
+            bool LinkedToProperty;
+            //string temp = (string)swModel.CustomInfo2[Configuration, PropertyName];
+            int retVal;
+
+       
+
+            retVal = CustPropMgr.Get6(PropertyName,false,out ValOut,out ResValue,out WasResolved, out LinkedToProperty);
+            ResValue = ResValue.Replace(',', '.');
             double value = 0;
-            double.TryParse(temp, out value);
+            double.TryParse(ResValue, out value);
+            //MessageBox.Show("Komponento " + swModel.GetPathName() + " properčio " + PropertyName + " reikšmė: "+ResValue ).ToString();
+            
+
+
             return value;
         }
 
-       
-            }
+
+            
         }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
 
