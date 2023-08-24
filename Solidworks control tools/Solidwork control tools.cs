@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
@@ -59,14 +60,28 @@ namespace Janitor_V1.Solidworks_control_tools
             return Math.Round(massprops[5], 2);
         }
 
-        public static string TakePictureOfItem(ModelDoc2 swModel, string pictureName)
+        public static string TakePictureOfItem(ISldWorks swApp, string fileLocation, int DocumentType, ModelDoc2 swModel, string pictureName)
         {
+            int errors = 0;
+            int warnings = 0;
+
+            //ISldWorks swApp;
+            //swApp = (ISldWorks)Activator.CreateInstance(Type.GetTypeFromProgID("SldWorks.Application"));
+
+            ModelDoc2 swModelDoc = default;
+            swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
+
+            swModelDoc = (ModelDoc2)swApp.ActivateDoc3(swModelDoc.GetTitle(), false, (int)swRebuildOnActivation_e.swRebuildActiveDoc, ref errors);
+
+            
+
             swModel.ShowNamedView2("*Isometric", 7);
             swModel.ViewZoomtofit2();
             var location = "C:\\bbb\\" + pictureName + ".PNG";
 
             // Save As
             swModel.SaveAs3(location , 0, 0);
+            swApp.CloseDoc(swModelDoc.GetTitle());
             return location;
         }
     }

@@ -884,11 +884,11 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
+                    item.Assembly.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetComponentName());
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
-                    item.Part.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
+                    item.Part.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetComponentName());
                 }
             }
         }
