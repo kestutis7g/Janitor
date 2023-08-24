@@ -122,6 +122,10 @@ namespace Janitor_V1.Models
         [Category("General"),
         Description("Date properties was last updated")]
         public DateTime? UpdatedAt { get; set; }
+        
+        [Category("Other"),
+        Description("Other part parameters")]
+        public OtherPart OtherPart { get; set; }
 
         public Part()
         {
@@ -142,6 +146,7 @@ namespace Janitor_V1.Models
             NumberOfPunches = 0;
             Welded = false;
             Bent = false;
+            OtherPart = new OtherPart();
         }
         public Part(string itemNumber, string componentName, string description, string referencedConfiguration, int componentID, string fileLocation, Image image, string material, double? weight, double? surfaceArea, double? sheetThickness, string coverage, double? price, double? markup, double? purchasePrice, double? metalPrice, double? paintingCost, double? cuttingCost, double? punchingCost, double? bendingCost, double? cutLength, int? numberOfBends, int? numberOfPunches, bool? welded, bool? bent, DateTime? updatedAt)
         {

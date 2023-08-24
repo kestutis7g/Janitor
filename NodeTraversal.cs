@@ -146,7 +146,6 @@ namespace Janitor_V1
                     swModel, swChildComp.ReferencedConfiguration, "Skardos storis_mm", CustPropMgr);
 
                 string temp = (string)swModel.CustomInfo2[swChildComp.ReferencedConfiguration, "Skardos storis_mm"];
-                int a = 0;
 
                 node.Part.Bent = ReadPropertiesFromSolidworks_boolOut(
                     swModel, swChildComp.ReferencedConfiguration, "Lankstymas");

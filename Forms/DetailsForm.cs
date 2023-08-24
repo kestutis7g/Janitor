@@ -51,8 +51,11 @@ namespace Janitor_V1
             }
             else if(Data.ComponentType == NodeType.Part)
             {
-                RemoveTabs("part");
-                ResizeTabControl("part");
+                if(Data.Part.PartType == PartType.Other)
+                {
+                    RemoveTabs("otherpart");
+                    ResizeTabControl("otherpart");
+                }
 
                 ReloadPart();
             }
@@ -95,9 +98,22 @@ namespace Janitor_V1
             }
         }
 
+        /// <summary>
+        /// Remove tabControl tabs according to node type
+        /// </summary>
+        /// <param name="formType"></param>
         private void RemoveTabs(string formType)
         {
-            if(formType == "part")
+            if (formType == "part")
+            {
+                this.tabControl1.TabPages.RemoveByKey("weldingTabPage");
+                this.tabControl1.TabPages.RemoveByKey("assemblyTabPage");
+                this.tabControl1.TabPages.RemoveByKey("otherCostsTabPage");
+                this.tabControl1.TabPages.RemoveByKey("manufacturingTabPage");
+                this.tabControl1.TabPages.RemoveByKey("stripsTabPage");
+                this.tabControl1.TabPages.RemoveByKey("purchasesTabPage");
+            }
+            else if (formType == "otherpart")
             {
                 this.tabControl1.TabPages.RemoveByKey("weldingTabPage");
                 this.tabControl1.TabPages.RemoveByKey("assemblyTabPage");
@@ -110,7 +126,10 @@ namespace Janitor_V1
                 this.tabControl1.TabPages.RemoveByKey("purchasesTabPage");
             }
         }
-
+        /// <summary>
+        /// Resize tabControl to fill window according to bottom panels
+        /// </summary>
+        /// <param name="formType"></param>
         private void ResizeTabControl(string formType)
         {
             if (formType == "part")
@@ -127,7 +146,31 @@ namespace Janitor_V1
 
         private void FillManufacturingTab()
         {
-            this.materialWeightTextBox.Text = Data.Part.Weight.ToString();
+            this.materialWeightTextBox.Text = 
+                Data.Part.Weight.ToString();
+
+            this.programmingCostTextBox.Text = 
+                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Programavimo trukme_val"];
+
+            this.programmingDurationTextBox.Text = 
+                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Pagaminimo trukme_min"];
+
+            this.materialCostTextBox.Text = 
+                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Zaliavos kaina"];
+
+            this.amountOfThisPartTextBox.Text = 
+                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Detaliu skaicius"];
+
+            this.manufacturingCostTextBox.Text =
+                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Gamybos valandos kaina_EUR"];
+
+
+            var calculatedPartPrice = ((Data.Part.Weight * Data.Part.OtherPart.MaterialCost) + 
+                (Data.Part.OtherPart.ProgrammingDuration * Data.Part.OtherPart.ProgrammingCost / Data.Part.OtherPart.AmountOfThisPart) + 
+                (Data.Part.OtherPart.SinglePieceManufacturingDuration / 60 * Data.Part.OtherPart.ManufacturingCost));
+
+
+
         }
         private void FillStripsTab()
         {
@@ -163,38 +206,6 @@ namespace Janitor_V1
         private void FillOtherCostsTab()
         {
             //uzpildyti kitu kastu duomenis
-        }
-
-        private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            double count = 0;
-            if ((e.KeyChar == '.'))
-            {
-                e.KeyChar = ',';
-            }
-
-            if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
-                (e.KeyChar == '\b') ||
-                (e.KeyChar == ',')))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void integersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            int count = 0;
-            if (!((char.IsDigit(e.KeyChar) && int.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
-                (e.KeyChar == '\b')))
-            {
-                e.Handled = true;
-            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -262,6 +273,38 @@ namespace Janitor_V1
             else if (this.Data.ComponentType == NodeType.Part)
             {
                 ReloadPart();
+            }
+        }
+
+        private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            double count = 0;
+            if ((e.KeyChar == '.'))
+            {
+                e.KeyChar = ',';
+            }
+
+            if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
+                (e.KeyChar == '\b') ||
+                (e.KeyChar == ',')))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void integersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int count = 0;
+            if (!((char.IsDigit(e.KeyChar) && int.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
+                (e.KeyChar == '\b')))
+            {
+                e.Handled = true;
             }
         }
     }
