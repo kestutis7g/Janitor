@@ -16,6 +16,8 @@ namespace Janitor_V1
 {
     public partial class MainForm : Form
     {
+        private string WorkingDirectory { get; set; }
+
         private List<Node> Data;
         private List<Node> PartsData;
         private Calculations Calculations;
@@ -25,8 +27,7 @@ namespace Janitor_V1
 
         private SldWorks SwApp;
 
-        // constructor
-        public MainForm(SldWorks swApp)
+        public MainForm(SldWorks swApp, string workingDirectory)
         {
             InitializeComponent();
 
@@ -36,7 +37,17 @@ namespace Janitor_V1
             this.splitContainer1.SplitterDistance = (80 * this.splitContainer1.Size.Width / 100);
             this.splitContainer2.SplitterDistance = (80 * this.splitContainer2.Size.Width / 100);
             this.splitContainer3.SplitterDistance = (80 * this.splitContainer3.Size.Width / 100);
-            this.Prices = new Prices();
+
+            //Fix tree list view size
+            this.treeListView1.Location = new Point(0, this.seachTextBox1.Size.Height);
+            this.treeListView1.Size = new Size(this.splitContainer1.Panel1.Width, this.splitContainer1.Panel1.Height - this.seachTextBox1.Size.Height);
+            this.treeListView2.Location = new Point(0, this.seachTextBox2.Size.Height);
+            this.treeListView2.Size = new Size(this.splitContainer2.Panel1.Width, this.splitContainer2.Panel1.Height - this.seachTextBox2.Size.Height);
+            this.treeListView3.Location = new Point(0, this.seachTextBox3.Size.Height);
+            this.treeListView3.Size = new Size(this.splitContainer3.Panel1.Width, this.splitContainer3.Panel1.Height - this.seachTextBox3.Size.Height);
+
+            this.WorkingDirectory = workingDirectory;
+            this.Prices = new Prices(this.WorkingDirectory);
             this.Calculations = new Calculations();
             this.SwApp = swApp;
         }
@@ -71,8 +82,8 @@ namespace Janitor_V1
                 String key = (row as Node).GetItemNumber();
                 if (!this.treeListView1.LargeImageList.Images.ContainsKey(key))
                 {
-                    Image smallImage = (row as Node).GetSmallImage();
-                    Image largeImage = (row as Node).GetBigImage();
+                    Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
+                    Image largeImage = (row as Node).GetBigImage(this.WorkingDirectory);
                     this.treeListView1.SmallImageList.Images.Add(key, smallImage);
                     this.treeListView1.LargeImageList.Images.Add(key, largeImage);
                 }
@@ -231,8 +242,8 @@ namespace Janitor_V1
                 String key = (row as Node).GetItemNumber();
                 if (!this.treeListView3.LargeImageList.Images.ContainsKey(key))
                 {
-                    Image smallImage = (row as Node).GetSmallImage();
-                    Image largeImage = (row as Node).GetBigImage();
+                    Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
+                    Image largeImage = (row as Node).GetBigImage(this.WorkingDirectory);
                     this.treeListView3.SmallImageList.Images.Add(key, smallImage);
                     this.treeListView3.LargeImageList.Images.Add(key, largeImage);
                 }
@@ -337,8 +348,8 @@ namespace Janitor_V1
                 String key = (row as Node).GetItemNumber();
                 if (!this.treeListView2.LargeImageList.Images.ContainsKey(key))
                 {
-                    Image smallImage = (row as Node).GetSmallImage();
-                    Image largeImage = (row as Node).GetBigImage();
+                    Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
+                    Image largeImage = (row as Node).GetBigImage(this.WorkingDirectory);
                     this.treeListView2.SmallImageList.Images.Add(key, smallImage);
                     this.treeListView2.LargeImageList.Images.Add(key, largeImage);
                 }
@@ -480,7 +491,6 @@ namespace Janitor_V1
                 //root node
                 AddNode(Data, partInfo);
             }
-            //CalculateChildNodeAssemblyDuration(Data);
         }
 
         /// <summary>
@@ -565,7 +575,6 @@ namespace Janitor_V1
                 PartsData.Add(node);
             }
         }
-
         private void CalculateChildNodeAssemblyDuration(List<Node> nodes)
         {
             nodes.ForEach(x => {
@@ -593,7 +602,6 @@ namespace Janitor_V1
                     assemblyDuration += (double)node.Assembly.CombinedAssemblyTime;
                 }
             }
-
             return assemblyDuration;
         }
 
@@ -611,19 +619,18 @@ namespace Janitor_V1
             double assemblyPrice = this.Prices.GetById(3).Value;
             double totalAssemblyCost = assemblyPrice * combinedAssemblyDuration;
 
-            rootChildNodeAssemblyTime.Text = "Child node assembly time: " + Calculations.rootChildNodeAssemblyDuration + "h";
+            rootChildNodeAssemblyTime.Text     = "Child node assembly time: " + Calculations.rootChildNodeAssemblyDuration + "h";
             combinedAssemblyDurationLabel.Text = "Combined assembly duration: " + combinedAssemblyDuration + "h";
-            assemblyCostLabel.Text = "Assembly cost: " + assemblyPrice + " €/h";
+            assemblyCostLabel.Text             = "Assembly cost: " + assemblyPrice + " €/h";
             totalAssemblyCostLabel.Text        = "Total assembly cost: " + totalAssemblyCost + " €";
             totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + totalAssemblyCost + " €";
 
             //PARTS TAB
-            totalPartsLabel.Text = "Total parts: " + Calculations.totalParts;
+            totalPartsLabel.Text     = "Total parts: " + Calculations.totalParts;
             totalPartsCostLabel.Text = "Total parts cost: " + Calculations.totalPartsCost + " €";
 
             double toolboxPrice = 0;
-            double toolboxWeight = 0;
-            double.TryParse(toolboxWeightTextBox.Text, out toolboxWeight);
+            double toolboxWeight = Calculations.toolboxWeight;
 
             switch (StainlessSteelToolbox)
             {
@@ -638,7 +645,7 @@ namespace Janitor_V1
                     break;
             }
 
-
+            toolboxWeightTextBox.Text = toolboxWeight.ToString();
             toolboxPriceLabel.Text = "Toolbox price: " + toolboxPrice + " €/kg";
             toolboxTotalPriceLabel.Text = "Toolbox price: " + (toolboxPrice * toolboxWeight) + " €";
 
@@ -708,8 +715,7 @@ namespace Janitor_V1
 
         private void OpenItemDetailedView(Node item, bool showControls = false)
         {
-            var detailsForm = new DetailsForm(item, this.PartsData, () => UpdateWindow(), showControls);
-            //detailsForm.Data = item;
+            var detailsForm = new DetailsForm(this.WorkingDirectory, item, this.PartsData, () => UpdateWindow(), showControls);
             detailsForm.Show();
         }
 
@@ -734,23 +740,10 @@ namespace Janitor_V1
             this.treeListView3.DefaultRenderer = new HighlightTextRenderer(filter);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            var checkedItems = treeListView1.CheckedObjects;
-
-            foreach (Node item in checkedItems)
-            {
-                MessageBox.Show(item.GetFileLocation() + "\n" + item.GetReferencedConfiguration());
-            }
-        }
-
         private void pricesButton_Click(object sender, EventArgs e)
         {
-            var pricesForm = new PricesForm();
+            var pricesForm = new PricesForm(this.WorkingDirectory);
             pricesForm.ShowDialog();
-
-            //this.prices.Get();
         }
 
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -814,7 +807,6 @@ namespace Janitor_V1
                 {
                     Solidworks_control_tools.Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
-                Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
             }
         }
 
@@ -851,13 +843,13 @@ namespace Janitor_V1
                 switch ((sender as TreeListView).Name)
                 {
                     case "treeListView1":
-                        this.pictureBox1.BackgroundImage = selected.GetBigImage();
+                        this.pictureBox1.BackgroundImage = selected.GetBigImage(this.WorkingDirectory);
                         break;
                     case "treeListView2":
-                        this.pictureBox2.BackgroundImage = selected.GetBigImage();
+                        this.pictureBox2.BackgroundImage = selected.GetBigImage(this.WorkingDirectory);
                         break;
                     case "treeListView3":
-                        this.pictureBox3.BackgroundImage = selected.GetBigImage();
+                        this.pictureBox3.BackgroundImage = selected.GetBigImage(this.WorkingDirectory);
                         break;
                     default:
                         break;
@@ -882,6 +874,23 @@ namespace Janitor_V1
                     break;
             }
             
+        }
+
+        private void takePicture_Click(object sender, EventArgs e)
+        {
+            var checkedItems = treeListView1.CheckedObjects;
+
+            foreach (Node item in checkedItems)
+            {
+                if (item.ComponentType == NodeType.Assembly)
+                {
+                    item.Assembly.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
+                }
+                else if (item.ComponentType == NodeType.Part)
+                {
+                    item.Part.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(item.swModel, item.GetComponentName());
+                }
+            }
         }
     }
 }

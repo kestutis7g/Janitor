@@ -414,7 +414,7 @@ namespace Janitor_V1
             NodeTraversal nodeTraversal = new NodeTraversal();
             nodeTraversal.swApp = (SldWorks)iSwApp;
             nodeTraversal.AssemblingoNariuSurinkimas();
-            this.mainForm = new MainForm((SldWorks)iSwApp);
+            this.mainForm = new MainForm((SldWorks)iSwApp, "C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\");
             //Application.Run(this.mainForm);
             this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly);
             this.mainForm.Show();

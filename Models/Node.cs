@@ -110,31 +110,43 @@ namespace Janitor_V1.Models
             }
             return "Unknown";
         }
-        public Image GetSmallImage()
+        public Image GetSmallImage(string workingDirectory)
         {
-            return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-small.jpg");
-
-            if (this.ComponentType == NodeType.Part)
+            if (this.ComponentType == NodeType.Part && !string.IsNullOrEmpty(Part.ImageLocation))
             {
-                return Part.Image;
+                return Image.FromFile(Part.ImageLocation);
             }
-            else if (this.ComponentType == NodeType.Assembly)
+            else if (this.ComponentType == NodeType.Assembly && !string.IsNullOrEmpty(Assembly.ImageLocation))
             {
-                return Assembly.Image;
+                return Image.FromFile(Assembly.ImageLocation);
             }
+            return Image.FromFile(workingDirectory + "Assets\\placeholder-small.jpg");
+            //return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-small.jpg");
         }
-        public Image GetBigImage()
+        public Image GetBigImage(string workingDirectory)
         {
-            return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-big.jpg");
 
+            if (this.ComponentType == NodeType.Part && !string.IsNullOrEmpty(Part.ImageLocation))
+            {
+                return Image.FromFile(Part.ImageLocation);
+            }
+            else if (this.ComponentType == NodeType.Assembly && !string.IsNullOrEmpty(Assembly.ImageLocation))
+            {
+                return Image.FromFile(Assembly.ImageLocation);
+            }
+            return Image.FromFile(workingDirectory + "Assets\\placeholder-big.jpg");
+        }
+        public string GetImageLocation()
+        {
             if (this.ComponentType == NodeType.Part)
             {
-                return Part.Image;
+                return Part.ImageLocation;
             }
             else if (this.ComponentType == NodeType.Assembly)
             {
-                return Assembly.Image;
+                return Assembly.ImageLocation;
             }
+            return "Unknown";
         }
 
 
