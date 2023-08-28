@@ -146,23 +146,38 @@ namespace Janitor_V1
 
         private void FillManufacturingTab()
         {
-            this.materialWeightTextBox.Text = 
+            this.materialWeightTextBox.Text =
                 Data.Part.Weight.ToString();
 
-            this.programmingCostTextBox.Text = 
-                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Programavimo trukme_val"];
+            this.programmingCostTextBox.Text =
+                Data.Part.OtherPart.ProgrammingCost.ToString();
 
-            this.programmingDurationTextBox.Text = 
-                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Pagaminimo trukme_min"];
+            this.programmingDurationTextBox.Text =
+                Data.Part.OtherPart.ProgrammingDuration.ToString();
 
-            this.materialCostTextBox.Text = 
-                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Zaliavos kaina"];
+            this.materialCostTextBox.Text =
+                Data.Part.OtherPart.ManufacturingCost.ToString();
 
-            this.amountOfThisPartTextBox.Text = 
-                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Detaliu skaicius"];
+            this.amountOfThisPartTextBox.Text =
+                Data.Part.OtherPart.AmountOfThisPart.ToString();
 
             this.manufacturingCostTextBox.Text =
-                Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Gamybos valandos kaina_EUR"];
+                Data.Part.OtherPart.ManufacturingCost.ToString();
+
+            //this.programmingCostTextBox.Text =
+            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Programavimo trukme_val"];
+
+            //this.programmingDurationTextBox.Text =
+            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Pagaminimo trukme_min"];
+
+            //this.materialCostTextBox.Text =
+            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Zaliavos kaina"];
+
+            //this.amountOfThisPartTextBox.Text =
+            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Detaliu skaicius"];
+
+            //this.manufacturingCostTextBox.Text =
+            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Gamybos valandos kaina_EUR"];
 
 
             var calculatedPartPrice = ((Data.Part.Weight * Data.Part.OtherPart.MaterialCost) + 

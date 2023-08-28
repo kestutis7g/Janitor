@@ -182,6 +182,24 @@ namespace Janitor_V1
                 else
                 {
                     node.Part.PartType = PartType.Other;
+
+                    node.Part.OtherPart.ProgrammingDuration = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Programavimo trukme_val", CustPropMgr);
+
+                    node.Part.OtherPart.SinglePieceManufacturingDuration = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Pagaminimo trukme_min", CustPropMgr);
+
+                    node.Part.OtherPart.MaterialCost = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Zaliavos kaina", CustPropMgr);
+
+                    node.Part.OtherPart.AmountOfThisPart = ReadPropertiesFromSolidworks_intOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Detaliu skaicius");
+
+                    node.Part.OtherPart.ManufacturingCost = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Gamybos valandos kaina_EUR", CustPropMgr);
+
+
+
                 }
 
                 //MessageBox.Show("Komponento " + node.GetComponentName().ToString() + "Toolbox tipas:" + IsToolboxComponent.ToString());
