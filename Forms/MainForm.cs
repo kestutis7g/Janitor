@@ -17,6 +17,7 @@ namespace Janitor_V1
     public partial class MainForm : Form
     {
         private string WorkingDirectory { get; set; }
+        private Device Device { get; set; }
 
         private List<Node> Data;
         private List<Node> PartsData;
@@ -47,6 +48,7 @@ namespace Janitor_V1
             this.treeListView3.Size = new Size(this.splitContainer3.Panel1.Width, this.splitContainer3.Panel1.Height - this.seachTextBox3.Size.Height);
 
             this.WorkingDirectory = workingDirectory;
+            this.Device = new Device();
             this.Prices = new Prices(this.WorkingDirectory);
             this.Calculations = new Calculations();
             this.SwApp = swApp;
@@ -615,15 +617,20 @@ namespace Janitor_V1
             double.TryParse(individualComponentsAssemblyTextBox.Text, out individualComponentsAssemblyDuration);
             double.TryParse(assemblyToParentTextBox.Text, out assemblyToParentDuration);
 
-            double combinedAssemblyDuration = Calculations.rootChildNodeAssemblyDuration + individualComponentsAssemblyDuration + assemblyToParentDuration;
-            double assemblyPrice = this.Prices.GetById(3).Value;
-            double totalAssemblyCost = assemblyPrice * combinedAssemblyDuration;
+            this.Device.IndividualComponentsAssembly = individualComponentsAssemblyDuration;
+            this.Device.AssemblyToParentDuration = assemblyToParentDuration;
+            this.Device.ChildNodeAssemblyDuration = Calculations.rootChildNodeAssemblyDuration;
 
-            rootChildNodeAssemblyTime.Text     = "Child node assembly time: " + Calculations.rootChildNodeAssemblyDuration + "h";
-            combinedAssemblyDurationLabel.Text = "Combined assembly duration: " + combinedAssemblyDuration + "h";
-            assemblyCostLabel.Text             = "Assembly cost: " + assemblyPrice + " €/h";
-            totalAssemblyCostLabel.Text        = "Total assembly cost: " + totalAssemblyCost + " €";
-            totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + totalAssemblyCost + " €";
+            this.Device.TotalAssemblyDuration = this.Device.ChildNodeAssemblyDuration + this.Device.IndividualComponentsAssembly + this.Device.AssemblyToParentDuration;
+            this.Device.AssemblyCost = this.Prices.GetById(3).Value;
+            this.Device.AssemblyTotalCost = this.Device.AssemblyCost * this.Device.TotalAssemblyDuration;
+
+
+            rootChildNodeAssemblyTime.Text     = "Child node assembly time: " + this.Device.ChildNodeAssemblyDuration + "h";
+            combinedAssemblyDurationLabel.Text = "Combined assembly duration: " + this.Device.TotalAssemblyDuration + "h";
+            assemblyCostLabel.Text             = "Assembly cost: " + this.Device.AssemblyCost + " €/h";
+            totalAssemblyCostLabel.Text        = "Total assembly cost: " + this.Device.AssemblyTotalCost + " €";
+            totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + this.Device.AssemblyTotalCost + " €";
 
             //PARTS TAB
             totalPartsLabel.Text     = "Total parts: " + Calculations.totalParts;
@@ -653,7 +660,7 @@ namespace Janitor_V1
             totalPartsTabCostLabel.Text        = "Total parts and toolbox cost: " + totalPartsTabCost + " €";
             totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: " + totalPartsTabCost + " €";
 
-            finalPriceLabel.Text = "Final price: " + (totalPartsTabCost + totalAssemblyCost) + " €";
+            finalPriceLabel.Text = "Final price: " + (totalPartsTabCost + this.Device.AssemblyTotalCost) + " €";
         }
 
         private void AddTree()
@@ -827,10 +834,15 @@ namespace Janitor_V1
             treeListView2.Refresh();
             treeListView3.Refresh();
         }
+        public void UpdateDevice()
+        {
+            this.individualComponentsAssemblyTextBox.Text = this.Device.IndividualComponentsAssembly.ToString();
+            this.assemblyToParentTextBox.Text = this.Device.AssemblyToParentDuration.ToString();
+        }
 
         private void deviceButton_Click(object sender, EventArgs e)
         {
-            var deviceForm = new DeviceForm();
+            var deviceForm = new DeviceForm(this.WorkingDirectory, this.Device, this.Data, this.Calculations, () => UpdateDevice());
             deviceForm.ShowDialog();
         }
 

@@ -40,6 +40,18 @@ namespace Janitor_V1.Models
         [Category("Assembly duration"),
         Description("Total assembly duration of this node")]
         public double? CombinedAssemblyTime { get; set; }
+        
+        [Category("Welding"),
+        Description("Assembly welding duration")]
+        public double? WeldingDuration { get; set; }
+        
+        [Category("Other cost"),
+        Description("Assembly other cost")]
+        public double? OtherCosts { get; set; }
+        
+        [Category("Other cost"),
+        Description("Assembly other cost description")]
+        public string OtherCostsDescription { get; set; }
 
         [Category("Other"),
         Description("Location of the file")]
@@ -60,6 +72,8 @@ namespace Janitor_V1.Models
             this.IndividualComponentAssemblyDuration = 0;
             this.AssemblyToParentNodeDuration = 0;
             this.CombinedAssemblyTime = 0;
+            this.WeldingDuration = 0;
+            this.OtherCosts = 0;
         }
     }
 }

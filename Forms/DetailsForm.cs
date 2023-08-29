@@ -199,6 +199,9 @@ namespace Janitor_V1
         private void FillWeldingTab()
         {
             //uzpildyti virinimo duomenis
+            var time = new Time((double)this.Data.Assembly.WeldingDuration);
+            this.plannedWeldingDurationHourTextBox.Text = time.Hour.ToString();
+            this.plannedWeldingDurationMinuteTextBox.Text = time.Minute.ToString();
         }
         private void FillAssemblyTab()
         {
@@ -221,6 +224,8 @@ namespace Janitor_V1
         private void FillOtherCostsTab()
         {
             //uzpildyti kitu kastu duomenis
+            this.otherCostsTextBox.Text = this.Data.Assembly.OtherCosts.ToString();
+            this.otherCostsDescriptionTextBox.Text = this.Data.Assembly.OtherCostsDescription;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -269,6 +274,18 @@ namespace Janitor_V1
             time = new Time(this.combinedAssemblyTimeHourTextBox.Text,
                                 this.combinedAssemblyTimeMinuteTextBox.Text);
             this.Data.Assembly.CombinedAssemblyTime = time.HourTime;
+            
+            time = new Time(this.plannedWeldingDurationHourTextBox.Text,
+                                this.plannedWeldingDurationMinuteTextBox.Text);
+            this.Data.Assembly.WeldingDuration = time.HourTime;
+
+            double cost = 0;
+            if(!double.TryParse(this.otherCostsTextBox.Text, out cost))
+            {
+                MessageBox.Show("Nepavyko įrasyti kitu kastu kainos!");
+            }
+            this.Data.Assembly.OtherCosts = cost;
+            this.Data.Assembly.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
         }
         private void ReloadAssembly()
         {
