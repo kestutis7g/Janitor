@@ -183,6 +183,8 @@ namespace Janitor_V1
                 {
                     node.Part.PartType = PartType.Other;
 
+
+
                     node.Part.OtherPart.ProgrammingDuration = ReadPropertiesFromSolidworks_doubleOut(
                         swModel, swChildComp.ReferencedConfiguration, "Programavimo trukme_val", CustPropMgr);
 
@@ -197,6 +199,33 @@ namespace Janitor_V1
 
                     node.Part.OtherPart.ManufacturingCost = ReadPropertiesFromSolidworks_doubleOut(
                         swModel, swChildComp.ReferencedConfiguration, "Gamybos valandos kaina_EUR", CustPropMgr);
+
+                    node.Part.OtherPart.Description = ReadPropertiesFromSolidworks_stringOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Description");
+
+                    node.Part.OtherPart.Supplier = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Tiekejas", CustPropMgr);
+
+                    node.Part.OtherPart.ComponentArticle = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Komponento artikulas", CustPropMgr);
+
+                    node.Part.OtherPart.TechnicalParameters = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Techniniai parametrai", CustPropMgr);
+
+                    node.Part.OtherPart.PurchaseCost = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Pirkimo kaina", CustPropMgr);
+                        
+                    node.Part.OtherPart.MarkupCostPurchase = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Antkainis", CustPropMgr);
+                    
+                    node.Part.OtherPart.StripMaterialCost = ReadPropertiesFromSolidworks_doubleOut(
+                        swModel, swChildComp.ReferencedConfiguration, "Juostos medziagos 1m2 kaina", CustPropMgr);
+
+                    
+                    var a = Solidworks_control_tools.Solidworks_control_tools.DetalesZaliavosKaina(swApp, node.GetFileLocation(), swModel);
+                    int b = 0;
+
+
 
 
 

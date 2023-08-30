@@ -54,7 +54,12 @@ namespace Janitor_V1
                 if(Data.Part.PartType == PartType.Other)
                 {
                     RemoveTabs("otherpart");
-                    ResizeTabControl("otherpart");
+                    ResizeTabControl("part");
+                }
+                else if (Data.Part.PartType != PartType.Other)
+                {
+                    RemoveTabs("part");
+                    ResizeTabControl("part");
                 }
 
                 ReloadPart();
@@ -147,7 +152,7 @@ namespace Janitor_V1
         private void FillManufacturingTab()
         {
             this.materialWeightTextBox.Text =
-                Data.Part.Weight.ToString();
+                Data.Part.OtherPart.MaterialWeight.ToString();
 
             this.programmingCostTextBox.Text =
                 Data.Part.OtherPart.ProgrammingCost.ToString();
@@ -189,11 +194,28 @@ namespace Janitor_V1
         }
         private void FillStripsTab()
         {
-            //uzpildyti juostos duomenis
+            this.stripMaterialCostTextBox.Text =
+                Data.Part.OtherPart.StripMaterialCost.ToString();
         }
         private void FillPurchasesTab()
         {
-            //uzpildyti pirktu daliu duomenis
+            this.purchaseDescriptionTextBox.Text =
+                Data.Part.OtherPart.Description.ToString();
+
+            this.supplierTextBox.Text =
+                Data.Part.OtherPart.Supplier.ToString();
+
+            this.componentArticleTextBox.Text =
+                Data.Part.OtherPart.ComponentArticle.ToString();
+
+            this.technicalParametersTextBox.Text =
+                Data.Part.OtherPart.TechnicalParameters.ToString();
+
+            this.purchaseCostTextBox.Text =
+                Data.Part.OtherPart.PurchaseCost.ToString();
+            
+            this.markupCostPurchaseTextBox.Text =
+                Data.Part.OtherPart.MarkupCostPurchase.ToString();
         }
 
         private void FillWeldingTab()
@@ -246,9 +268,12 @@ namespace Janitor_V1
         private void ReloadPart()
         {
             propertyGrid1.SelectedObject = Data.Part;
-            FillManufacturingTab();
-            FillStripsTab();
-            FillPurchasesTab();
+            if(this.Data.Part.PartType == PartType.Other)
+            {
+                FillManufacturingTab();
+                FillStripsTab();
+                FillPurchasesTab();
+            }
             UpdateMainForm();
         }
 

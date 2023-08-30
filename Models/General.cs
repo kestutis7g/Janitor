@@ -40,7 +40,6 @@ namespace Janitor_V1.Models
                 this.Minute = m;
                 this.HourTime = Math.Round((h + ((double)m / 60)), 2, MidpointRounding.AwayFromZero);
             }
-            int a = 0;
         }
     }
 }

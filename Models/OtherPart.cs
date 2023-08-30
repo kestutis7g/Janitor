@@ -6,9 +6,10 @@ namespace Janitor_V1.Models
 {
     public class OtherPart
     {
-        [Category("Manufacturing"),
+        [Category("General"),
         Description("Description")]
         public string Description { get; set; }
+
 
         [Category("Manufacturing"),
         Description("MaterialWeight")]
@@ -65,10 +66,6 @@ namespace Janitor_V1.Models
         public double MarkupForStrip { get; set; }
 
         //###########################################################
-
-        [Category("Purchase"),
-        Description("PurchaseDescription")]
-        public string PurchaseDescription { get; set; }
 
         [Category("Purchase"),
         Description("StripMaterialCost")]
