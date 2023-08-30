@@ -1,19 +1,15 @@
 ﻿using Janitor_V1.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Janitor_V1
 {
     public partial class PricesForm : Form
     {
-        Prices Prices { get; set; }
+        private Prices Prices { get; set; }
         public PricesForm(string workingDirectory)
         {
             InitializeComponent();

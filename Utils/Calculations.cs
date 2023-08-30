@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Janitor_V1.Utils
 {
-    internal class Calculations
+    public class Calculations
     {
         private List<Node> Data { get; set; }
         private List<Node> PartsData { get; set; }
@@ -29,6 +29,27 @@ namespace Janitor_V1.Utils
             refreshTotalPartsCost();
             refreshToolboxWeight();
         }
+
+        public double CountTotalWeldingDuration(List<Node> data)
+        {
+            double totalWeldingDuration = 0;
+            foreach(Node node in data) 
+            {
+                if(node.ComponentType == NodeType.Part)
+                {
+                    continue;
+                }
+
+                totalWeldingDuration += (double)node.Assembly.WeldingDuration;
+                if (node.Children.Count > 0)
+                {
+                    totalWeldingDuration += CountTotalWeldingDuration(node.Children);
+                }
+            }
+
+            return totalWeldingDuration;
+        }
+
         private void refreshRootChildNodeAssemblyDuration()
         {
             double assemblyDuration = 0;

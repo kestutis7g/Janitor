@@ -77,7 +77,7 @@ namespace Janitor_V1
             this.purchaseDescriptionLabel = new System.Windows.Forms.Label();
             this.weldingTabPage = new System.Windows.Forms.TabPage();
             this.realWeldingDurationTextBox = new System.Windows.Forms.TextBox();
-            this.plannedWeldingDurationTextBox = new System.Windows.Forms.TextBox();
+            this.plannedWeldingDurationHourTextBox = new System.Windows.Forms.TextBox();
             this.realWeldingDurationLabel = new System.Windows.Forms.Label();
             this.plannedWeldingDurationLabel = new System.Windows.Forms.Label();
             this.assemblyTabPage = new System.Windows.Forms.TabPage();
@@ -114,6 +114,10 @@ namespace Janitor_V1
             this.saveAssemblyButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.plannedWeldingDurationMinuteTextBox = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.hoursLabel1 = new System.Windows.Forms.Label();
+            this.minutesLabel1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.manufacturingTabPage.SuspendLayout();
             this.stripsTabPage.SuspendLayout();
@@ -137,7 +141,7 @@ namespace Janitor_V1
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(802, 569);
+            this.propertyGrid1.Size = new System.Drawing.Size(802, 568);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
@@ -177,7 +181,7 @@ namespace Janitor_V1
             this.manufacturingTabPage.Controls.Add(this.partDescriptionTextBox);
             this.manufacturingTabPage.Location = new System.Drawing.Point(4, 29);
             this.manufacturingTabPage.Name = "manufacturingTabPage";
-            this.manufacturingTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.manufacturingTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.manufacturingTabPage.Size = new System.Drawing.Size(808, 574);
             this.manufacturingTabPage.TabIndex = 0;
             this.manufacturingTabPage.Text = "Manufacturing";
@@ -330,7 +334,7 @@ namespace Janitor_V1
             this.stripsTabPage.Controls.Add(this.stripTypeLabel);
             this.stripsTabPage.Location = new System.Drawing.Point(4, 29);
             this.stripsTabPage.Name = "stripsTabPage";
-            this.stripsTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.stripsTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.stripsTabPage.Size = new System.Drawing.Size(808, 574);
             this.stripsTabPage.TabIndex = 2;
             this.stripsTabPage.Text = "Strips";
@@ -558,8 +562,12 @@ namespace Janitor_V1
             // 
             // weldingTabPage
             // 
+            this.weldingTabPage.Controls.Add(this.minutesLabel1);
+            this.weldingTabPage.Controls.Add(this.hoursLabel1);
+            this.weldingTabPage.Controls.Add(this.textBox2);
+            this.weldingTabPage.Controls.Add(this.plannedWeldingDurationMinuteTextBox);
             this.weldingTabPage.Controls.Add(this.realWeldingDurationTextBox);
-            this.weldingTabPage.Controls.Add(this.plannedWeldingDurationTextBox);
+            this.weldingTabPage.Controls.Add(this.plannedWeldingDurationHourTextBox);
             this.weldingTabPage.Controls.Add(this.realWeldingDurationLabel);
             this.weldingTabPage.Controls.Add(this.plannedWeldingDurationLabel);
             this.weldingTabPage.Location = new System.Drawing.Point(4, 29);
@@ -571,17 +579,19 @@ namespace Janitor_V1
             // 
             // realWeldingDurationTextBox
             // 
-            this.realWeldingDurationTextBox.Location = new System.Drawing.Point(220, 98);
+            this.realWeldingDurationTextBox.Location = new System.Drawing.Point(236, 99);
             this.realWeldingDurationTextBox.Name = "realWeldingDurationTextBox";
-            this.realWeldingDurationTextBox.Size = new System.Drawing.Size(120, 26);
+            this.realWeldingDurationTextBox.Size = new System.Drawing.Size(100, 26);
             this.realWeldingDurationTextBox.TabIndex = 5;
+            this.realWeldingDurationTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
             // 
-            // plannedWeldingDurationTextBox
+            // plannedWeldingDurationHourTextBox
             // 
-            this.plannedWeldingDurationTextBox.Location = new System.Drawing.Point(220, 42);
-            this.plannedWeldingDurationTextBox.Name = "plannedWeldingDurationTextBox";
-            this.plannedWeldingDurationTextBox.Size = new System.Drawing.Size(120, 26);
-            this.plannedWeldingDurationTextBox.TabIndex = 4;
+            this.plannedWeldingDurationHourTextBox.Location = new System.Drawing.Point(236, 42);
+            this.plannedWeldingDurationHourTextBox.Name = "plannedWeldingDurationHourTextBox";
+            this.plannedWeldingDurationHourTextBox.Size = new System.Drawing.Size(100, 26);
+            this.plannedWeldingDurationHourTextBox.TabIndex = 4;
+            this.plannedWeldingDurationHourTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
             // 
             // realWeldingDurationLabel
             // 
@@ -789,13 +799,16 @@ namespace Janitor_V1
             this.otherCostsTextBox.Name = "otherCostsTextBox";
             this.otherCostsTextBox.Size = new System.Drawing.Size(100, 26);
             this.otherCostsTextBox.TabIndex = 5;
+            this.otherCostsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numbersOnlyTextBox_KeyPress);
             // 
             // otherCostsDescriptionTextBox
             // 
+            this.otherCostsDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.otherCostsDescriptionTextBox.Location = new System.Drawing.Point(24, 91);
             this.otherCostsDescriptionTextBox.Multiline = true;
             this.otherCostsDescriptionTextBox.Name = "otherCostsDescriptionTextBox";
-            this.otherCostsDescriptionTextBox.Size = new System.Drawing.Size(902, 129);
+            this.otherCostsDescriptionTextBox.Size = new System.Drawing.Size(762, 129);
             this.otherCostsDescriptionTextBox.TabIndex = 2;
             // 
             // otherCostsDescriptionLabel
@@ -821,8 +834,8 @@ namespace Janitor_V1
             this.propertiesTabPage.Controls.Add(this.propertyGrid1);
             this.propertiesTabPage.Location = new System.Drawing.Point(4, 29);
             this.propertiesTabPage.Name = "propertiesTabPage";
-            this.propertiesTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.propertiesTabPage.Size = new System.Drawing.Size(808, 575);
+            this.propertiesTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.propertiesTabPage.Size = new System.Drawing.Size(808, 574);
             this.propertiesTabPage.TabIndex = 1;
             this.propertiesTabPage.Text = "Properties";
             this.propertiesTabPage.UseVisualStyleBackColor = true;
@@ -942,6 +955,40 @@ namespace Janitor_V1
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // plannedWeldingDurationMinuteTextBox
+            // 
+            this.plannedWeldingDurationMinuteTextBox.Location = new System.Drawing.Point(372, 42);
+            this.plannedWeldingDurationMinuteTextBox.Name = "plannedWeldingDurationMinuteTextBox";
+            this.plannedWeldingDurationMinuteTextBox.Size = new System.Drawing.Size(100, 26);
+            this.plannedWeldingDurationMinuteTextBox.TabIndex = 6;
+            this.plannedWeldingDurationMinuteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(372, 99);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 26);
+            this.textBox2.TabIndex = 7;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.integersOnlyTextBox_KeyPress);
+            // 
+            // hoursLabel1
+            // 
+            this.hoursLabel1.AutoSize = true;
+            this.hoursLabel1.Location = new System.Drawing.Point(260, 19);
+            this.hoursLabel1.Name = "hoursLabel1";
+            this.hoursLabel1.Size = new System.Drawing.Size(52, 20);
+            this.hoursLabel1.TabIndex = 16;
+            this.hoursLabel1.Text = "Hours";
+            // 
+            // minutesLabel1
+            // 
+            this.minutesLabel1.AutoSize = true;
+            this.minutesLabel1.Location = new System.Drawing.Point(391, 19);
+            this.minutesLabel1.Name = "minutesLabel1";
+            this.minutesLabel1.Size = new System.Drawing.Size(65, 20);
+            this.minutesLabel1.TabIndex = 17;
+            this.minutesLabel1.Text = "Minutes";
+            // 
             // DetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1021,7 +1068,7 @@ namespace Janitor_V1
         private System.Windows.Forms.Panel partDetailsPanel;
         private System.Windows.Forms.Panel assemblyDetailsPanel;
         private TextBox realWeldingDurationTextBox;
-        private TextBox plannedWeldingDurationTextBox;
+        private TextBox plannedWeldingDurationHourTextBox;
         private System.Windows.Forms.Label realWeldingDurationLabel;
         private System.Windows.Forms.Label plannedWeldingDurationLabel;
         private System.Windows.Forms.Label otherCostsLabel;
@@ -1067,5 +1114,9 @@ namespace Janitor_V1
         private Button saveAssemblyButton;
         private SplitContainer splitContainer1;
         private PictureBox pictureBox1;
+        private TextBox textBox2;
+        private TextBox plannedWeldingDurationMinuteTextBox;
+        private Label minutesLabel1;
+        private Label hoursLabel1;
     }
 }
