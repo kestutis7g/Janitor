@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Janitor_V1.Models;
-using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
-namespace Janitor_V1.Solidworks_control_tools
+namespace Janitor_V1.Utils
 {
     public static class Solidworks_control_tools
     {
@@ -97,7 +95,6 @@ namespace Janitor_V1.Solidworks_control_tools
             if (swPart != null)
             {
                 double[] vBBox;
-                var kazkas = swModel.GetPathName();
                 PartDoc swPartas;
                 swPartas = (PartDoc)swModel;
 

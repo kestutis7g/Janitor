@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Janitor_V1.Forms;
 using Janitor_V1.Models;
-using Janitor_V1.Solidworks_control_tools;
 using Janitor_V1.Utils;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
@@ -184,7 +183,6 @@ namespace Janitor_V1
             colSheetThickness.MinimumWidth = 100;
             colSheetThickness.IsVisible = false;
 
-
             // add the columns to the tree
             this.treeListView1.Columns.Add(colItemNumber);
             this.treeListView1.Columns.Add(colImage);
@@ -216,7 +214,6 @@ namespace Janitor_V1
             this.treeListView1.AllColumns.Add(colCoverage);
             this.treeListView1.AllColumns.Add(colPrice);
             this.treeListView1.AllColumns.Add(colSheetThickness);
-
 
             // set the tree roots
             this.treeListView1.Roots = Data;
@@ -335,7 +332,6 @@ namespace Janitor_V1
             this.treeListView2.CanExpandGetter = x => (x as Node).Children.Count > 0;
             // set the delegate that the tree uses to know the children of a node
             this.treeListView2.ChildrenGetter = x => (x as Node).Children;
-
 
             // create the tree columns and set the delegates to print the desired object proerty
             var colItemNumber = new OLVColumn("ItemNumber", "ItemNumber");
@@ -663,13 +659,6 @@ namespace Janitor_V1
             finalPriceLabel.Text = "Final price: " + (totalPartsTabCost + this.Device.AssemblyTotalCost) + " €";
         }
 
-        private void AddTree()
-        {
-            //treeListView1 = new TreeListView();
-            //treeListView1.Dock = DockStyle.Fill;
-            //this.Controls.Add(treeListView1);
-        }
-
         /// <summary>
         /// Open detailed view for selected items
         /// </summary>
@@ -704,7 +693,6 @@ namespace Janitor_V1
             var toolStripMenuItem = (ToolStripMenuItem)sender;
             if (toolStripMenuItem.Name == "Open")
             {
-                
                 if (tabControl1.SelectedTab.Name == "tabPageGeneral")
                 {
                     treeListView_ItemActivate(this.treeListView1, e);
@@ -808,11 +796,11 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Part) 
                 {
-                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(this.SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.OpenItem(this.SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
                 }
                 else if (item.ComponentType == NodeType.Assembly)
                 {
-                    Solidworks_control_tools.Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
                 }
             }
         }
@@ -896,11 +884,11 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetComponentName());
+                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetComponentName());
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
-                    item.Part.ImageLocation = Janitor_V1.Solidworks_control_tools.Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetComponentName());
+                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetComponentName());
                 }
             }
         }

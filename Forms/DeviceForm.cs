@@ -84,6 +84,8 @@ namespace Janitor_V1.Forms
 
             this.assemblyToParentDurationTextBox.Text = this.Device.AssemblyToParentDuration.ToString();
 
+            this.childNodeAssemblyDurationTextBox.Text = this.Device.ChildNodeAssemblyDuration.ToString();
+
             this.totalAssemblyDurationTextBox.Text = this.Device.TotalAssemblyDuration.ToString();
 
             this.assemblyTotalCostTextBox.Text = this.Device.AssemblyTotalCost.ToString();
@@ -103,13 +105,12 @@ namespace Janitor_V1.Forms
 
             //footer
             this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.DesigningTotalPrice +
-                                         this.Device.WeldingTotalPrice +
-                                         this.Device.WorkManagementTotalCost +
-                                         this.Device.SupplyTotalCost +
+                                        (this.Device.WeldingTotalPrice +
                                          this.Device.AssemblyTotalCost +
-                                         this.Device.PackagingTotalCost);
-
+                                         this.Device.PackagingTotalCost) +
+                                     this.Device.DesigningTotalPrice +
+                                     this.Device.WorkManagementTotalCost +
+                                     this.Device.SupplyTotalCost;
 
             this.amountOfDevicesTextBox.Text = this.Device.AmountOfDevices.ToString();
             this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
@@ -217,13 +218,12 @@ namespace Janitor_V1.Forms
             }
 
             this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.DesigningTotalPrice +
-                                         this.Device.WeldingTotalPrice +
-                                         this.Device.WorkManagementTotalCost +
-                                         this.Device.SupplyTotalCost +
+                                        (this.Device.WeldingTotalPrice +
                                          this.Device.AssemblyTotalCost +
-                                         this.Device.PackagingTotalCost);
-
+                                         this.Device.PackagingTotalCost) +
+                                     this.Device.DesigningTotalPrice +
+                                     this.Device.WorkManagementTotalCost +
+                                     this.Device.SupplyTotalCost;
 
             this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
 

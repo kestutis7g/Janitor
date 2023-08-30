@@ -1,13 +1,11 @@
-﻿using Janitor_V1.Models;
-using Microsoft.Office.Interop.Excel;
-using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Remoting.Lifetime;
 using System.Windows.Forms;
-using static BrightIdeasSoftware.TreeListView;
+using Janitor_V1.Models;
+using Janitor_V1.Utils;
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 
 namespace Janitor_V1
 {
@@ -102,12 +100,8 @@ namespace Janitor_V1
             }
             int swModelType = swModel.GetType();
             node.swModel = swModel;
-            
-            //CustPropMgr = swModel.Extension.CustomPropertyManager[""];
           
             CustomPropertyManager CustPropMgr = swModel.Extension.get_CustomPropertyManager(swChildComp.ReferencedConfiguration);
-
-
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
@@ -116,7 +110,6 @@ namespace Janitor_V1
                 node.Part.ComponentName = swChildComp.Name2;
                 node.Part.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
                 node.Part.FileLocation = swChildComp.GetPathName();
-                
 
                 node.Part.SurfaceArea = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Pavirsiaus plotas_m2", CustPropMgr);
@@ -145,8 +138,6 @@ namespace Janitor_V1
                 node.Part.SheetThickness = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Skardos storis_mm", CustPropMgr);
 
-                string temp = (string)swModel.CustomInfo2[swChildComp.ReferencedConfiguration, "Skardos storis_mm"];
-
                 node.Part.Bent = ReadPropertiesFromSolidworks_boolOut(
                     swModel, swChildComp.ReferencedConfiguration, "Lankstymas");
 
@@ -174,16 +165,14 @@ namespace Janitor_V1
                 node.Part.BendingCost = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Skardos sulenkimo kaina_Eur uz vnt", CustPropMgr);
 
-                if (Solidworks_control_tools.Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
+                if (Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
                 {
                     node.Part.PartType = PartType.Toolbox;
-                    node.Part.Weight = Solidworks_control_tools.Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
+                    node.Part.Weight = Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
                 }
                 else
                 {
                     node.Part.PartType = PartType.Other;
-
-
 
                     node.Part.OtherPart.ProgrammingDuration = ReadPropertiesFromSolidworks_doubleOut(
                         swModel, swChildComp.ReferencedConfiguration, "Programavimo trukme_val", CustPropMgr);
@@ -221,17 +210,9 @@ namespace Janitor_V1
                     node.Part.OtherPart.StripMaterialCost = ReadPropertiesFromSolidworks_doubleOut(
                         swModel, swChildComp.ReferencedConfiguration, "Juostos medziagos 1m2 kaina", CustPropMgr);
 
-                    
-                    var a = Solidworks_control_tools.Solidworks_control_tools.DetalesZaliavosKaina(swApp, node.GetFileLocation(), swModel);
-                    int b = 0;
-
-
-
-
+                    node.Part.OtherPart.MaterialWeight = Math.Round(Solidworks_control_tools.DetalesZaliavosKaina(swApp, node.GetFileLocation(), swModel), 2);
 
                 }
-
-                //MessageBox.Show("Komponento " + node.GetComponentName().ToString() + "Toolbox tipas:" + IsToolboxComponent.ToString());
 
                 return node;
             }
