@@ -37,6 +37,7 @@ namespace Janitor_V1
             this.Device.swModel = swModel;
             this.Device.FileLocation = swModel.GetPathName();
             this.Device.Configuration = swRootComp.Name;
+            ReadDeviceProperties(swModel.Extension.get_CustomPropertyManager(swRootComp));
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
@@ -235,6 +236,18 @@ namespace Janitor_V1
 
                 node.Assembly.CombinedAssemblyTime = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Sumine planuojama mazgo montavimo trukme_val", CustPropMgr);
+                
+                node.Assembly.WeldingDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Planuojama suvirinimo trukme_val", CustPropMgr);
+                
+                node.Assembly.OtherCosts = ReadPropertiesFromSolidworks_doubleOut(
+                    swModel, swChildComp.ReferencedConfiguration, "KITI kastai_EUR", CustPropMgr);
+                    
+                node.Assembly.OtherCostsDescription = ReadPropertiesFromSolidworks_doubleOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Kitu kastu aprasas", CustPropMgr);
+                
+                node.Assembly.ImageLocation = ReadPropertiesFromSolidworks_doubleOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Paveikslelio failas", CustPropMgr);
 
                 return node;
             }
@@ -243,6 +256,85 @@ namespace Janitor_V1
                 MessageBox.Show("Breziniu sita programa neapdoroja");
             }
             return null;
+        }
+
+        private void ReadDeviceProperties(CustomPropertyManager CustPropMgr)
+        {
+            //designing
+            this.Device.PlannedDesigningDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Planuojama projektavimo trukme_val", CustPropMgr);
+
+            this.Device.DesigningCostWithoutVAT = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Projektavimo valandos kaina", CustPropMgr);
+
+            this.Device.DesigningTotalPrice = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "PROJEKTAVIMO kaina vienam irenginiui", CustPropMgr);
+
+            //welding tab
+            this.Device.PlannedWeldingDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Planuojama suvirinimo trukme_val", CustPropMgr);
+
+            this.Device.WeldingCostWithoutVAT = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Virinimo valandos kaina", CustPropMgr);
+
+            this.Device.WeldingTotalPrice = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "SUVIRINIMO kaina", CustPropMgr);
+
+            //assembly and packaging
+            this.Device.TotalWorkManagementDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Darbu organiz trukme visiems ireng_val", CustPropMgr);
+
+            this.Device.WorkManagementCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Darbu organizavimo valandos kain", CustPropMgr);
+
+            this.Device.WorkManagementTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Darbu organizavimo irenginiui kaina", CustPropMgr);
+            //-------------------------
+            this.Device.TotalSupplyDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Tiekimo trukme visiems ireng_val", CustPropMgr);
+
+            this.Device.SupplyCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Tiekimo valandos kaina", CustPropMgr);
+
+            this.Device.SupplyTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Tiekimo irenginiam kaina", CustPropMgr);
+            //-------------------------
+            this.Device.ChildNodeAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Pomazgiu sumontavimo trukme_val", CustPropMgr);
+
+            this.Device.IndividualComponentsAssembly = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Palaidu komponentu sumontavimo trukme_val", CustPropMgr);
+
+            this.Device.AssemblyToParentDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Sumontavimo i kita mazga trukme_val", CustPropMgr);
+
+            this.Device.TotalAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Sumine mazgo planuojama montavimo trukme_val", CustPropMgr);
+
+            this.Device.AssemblyCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Montavimo valandos kaina", CustPropMgr);
+
+            this.Device.AssemblyTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Irenginio sumontavimo kaina", CustPropMgr);
+            //-------------------------
+            this.Device.TotalPackagingDuration = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Pakavimo trukme_val", CustPropMgr);
+
+            this.Device.PackingCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Pakavimo valandos kaina", CustPropMgr);
+
+            this.Device.PackagingMaterialCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Pakavimo medziagu kaina", CustPropMgr);
+
+            this.Device.PackagingTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "Irenginio supakavimo kaina", CustPropMgr);
+            //-------------------------
+            this.Device.AmountOfDevices = ReadPropertiesFromSolidworks_intOut(
+                    this.Device.swModel, this.Device.Configuration, "Uzsakomu irenginiu skaicius", CustPropMgr);
+
+            this.Device.TotalPrice = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "IRENGINIO SUMINE KAINA_EUR", CustPropMgr);
+
         }
 
         public string GetItemNumber(string parentItemNumber, int childIndex)

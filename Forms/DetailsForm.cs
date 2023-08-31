@@ -348,6 +348,12 @@ namespace Janitor_V1
                 "Kitu kastu aprasas", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
                 "Kitu kastu aprasas"] = this.Data.Assembly.OtherCostsDescription;
+            
+            //image
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Paveikslelio failas"] = this.Data.Assembly.ImageLocation;
         }
         private void ReloadAssembly()
         {
