@@ -1,5 +1,6 @@
 ﻿using Janitor_V1.Models;
 using Janitor_V1.Utils;
+using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -271,6 +272,144 @@ namespace Janitor_V1.Forms
         private void DeviceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveDevice();
+        }
+
+        private void saveToSolidworksButton_Click(object sender, EventArgs e)
+        {
+            //design tab
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration, 
+                "Planuojama projektavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration, 
+                "Planuojama projektavimo trukme_val"] = this.Device.PlannedDesigningDuration.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Projektavimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Projektavimo valandos kaina"] = this.Device.DesigningCostWithoutVAT.ToString();
+                
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "PROJEKTAVIMO kaina vienam irenginiui", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "PROJEKTAVIMO kaina vienam irenginiui"] = this.Device.DesigningTotalPrice.ToString();
+            
+            //welding tab
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Planuojama suvirinimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Planuojama suvirinimo trukme_val"] = this.Device.PlannedWeldingDuration.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Virinimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Virinimo valandos kaina"] = this.Device.WeldingCostWithoutVAT.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "SUVIRINIMO kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "SUVIRINIMO kaina"] = this.Device.WeldingTotalPrice.ToString();
+
+            //assembly and packaging
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Darbu organiz trukme visiems ireng_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Darbu organiz trukme visiems ireng_val"] = this.Device.TotalWorkManagementDuration.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Darbu organizavimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Darbu organizavimo valandos kaina"] = this.Device.WorkManagementCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Darbu organizavimo irenginiui kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Darbu organizavimo irenginiui kaina"] = this.Device.WorkManagementTotalCost.ToString();
+            //-------------------------
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Tiekimo trukme visiems ireng_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Tiekimo trukme visiems ireng_val"] = this.Device.TotalSupplyDuration.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Tiekimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Tiekimo valandos kaina"] = this.Device.SupplyCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Tiekimo irenginiam kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Tiekimo irenginiam kaina"] = this.Device.SupplyTotalCost.ToString();
+            //-------------------------
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Pomazgiu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Pomazgiu sumontavimo trukme_val"] = this.Device.ChildNodeAssemblyDuration.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Palaidu komponentu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Palaidu komponentu sumontavimo trukme_val"] = this.Device.IndividualComponentsAssembly.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Sumontavimo i kita mazga trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Sumontavimo i kita mazga trukme_val"] = this.Device.AssemblyToParentDuration.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Sumine mazgo planuojama montavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Sumine mazgo planuojama montavimo trukme_val"] = this.Device.TotalAssemblyDuration.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Montavimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Montavimo valandos kaina"] = this.Device.AssemblyCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Irenginio sumontavimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Irenginio sumontavimo kaina"] = this.Device.AssemblyTotalCost.ToString();
+            //-------------------------
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Pakavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Pakavimo trukme_val"] = this.Device.TotalPackagingDuration.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Pakavimo valandos kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Pakavimo valandos kaina"] = this.Device.PackingCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Pakavimo medziagu kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Pakavimo medziagu kaina"] = this.Device.PackagingMaterialCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Irenginio supakavimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Irenginio supakavimo kaina"] = this.Device.PackagingTotalCost.ToString();
+            //-------------------------
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Uzsakomu irenginiu skaicius", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Uzsakomu irenginiu skaicius"] = this.Device.AmountOfDevices.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "IRENGINIO SUMINE KAINA_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "IRENGINIO SUMINE KAINA_EUR"] = this.Device.TotalPrice.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Kainos suskaiciavimo data", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Kainos suskaiciavimo data"] = DateTime.Now.ToString();
+
+
+
         }
     }
 }

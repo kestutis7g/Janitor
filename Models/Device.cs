@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
 {
     public class Device
     {
+        public ModelDoc2 swModel { get; set; }
+        public string Configuration { get; set; }
+        public string FileLocation { get; set; }
+
+
         public double TotalPrice { get; set; }
         public int AmountOfDevices { get; set; }
 

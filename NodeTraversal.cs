@@ -14,11 +14,13 @@ namespace Janitor_V1
         public SldWorks swApp;
         public List<Node> AssemblingoNariai;
         public List<Node> PartsOnly;
+        public Device Device;
 
         public NodeTraversal()
         {
             AssemblingoNariai = new List<Node>();
             PartsOnly = new List<Node>();
+            Device = new Device();
         }
 
         public void AssemblingoNariuSurinkimas()
@@ -32,11 +34,12 @@ namespace Janitor_V1
             //double StartTime = Timer(); // Start time (use Stopwatch for more precision)
             Debug.Print("File = " + swModel.GetPathName());
 
-           
+            this.Device.swModel = swModel;
+            this.Device.FileLocation = swModel.GetPathName();
+            this.Device.Configuration = swRootComp.Name;
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
-
                 // Resolve all lightweight components
                 swAssy = (AssemblyDoc)swModel;
                 errors = swAssy.ResolveAllLightWeightComponents(true);
@@ -60,9 +63,8 @@ namespace Janitor_V1
         {
             object[] vChildComp = (object[])swComp.GetChildren();
             int numberOfMembers = vChildComp.Length;
-            Debug.WriteLine($"Number of members in the array: {numberOfMembers}");
+            //Debug.WriteLine($"Number of members in the array: {numberOfMembers}");
             
-
             for (int i = 0; i < vChildComp.Length; i++)
             {
                 var childComp = vChildComp[i];
@@ -80,8 +82,6 @@ namespace Janitor_V1
                             if(node.ComponentType == NodeType.Part)
                             {
                                 PartsOnly.Add(node);
-
-
                             }
                             parent.Children.Add(node);
                             TraverseComponent(swChildComp, nLevel + 1, itemNumber, node);
@@ -211,7 +211,6 @@ namespace Janitor_V1
                         swModel, swChildComp.ReferencedConfiguration, "Juostos medziagos 1m2 kaina", CustPropMgr);
 
                     node.Part.OtherPart.MaterialWeight = Math.Round(Solidworks_control_tools.DetalesZaliavosKaina(swApp, node.GetFileLocation(), swModel), 2);
-
                 }
 
                 return node;
@@ -298,23 +297,16 @@ namespace Janitor_V1
             //string temp = (string)swModel.CustomInfo2[Configuration, PropertyName];
             int retVal;
 
-       
-
             retVal = CustPropMgr.Get6(PropertyName,false,out ValOut,out ResValue,out WasResolved, out LinkedToProperty);
             ResValue = ResValue.Replace(',', '.');
             double value = 0;
             double.TryParse(ResValue, out value);
             //MessageBox.Show("Komponento " + swModel.GetPathName() + " properčio " + PropertyName + " reikšmė: "+ResValue ).ToString();
-            
-
 
             return value;
-        }
-
-
-            
-        }
+        }   
     }
+}
 
 
 

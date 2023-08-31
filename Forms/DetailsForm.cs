@@ -1,4 +1,5 @@
 ﻿using Janitor_V1.Models;
+using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -311,6 +312,42 @@ namespace Janitor_V1
             }
             this.Data.Assembly.OtherCosts = cost;
             this.Data.Assembly.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
+
+            //welding
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Planuojama suvirinimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(), 
+                "Planuojama suvirinimo trukme_val"] = this.Data.Assembly.WeldingDuration.ToString();
+            //assembly
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Pomazgiu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Pomazgiu sumontavimo trukme_val"] = this.Data.Assembly.ChildNodeAssemblyDuration.ToString();
+
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Palaidu komponentu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Palaidu komponentu sumontavimo trukme_val"] = this.Data.Assembly.IndividualComponentAssemblyDuration.ToString();
+
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Sumontavimo i kita mazga trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Sumontavimo i kita mazga trukme_val"] = this.Data.Assembly.AssemblyToParentNodeDuration.ToString();
+            
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Sumine mazgo planuojama montavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Sumine mazgo planuojama montavimo trukme_val"] = this.Data.Assembly.CombinedAssemblyTime.ToString();
+            //other costs
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "KITI kastai_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "KITI kastai_EUR"] = this.Data.Assembly.OtherCosts.ToString();
+            
+            this.Data.swModel.AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Kitu kastu aprasas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.swModel.CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Kitu kastu aprasas"] = this.Data.Assembly.OtherCostsDescription;
         }
         private void ReloadAssembly()
         {

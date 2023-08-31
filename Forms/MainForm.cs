@@ -454,10 +454,11 @@ namespace Janitor_V1
             this.treeListView2.CheckBoxes = true;
         }
 
-        public void SetData(List<Node> data, List<Node> parts)
+        public void SetData(List<Node> data, List<Node> parts, Device device)
         {
             this.Data = data;
             this.PartsData = parts;
+            this.Device = device;
         }
 
         /// <summary>

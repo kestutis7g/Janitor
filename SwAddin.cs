@@ -17,7 +17,7 @@ namespace Janitor_V1
     /// <summary>
     /// Summary description for Janitor_V1.
     /// </summary>
-    [Guid("882bd5e0-0056-45ca-907b-0081e996df9d"), ComVisible(true)]
+    [Guid("20CBD339-E564-4C44-B726-03D208883D07"), ComVisible(true)]
     [SwAddin(
         Description = "Janitor_V1 description",
         Title = "Janitor_V1",
@@ -410,17 +410,13 @@ namespace Janitor_V1
 
             //Iðkvieèiama duomenø surinkimo ið Solidworks programa
 
-            //MessageBox.Show("test");
             NodeTraversal nodeTraversal = new NodeTraversal();
             nodeTraversal.swApp = (SldWorks)iSwApp;
             nodeTraversal.AssemblingoNariuSurinkimas();
             this.mainForm = new MainForm((SldWorks)iSwApp, "C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\");
-            //Application.Run(this.mainForm);
-            this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly);
+            this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly, nodeTraversal.Device);
             this.mainForm.Show();
             this.mainForm.Start();
-            //MessageBox.Show("test2");
- 
         }
 
         public int EnablePMP()
@@ -429,10 +425,6 @@ namespace Janitor_V1
                 return 1;
             else
                 return 0;
-    
-
-
-           
         }
 
         public void FlyoutCallback()
@@ -441,7 +433,6 @@ namespace Janitor_V1
             flyGroup.RemoveAllCommandItems();
 
             flyGroup.AddCommandItem(System.DateTime.Now.ToLongTimeString(), "test", 0, "FlyoutCommandItem1", "FlyoutEnableCommandItem1");
-
         }
         public int FlyoutEnable()
         {
