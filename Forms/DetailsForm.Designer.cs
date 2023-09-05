@@ -140,7 +140,7 @@ namespace Janitor_V1
             // 
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(2, 2);
-            this.propertyGrid1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.propertyGrid1.Margin = new System.Windows.Forms.Padding(2);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(532, 365);
             this.propertyGrid1.TabIndex = 0;
@@ -157,7 +157,7 @@ namespace Janitor_V1
             this.tabControl1.Controls.Add(this.propertiesTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(544, 395);
@@ -182,9 +182,9 @@ namespace Janitor_V1
             this.manufacturingTabPage.Controls.Add(this.partDescriptionLabel);
             this.manufacturingTabPage.Controls.Add(this.partDescriptionTextBox);
             this.manufacturingTabPage.Location = new System.Drawing.Point(4, 22);
-            this.manufacturingTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manufacturingTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.manufacturingTabPage.Name = "manufacturingTabPage";
-            this.manufacturingTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manufacturingTabPage.Padding = new System.Windows.Forms.Padding(2);
             this.manufacturingTabPage.Size = new System.Drawing.Size(536, 369);
             this.manufacturingTabPage.TabIndex = 0;
             this.manufacturingTabPage.Text = "Manufacturing";
@@ -193,7 +193,7 @@ namespace Janitor_V1
             // programmingCostTextBox
             // 
             this.programmingCostTextBox.Location = new System.Drawing.Point(281, 195);
-            this.programmingCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.programmingCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.programmingCostTextBox.Name = "programmingCostTextBox";
             this.programmingCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.programmingCostTextBox.TabIndex = 15;
@@ -201,7 +201,7 @@ namespace Janitor_V1
             // singlePieceManufacturingDurationTextBox
             // 
             this.singlePieceManufacturingDurationTextBox.Location = new System.Drawing.Point(281, 221);
-            this.singlePieceManufacturingDurationTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.singlePieceManufacturingDurationTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.singlePieceManufacturingDurationTextBox.Name = "singlePieceManufacturingDurationTextBox";
             this.singlePieceManufacturingDurationTextBox.Size = new System.Drawing.Size(68, 20);
             this.singlePieceManufacturingDurationTextBox.TabIndex = 14;
@@ -209,7 +209,7 @@ namespace Janitor_V1
             // manufacturingCostTextBox
             // 
             this.manufacturingCostTextBox.Location = new System.Drawing.Point(281, 249);
-            this.manufacturingCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manufacturingCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.manufacturingCostTextBox.Name = "manufacturingCostTextBox";
             this.manufacturingCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.manufacturingCostTextBox.TabIndex = 13;
@@ -217,7 +217,7 @@ namespace Janitor_V1
             // programmingDurationTextBox
             // 
             this.programmingDurationTextBox.Location = new System.Drawing.Point(281, 169);
-            this.programmingDurationTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.programmingDurationTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.programmingDurationTextBox.Name = "programmingDurationTextBox";
             this.programmingDurationTextBox.Size = new System.Drawing.Size(68, 20);
             this.programmingDurationTextBox.TabIndex = 12;
@@ -225,7 +225,7 @@ namespace Janitor_V1
             // amountOfThisPartTextBox
             // 
             this.amountOfThisPartTextBox.Location = new System.Drawing.Point(281, 141);
-            this.amountOfThisPartTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.amountOfThisPartTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.amountOfThisPartTextBox.Name = "amountOfThisPartTextBox";
             this.amountOfThisPartTextBox.Size = new System.Drawing.Size(68, 20);
             this.amountOfThisPartTextBox.TabIndex = 11;
@@ -233,7 +233,7 @@ namespace Janitor_V1
             // materialCostTextBox
             // 
             this.materialCostTextBox.Location = new System.Drawing.Point(281, 116);
-            this.materialCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.materialCostTextBox.Name = "materialCostTextBox";
             this.materialCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.materialCostTextBox.TabIndex = 10;
@@ -241,7 +241,7 @@ namespace Janitor_V1
             // materialWeightTextBox
             // 
             this.materialWeightTextBox.Location = new System.Drawing.Point(281, 88);
-            this.materialWeightTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialWeightTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.materialWeightTextBox.Name = "materialWeightTextBox";
             this.materialWeightTextBox.Size = new System.Drawing.Size(68, 20);
             this.materialWeightTextBox.TabIndex = 9;
@@ -331,7 +331,7 @@ namespace Janitor_V1
             this.partDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.partDescriptionTextBox.Location = new System.Drawing.Point(5, 30);
-            this.partDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.partDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.partDescriptionTextBox.Multiline = true;
             this.partDescriptionTextBox.Name = "partDescriptionTextBox";
             this.partDescriptionTextBox.Size = new System.Drawing.Size(526, 49);
@@ -352,9 +352,9 @@ namespace Janitor_V1
             this.stripsTabPage.Controls.Add(this.comboBox1);
             this.stripsTabPage.Controls.Add(this.stripTypeLabel);
             this.stripsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.stripsTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripsTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.stripsTabPage.Name = "stripsTabPage";
-            this.stripsTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripsTabPage.Padding = new System.Windows.Forms.Padding(2);
             this.stripsTabPage.Size = new System.Drawing.Size(536, 369);
             this.stripsTabPage.TabIndex = 2;
             this.stripsTabPage.Text = "Strips";
@@ -363,7 +363,7 @@ namespace Janitor_V1
             // markupForStripTextBox
             // 
             this.markupForStripTextBox.Location = new System.Drawing.Point(284, 185);
-            this.markupForStripTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.markupForStripTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.markupForStripTextBox.Name = "markupForStripTextBox";
             this.markupForStripTextBox.Size = new System.Drawing.Size(68, 20);
             this.markupForStripTextBox.TabIndex = 11;
@@ -371,7 +371,7 @@ namespace Janitor_V1
             // stripPurchaseCostTextBox
             // 
             this.stripPurchaseCostTextBox.Location = new System.Drawing.Point(284, 152);
-            this.stripPurchaseCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripPurchaseCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.stripPurchaseCostTextBox.Name = "stripPurchaseCostTextBox";
             this.stripPurchaseCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.stripPurchaseCostTextBox.TabIndex = 10;
@@ -379,7 +379,7 @@ namespace Janitor_V1
             // stripWidthTextBox
             // 
             this.stripWidthTextBox.Location = new System.Drawing.Point(284, 120);
-            this.stripWidthTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripWidthTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.stripWidthTextBox.Name = "stripWidthTextBox";
             this.stripWidthTextBox.Size = new System.Drawing.Size(68, 20);
             this.stripWidthTextBox.TabIndex = 9;
@@ -387,7 +387,7 @@ namespace Janitor_V1
             // stripLengthTextBox
             // 
             this.stripLengthTextBox.Location = new System.Drawing.Point(284, 94);
-            this.stripLengthTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripLengthTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.stripLengthTextBox.Name = "stripLengthTextBox";
             this.stripLengthTextBox.Size = new System.Drawing.Size(68, 20);
             this.stripLengthTextBox.TabIndex = 8;
@@ -395,7 +395,7 @@ namespace Janitor_V1
             // stripMaterialCostTextBox
             // 
             this.stripMaterialCostTextBox.Location = new System.Drawing.Point(284, 64);
-            this.stripMaterialCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stripMaterialCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.stripMaterialCostTextBox.Name = "stripMaterialCostTextBox";
             this.stripMaterialCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.stripMaterialCostTextBox.TabIndex = 7;
@@ -459,7 +459,7 @@ namespace Janitor_V1
             "Select 2",
             "Select 3"});
             this.comboBox1.Location = new System.Drawing.Point(284, 26);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(175, 21);
             this.comboBox1.TabIndex = 1;
@@ -489,7 +489,7 @@ namespace Janitor_V1
             this.purchasesTabPage.Controls.Add(this.supplierLabel);
             this.purchasesTabPage.Controls.Add(this.purchaseDescriptionLabel);
             this.purchasesTabPage.Location = new System.Drawing.Point(4, 22);
-            this.purchasesTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.purchasesTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.purchasesTabPage.Name = "purchasesTabPage";
             this.purchasesTabPage.Size = new System.Drawing.Size(536, 369);
             this.purchasesTabPage.TabIndex = 3;
@@ -499,7 +499,7 @@ namespace Janitor_V1
             // markupCostPurchaseTextBox
             // 
             this.markupCostPurchaseTextBox.Location = new System.Drawing.Point(171, 194);
-            this.markupCostPurchaseTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.markupCostPurchaseTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.markupCostPurchaseTextBox.Name = "markupCostPurchaseTextBox";
             this.markupCostPurchaseTextBox.Size = new System.Drawing.Size(68, 20);
             this.markupCostPurchaseTextBox.TabIndex = 11;
@@ -507,7 +507,7 @@ namespace Janitor_V1
             // purchaseCostTextBox
             // 
             this.purchaseCostTextBox.Location = new System.Drawing.Point(171, 166);
-            this.purchaseCostTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.purchaseCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.purchaseCostTextBox.Name = "purchaseCostTextBox";
             this.purchaseCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.purchaseCostTextBox.TabIndex = 10;
@@ -515,7 +515,7 @@ namespace Janitor_V1
             // technicalParametersTextBox
             // 
             this.technicalParametersTextBox.Location = new System.Drawing.Point(171, 136);
-            this.technicalParametersTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.technicalParametersTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.technicalParametersTextBox.Name = "technicalParametersTextBox";
             this.technicalParametersTextBox.Size = new System.Drawing.Size(68, 20);
             this.technicalParametersTextBox.TabIndex = 9;
@@ -523,7 +523,7 @@ namespace Janitor_V1
             // componentArticleTextBox
             // 
             this.componentArticleTextBox.Location = new System.Drawing.Point(171, 105);
-            this.componentArticleTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.componentArticleTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.componentArticleTextBox.Name = "componentArticleTextBox";
             this.componentArticleTextBox.Size = new System.Drawing.Size(68, 20);
             this.componentArticleTextBox.TabIndex = 8;
@@ -531,7 +531,7 @@ namespace Janitor_V1
             // supplierTextBox
             // 
             this.supplierTextBox.Location = new System.Drawing.Point(171, 78);
-            this.supplierTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.supplierTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.supplierTextBox.Name = "supplierTextBox";
             this.supplierTextBox.Size = new System.Drawing.Size(68, 20);
             this.supplierTextBox.TabIndex = 7;
@@ -539,7 +539,7 @@ namespace Janitor_V1
             // purchaseDescriptionTextBox
             // 
             this.purchaseDescriptionTextBox.Location = new System.Drawing.Point(171, 13);
-            this.purchaseDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.purchaseDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.purchaseDescriptionTextBox.Multiline = true;
             this.purchaseDescriptionTextBox.Name = "purchaseDescriptionTextBox";
             this.purchaseDescriptionTextBox.Size = new System.Drawing.Size(460, 49);
@@ -616,7 +616,7 @@ namespace Janitor_V1
             this.weldingTabPage.Controls.Add(this.realWeldingDurationLabel);
             this.weldingTabPage.Controls.Add(this.plannedWeldingDurationLabel);
             this.weldingTabPage.Location = new System.Drawing.Point(4, 22);
-            this.weldingTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.weldingTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.weldingTabPage.Name = "weldingTabPage";
             this.weldingTabPage.Size = new System.Drawing.Size(536, 369);
             this.weldingTabPage.TabIndex = 5;
@@ -646,7 +646,7 @@ namespace Janitor_V1
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(248, 64);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(68, 20);
             this.textBox2.TabIndex = 7;
@@ -655,7 +655,7 @@ namespace Janitor_V1
             // plannedWeldingDurationMinuteTextBox
             // 
             this.plannedWeldingDurationMinuteTextBox.Location = new System.Drawing.Point(248, 27);
-            this.plannedWeldingDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedWeldingDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.plannedWeldingDurationMinuteTextBox.Name = "plannedWeldingDurationMinuteTextBox";
             this.plannedWeldingDurationMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.plannedWeldingDurationMinuteTextBox.TabIndex = 6;
@@ -664,7 +664,7 @@ namespace Janitor_V1
             // realWeldingDurationTextBox
             // 
             this.realWeldingDurationTextBox.Location = new System.Drawing.Point(157, 64);
-            this.realWeldingDurationTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.realWeldingDurationTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.realWeldingDurationTextBox.Name = "realWeldingDurationTextBox";
             this.realWeldingDurationTextBox.Size = new System.Drawing.Size(68, 20);
             this.realWeldingDurationTextBox.TabIndex = 5;
@@ -673,7 +673,7 @@ namespace Janitor_V1
             // plannedWeldingDurationHourTextBox
             // 
             this.plannedWeldingDurationHourTextBox.Location = new System.Drawing.Point(157, 27);
-            this.plannedWeldingDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedWeldingDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.plannedWeldingDurationHourTextBox.Name = "plannedWeldingDurationHourTextBox";
             this.plannedWeldingDurationHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.plannedWeldingDurationHourTextBox.TabIndex = 4;
@@ -719,7 +719,7 @@ namespace Janitor_V1
             this.assemblyTabPage.Controls.Add(this.individualComponentAssemblyDurationLabel);
             this.assemblyTabPage.Controls.Add(this.childNodeAssemblyDurationLabel);
             this.assemblyTabPage.Location = new System.Drawing.Point(4, 22);
-            this.assemblyTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.assemblyTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.assemblyTabPage.Name = "assemblyTabPage";
             this.assemblyTabPage.Size = new System.Drawing.Size(536, 369);
             this.assemblyTabPage.TabIndex = 6;
@@ -749,7 +749,7 @@ namespace Janitor_V1
             // realAssemblyDurationMinuteTextBox
             // 
             this.realAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(372, 183);
-            this.realAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.realAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.realAssemblyDurationMinuteTextBox.Name = "realAssemblyDurationMinuteTextBox";
             this.realAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.realAssemblyDurationMinuteTextBox.TabIndex = 14;
@@ -758,7 +758,7 @@ namespace Janitor_V1
             // assemblyToParentNodeDurationMinuteTextBox
             // 
             this.assemblyToParentNodeDurationMinuteTextBox.Location = new System.Drawing.Point(372, 110);
-            this.assemblyToParentNodeDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.assemblyToParentNodeDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.assemblyToParentNodeDurationMinuteTextBox.Name = "assemblyToParentNodeDurationMinuteTextBox";
             this.assemblyToParentNodeDurationMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.assemblyToParentNodeDurationMinuteTextBox.TabIndex = 13;
@@ -767,7 +767,7 @@ namespace Janitor_V1
             // combinedAssemblyTimeMinuteTextBox
             // 
             this.combinedAssemblyTimeMinuteTextBox.Location = new System.Drawing.Point(372, 146);
-            this.combinedAssemblyTimeMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.combinedAssemblyTimeMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.combinedAssemblyTimeMinuteTextBox.Name = "combinedAssemblyTimeMinuteTextBox";
             this.combinedAssemblyTimeMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.combinedAssemblyTimeMinuteTextBox.TabIndex = 12;
@@ -776,7 +776,7 @@ namespace Janitor_V1
             // individualComponentAssemblyDurationMinuteTextBox
             // 
             this.individualComponentAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(372, 76);
-            this.individualComponentAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.individualComponentAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.individualComponentAssemblyDurationMinuteTextBox.Name = "individualComponentAssemblyDurationMinuteTextBox";
             this.individualComponentAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.individualComponentAssemblyDurationMinuteTextBox.TabIndex = 11;
@@ -785,7 +785,7 @@ namespace Janitor_V1
             // childNodeAssemblyDurationMinuteTextBox
             // 
             this.childNodeAssemblyDurationMinuteTextBox.Location = new System.Drawing.Point(372, 40);
-            this.childNodeAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.childNodeAssemblyDurationMinuteTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.childNodeAssemblyDurationMinuteTextBox.Name = "childNodeAssemblyDurationMinuteTextBox";
             this.childNodeAssemblyDurationMinuteTextBox.Size = new System.Drawing.Size(68, 20);
             this.childNodeAssemblyDurationMinuteTextBox.TabIndex = 10;
@@ -794,7 +794,7 @@ namespace Janitor_V1
             // realAssemblyDurationHourTextBox
             // 
             this.realAssemblyDurationHourTextBox.Location = new System.Drawing.Point(268, 183);
-            this.realAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.realAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.realAssemblyDurationHourTextBox.Name = "realAssemblyDurationHourTextBox";
             this.realAssemblyDurationHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.realAssemblyDurationHourTextBox.TabIndex = 9;
@@ -803,7 +803,7 @@ namespace Janitor_V1
             // assemblyToParentNodeDurationHourTextBox
             // 
             this.assemblyToParentNodeDurationHourTextBox.Location = new System.Drawing.Point(268, 110);
-            this.assemblyToParentNodeDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.assemblyToParentNodeDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.assemblyToParentNodeDurationHourTextBox.Name = "assemblyToParentNodeDurationHourTextBox";
             this.assemblyToParentNodeDurationHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.assemblyToParentNodeDurationHourTextBox.TabIndex = 8;
@@ -812,7 +812,7 @@ namespace Janitor_V1
             // combinedAssemblyTimeHourTextBox
             // 
             this.combinedAssemblyTimeHourTextBox.Location = new System.Drawing.Point(268, 146);
-            this.combinedAssemblyTimeHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.combinedAssemblyTimeHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.combinedAssemblyTimeHourTextBox.Name = "combinedAssemblyTimeHourTextBox";
             this.combinedAssemblyTimeHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.combinedAssemblyTimeHourTextBox.TabIndex = 7;
@@ -821,7 +821,7 @@ namespace Janitor_V1
             // individualComponentAssemblyDurationHourTextBox
             // 
             this.individualComponentAssemblyDurationHourTextBox.Location = new System.Drawing.Point(268, 76);
-            this.individualComponentAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.individualComponentAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.individualComponentAssemblyDurationHourTextBox.Name = "individualComponentAssemblyDurationHourTextBox";
             this.individualComponentAssemblyDurationHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.individualComponentAssemblyDurationHourTextBox.TabIndex = 6;
@@ -830,7 +830,7 @@ namespace Janitor_V1
             // childNodeAssemblyDurationHourTextBox
             // 
             this.childNodeAssemblyDurationHourTextBox.Location = new System.Drawing.Point(268, 40);
-            this.childNodeAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.childNodeAssemblyDurationHourTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.childNodeAssemblyDurationHourTextBox.Name = "childNodeAssemblyDurationHourTextBox";
             this.childNodeAssemblyDurationHourTextBox.Size = new System.Drawing.Size(68, 20);
             this.childNodeAssemblyDurationHourTextBox.TabIndex = 5;
@@ -893,7 +893,7 @@ namespace Janitor_V1
             this.otherCostsTabPage.Controls.Add(this.otherCostsDescriptionLabel);
             this.otherCostsTabPage.Controls.Add(this.otherCostsLabel);
             this.otherCostsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.otherCostsTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.otherCostsTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.otherCostsTabPage.Name = "otherCostsTabPage";
             this.otherCostsTabPage.Size = new System.Drawing.Size(536, 369);
             this.otherCostsTabPage.TabIndex = 8;
@@ -903,7 +903,7 @@ namespace Janitor_V1
             // otherCostsTextBox
             // 
             this.otherCostsTextBox.Location = new System.Drawing.Point(182, 12);
-            this.otherCostsTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.otherCostsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.otherCostsTextBox.Name = "otherCostsTextBox";
             this.otherCostsTextBox.Size = new System.Drawing.Size(68, 20);
             this.otherCostsTextBox.TabIndex = 5;
@@ -914,7 +914,7 @@ namespace Janitor_V1
             this.otherCostsDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.otherCostsDescriptionTextBox.Location = new System.Drawing.Point(16, 59);
-            this.otherCostsDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.otherCostsDescriptionTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.otherCostsDescriptionTextBox.Multiline = true;
             this.otherCostsDescriptionTextBox.Name = "otherCostsDescriptionTextBox";
             this.otherCostsDescriptionTextBox.Size = new System.Drawing.Size(509, 85);
@@ -944,9 +944,9 @@ namespace Janitor_V1
             // 
             this.propertiesTabPage.Controls.Add(this.propertyGrid1);
             this.propertiesTabPage.Location = new System.Drawing.Point(4, 22);
-            this.propertiesTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.propertiesTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.propertiesTabPage.Name = "propertiesTabPage";
-            this.propertiesTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.propertiesTabPage.Padding = new System.Windows.Forms.Padding(2);
             this.propertiesTabPage.Size = new System.Drawing.Size(536, 369);
             this.propertiesTabPage.TabIndex = 1;
             this.propertiesTabPage.Text = "Properties";
@@ -967,7 +967,7 @@ namespace Janitor_V1
             // 
             this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.nextButton.Location = new System.Drawing.Point(765, 3);
-            this.nextButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nextButton.Margin = new System.Windows.Forms.Padding(2);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(83, 26);
             this.nextButton.TabIndex = 2;
@@ -979,7 +979,7 @@ namespace Janitor_V1
             // 
             this.previousButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.previousButton.Location = new System.Drawing.Point(3, 3);
-            this.previousButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.previousButton.Margin = new System.Windows.Forms.Padding(2);
             this.previousButton.Name = "previousButton";
             this.previousButton.Size = new System.Drawing.Size(83, 26);
             this.previousButton.TabIndex = 3;
@@ -993,7 +993,7 @@ namespace Janitor_V1
             this.controlsPanel.Controls.Add(this.nextButton);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.controlsPanel.Location = new System.Drawing.Point(0, 488);
-            this.controlsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.controlsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.controlsPanel.Name = "controlsPanel";
             this.controlsPanel.Size = new System.Drawing.Size(850, 31);
             this.controlsPanel.TabIndex = 10;
@@ -1005,7 +1005,7 @@ namespace Janitor_V1
             this.partDetailsPanel.Controls.Add(this.calculatedPriceLabel);
             this.partDetailsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.partDetailsPanel.Location = new System.Drawing.Point(0, 441);
-            this.partDetailsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.partDetailsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.partDetailsPanel.Name = "partDetailsPanel";
             this.partDetailsPanel.Size = new System.Drawing.Size(850, 47);
             this.partDetailsPanel.TabIndex = 11;
@@ -1013,12 +1013,12 @@ namespace Janitor_V1
             // savePartButton
             // 
             this.savePartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.savePartButton.Location = new System.Drawing.Point(764, 20);
-            this.savePartButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.savePartButton.Location = new System.Drawing.Point(695, 20);
+            this.savePartButton.Margin = new System.Windows.Forms.Padding(2);
             this.savePartButton.Name = "savePartButton";
-            this.savePartButton.Size = new System.Drawing.Size(83, 26);
+            this.savePartButton.Size = new System.Drawing.Size(152, 26);
             this.savePartButton.TabIndex = 4;
-            this.savePartButton.Text = "Save";
+            this.savePartButton.Text = "Save part";
             this.savePartButton.UseVisualStyleBackColor = true;
             this.savePartButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -1028,7 +1028,7 @@ namespace Janitor_V1
             this.assemblyDetailsPanel.Controls.Add(this.saveAssemblyButton);
             this.assemblyDetailsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.assemblyDetailsPanel.Location = new System.Drawing.Point(0, 395);
-            this.assemblyDetailsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.assemblyDetailsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.assemblyDetailsPanel.Name = "assemblyDetailsPanel";
             this.assemblyDetailsPanel.Size = new System.Drawing.Size(850, 46);
             this.assemblyDetailsPanel.TabIndex = 12;
@@ -1036,12 +1036,12 @@ namespace Janitor_V1
             // saveAssemblyButton
             // 
             this.saveAssemblyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveAssemblyButton.Location = new System.Drawing.Point(764, 18);
-            this.saveAssemblyButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.saveAssemblyButton.Location = new System.Drawing.Point(695, 18);
+            this.saveAssemblyButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveAssemblyButton.Name = "saveAssemblyButton";
-            this.saveAssemblyButton.Size = new System.Drawing.Size(83, 26);
+            this.saveAssemblyButton.Size = new System.Drawing.Size(152, 26);
             this.saveAssemblyButton.TabIndex = 10;
-            this.saveAssemblyButton.Text = "Save";
+            this.saveAssemblyButton.Text = "Save assembly";
             this.saveAssemblyButton.UseVisualStyleBackColor = true;
             this.saveAssemblyButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -1081,7 +1081,7 @@ namespace Janitor_V1
             this.Controls.Add(this.assemblyDetailsPanel);
             this.Controls.Add(this.partDetailsPanel);
             this.Controls.Add(this.controlsPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DetailsForm";
             this.Text = "DetailsForm";
             this.Load += new System.EventHandler(this.DetailsForm_Load);

@@ -170,28 +170,9 @@ namespace Janitor_V1
             this.manufacturingCostTextBox.Text =
                 Data.Part.OtherPart.ManufacturingCost.ToString();
 
-            //this.programmingCostTextBox.Text =
-            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Programavimo trukme_val"];
-
-            //this.programmingDurationTextBox.Text =
-            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Pagaminimo trukme_min"];
-
-            //this.materialCostTextBox.Text =
-            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Zaliavos kaina"];
-
-            //this.amountOfThisPartTextBox.Text =
-            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Detaliu skaicius"];
-
-            //this.manufacturingCostTextBox.Text =
-            //    Data.swModel.CustomInfo2[Data.GetReferencedConfiguration(), "Gamybos valandos kaina_EUR"];
-
-
             var calculatedPartPrice = ((Data.Part.Weight * Data.Part.OtherPart.MaterialCost) + 
                 (Data.Part.OtherPart.ProgrammingDuration * Data.Part.OtherPart.ProgrammingCost / Data.Part.OtherPart.AmountOfThisPart) + 
                 (Data.Part.OtherPart.SinglePieceManufacturingDuration / 60 * Data.Part.OtherPart.ManufacturingCost));
-
-
-
         }
         private void FillStripsTab()
         {
@@ -379,20 +360,20 @@ namespace Janitor_V1
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             double count = 0;
-            if ((e.KeyChar == '.'))
+            if ((e.KeyChar == ','))
             {
-                e.KeyChar = ',';
+                e.KeyChar = '.';
             }
 
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == ',')))
+                (e.KeyChar == '.')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Janitor_V1.Models;
 using Janitor_V1.Utils;
@@ -15,6 +16,7 @@ namespace Janitor_V1
         public List<Node> AssemblingoNariai;
         public List<Node> PartsOnly;
         public Device Device;
+        public string ProjectLocation = "C:\\bbb\\";
 
         public NodeTraversal()
         {
@@ -36,8 +38,11 @@ namespace Janitor_V1
 
             this.Device.swModel = swModel;
             this.Device.FileLocation = swModel.GetPathName();
-            this.Device.Configuration = swRootComp.Name;
-            ReadDeviceProperties(swModel.Extension.get_CustomPropertyManager(swRootComp));
+            this.Device.Configuration = swApp.GetActiveConfigurationName(swModel.GetPathName());
+            this.ProjectLocation = Directory.GetParent(this.Device.FileLocation).ToString() + "\\";
+
+            ReadDeviceProperties(swModel.Extension.get_CustomPropertyManager(
+                this.Device.Configuration));
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
@@ -68,8 +73,7 @@ namespace Janitor_V1
             
             for (int i = 0; i < vChildComp.Length; i++)
             {
-                var childComp = vChildComp[i];
-                Component2 swChildComp = childComp as Component2;
+                Component2 swChildComp = vChildComp[i] as Component2;
                 if (swChildComp != null)
                 {
                     if (swChildComp.GetSuppression() != (int)swComponentSuppressionState_e.swComponentSuppressed)
@@ -101,6 +105,7 @@ namespace Janitor_V1
             }
             int swModelType = swModel.GetType();
             node.swModel = swModel;
+            node.swComp = swChildComp;
           
             CustomPropertyManager CustPropMgr = swModel.Extension.get_CustomPropertyManager(swChildComp.ReferencedConfiguration);
 
@@ -243,11 +248,11 @@ namespace Janitor_V1
                 node.Assembly.OtherCosts = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "KITI kastai_EUR", CustPropMgr);
                     
-                node.Assembly.OtherCostsDescription = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Kitu kastu aprasas", CustPropMgr);
+                node.Assembly.OtherCostsDescription = ReadPropertiesFromSolidworks_stringOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Kitu kastu aprasas");
                 
-                node.Assembly.ImageLocation = ReadPropertiesFromSolidworks_doubleOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Paveikslelio failas", CustPropMgr);
+                node.Assembly.ImageLocation = ReadPropertiesFromSolidworks_stringOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Paveikslelio failas");
 
                 return node;
             }
@@ -285,7 +290,7 @@ namespace Janitor_V1
                     this.Device.swModel, this.Device.Configuration, "Darbu organiz trukme visiems ireng_val", CustPropMgr);
 
             this.Device.WorkManagementCost = ReadPropertiesFromSolidworks_doubleOut(
-                    this.Device.swModel, this.Device.Configuration, "Darbu organizavimo valandos kain", CustPropMgr);
+                    this.Device.swModel, this.Device.Configuration, "Darbu organizavimo valandos kaina", CustPropMgr);
 
             this.Device.WorkManagementTotalCost = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Darbu organizavimo irenginiui kaina", CustPropMgr);
@@ -327,10 +332,34 @@ namespace Janitor_V1
                     this.Device.swModel, this.Device.Configuration, "Pakavimo medziagu kaina", CustPropMgr);
 
             this.Device.PackagingTotalCost = ReadPropertiesFromSolidworks_doubleOut(
-                    this.Device.swModel, this.Device.Configuration, "Irenginio supakavimo kaina", CustPropMgr);
-            //-------------------------
+                    this.Device.swModel, this.Device.Configuration, "Irenginio supakavimo kaina", CustPropMgr);            
+
+            //parts tab
+            this.Device.NumberOfParts = ReadPropertiesFromSolidworks_intOut(
+                    this.Device.swModel, this.Device.Configuration, "VISU DETALIU skaicius");
+
+            this.Device.TotalPartsCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "VISU DETALIU sumine kaina", CustPropMgr);
+
+            this.Device.TotalToolboxWeight = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "TOOLBOX svoris", CustPropMgr);
+
+            this.Device.TotalToolboxCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "TOOLBOX sumine kaina", CustPropMgr);
+
+            this.Device.TotalPartsAndToolboxCost = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "VISU DETALIU sumine kaina su Antkainiu", CustPropMgr);
+
+            //other costs
+            this.Device.OtherCosts = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "KITI kastai_EUR", CustPropMgr);
+
+            this.Device.OtherCostsDescription = ReadPropertiesFromSolidworks_stringOut(
+                    this.Device.swModel, this.Device.Configuration, "Kitu kastu aprasas");
+
+            //footer
             this.Device.AmountOfDevices = ReadPropertiesFromSolidworks_intOut(
-                    this.Device.swModel, this.Device.Configuration, "Uzsakomu irenginiu skaicius", CustPropMgr);
+                    this.Device.swModel, this.Device.Configuration, "Uzsakomu irenginiu skaicius");
 
             this.Device.TotalPrice = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "IRENGINIO SUMINE KAINA_EUR", CustPropMgr);

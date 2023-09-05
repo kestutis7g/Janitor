@@ -14,6 +14,7 @@ namespace Janitor_V1.Forms
         private Prices Prices { get; set; }
         private Calculations Calculations { get; set; }
         private Action UpdateDeviceFields { set; get; }
+        private bool Initialized = false;
         public DeviceForm(string workingDirectory, Device device, List<Node> list, Calculations calculations, Action updateDeviceFields)
         {
             this.Device = device;
@@ -79,7 +80,7 @@ namespace Janitor_V1.Forms
             {
                 this.Device.AssemblyCost = this.Prices.GetById(3).Value;
             }
-            this.assemblyCostTextBox.Text = this.Device.SupplyCost.ToString();
+            this.assemblyCostTextBox.Text = this.Device.AssemblyCost.ToString();
 
             this.individualComponentsAssemblyTextBox.Text = this.Device.IndividualComponentsAssembly.ToString();
 
@@ -103,23 +104,40 @@ namespace Janitor_V1.Forms
 
             this.packagingTotalCostTextBox.Text = this.Device.PackagingTotalCost.ToString();
 
+            //parts tab
+            this.numberOfPartsTextBox.Text = this.Device.NumberOfParts.ToString();
+            this.totalPartsCostTextBox.Text = this.Device.TotalPartsCost.ToString();
+            this.totalToolboxWeightTextBox.Text = this.Device.TotalToolboxWeight.ToString();
+            this.totalToolboxCostTextBox.Text = this.Device.TotalToolboxCost.ToString();
+            this.totalPartsAndToolboxCostTextBox.Text = this.Device.TotalPartsAndToolboxCost.ToString();
+
+            //other costs
+            this.otherCostsTextBox.Text = this.Device.OtherCosts.ToString();
+            this.otherCostsDescriptionTextBox.Text = this.Device.OtherCostsDescription.ToString();
 
             //footer
             this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.WeldingTotalPrice +
+                                        (this.Device.TotalPartsAndToolboxCost +
+                                         this.Device.WeldingTotalPrice +
                                          this.Device.AssemblyTotalCost +
                                          this.Device.PackagingTotalCost) +
                                      this.Device.DesigningTotalPrice +
                                      this.Device.WorkManagementTotalCost +
-                                     this.Device.SupplyTotalCost;
+                                     this.Device.SupplyTotalCost +
+                                     this.Device.OtherCosts;
 
             this.amountOfDevicesTextBox.Text = this.Device.AmountOfDevices.ToString();
             this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
 
+            this.Initialized = true;
         }
 
         private void SaveDevice()
         {
+            if(!Initialized) 
+            { 
+                return;
+            }
             double tempDouble = 0;
             int tempInt = 0;
 
@@ -212,6 +230,14 @@ namespace Janitor_V1.Forms
             this.Device.PackagingTotalCost = (this.Device.PackingCost * this.Device.TotalPackagingDuration) + this.Device.PackagingMaterialCost;
             this.packagingTotalCostTextBox.Text = this.Device.PackagingTotalCost.ToString();
 
+            //other costs
+            if (double.TryParse(this.otherCostsTextBox.Text, out tempDouble))
+            {
+                this.Device.OtherCosts = tempDouble;
+            }
+            this.Device.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
+            
+
             //footer
             if (int.TryParse(this.amountOfDevicesTextBox.Text, out tempInt))
             {
@@ -219,15 +245,18 @@ namespace Janitor_V1.Forms
             }
 
             this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.WeldingTotalPrice +
+                                        (this.Device.TotalPartsAndToolboxCost +
+                                         this.Device.WeldingTotalPrice +
                                          this.Device.AssemblyTotalCost +
                                          this.Device.PackagingTotalCost) +
                                      this.Device.DesigningTotalPrice +
                                      this.Device.WorkManagementTotalCost +
-                                     this.Device.SupplyTotalCost;
+                                     this.Device.SupplyTotalCost + 
+                                     this.Device.OtherCosts;
 
             this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
 
+            
 
             UpdateDeviceFields();
         }
@@ -235,20 +264,20 @@ namespace Janitor_V1.Forms
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             double count = 0;
-            if ((e.KeyChar == '.'))
+            if ((e.KeyChar == ','))
             {
-                e.KeyChar = ',';
+                e.KeyChar = '.';
             }
 
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == ',')))
+                (e.KeyChar == '.')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
@@ -390,25 +419,60 @@ namespace Janitor_V1.Forms
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Irenginio supakavimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
-                "Irenginio supakavimo kaina"] = this.Device.PackagingTotalCost.ToString();
-            //-------------------------
+                "Irenginio supakavimo kaina"] = this.Device.PackagingTotalCost.ToString();            
 
+            //parts tab
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "VISU DETALIU skaicius", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "VISU DETALIU skaicius"] = this.Device.NumberOfParts.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "VISU DETALIU sumine kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "VISU DETALIU sumine kaina"] = this.Device.TotalPartsCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "TOOLBOX svoris", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "TOOLBOX svoris"] = this.Device.TotalToolboxWeight.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "TOOLBOX sumine kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "TOOLBOX sumine kaina"] = this.Device.TotalToolboxCost.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "VISU DETALIU sumine kaina su Antkainiu", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "VISU DETALIU sumine kaina su Antkainiu"] = this.Device.TotalPartsAndToolboxCost.ToString();
+
+            //other costs
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "KITI kastai_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "KITI kastai_EUR"] = this.Device.OtherCosts.ToString();
+
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "Kitu kastu aprasas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "Kitu kastu aprasas"] = this.Device.OtherCostsDescription;
+
+            //footer
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Uzsakomu irenginiu skaicius", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
                 "Uzsakomu irenginiu skaicius"] = this.Device.AmountOfDevices.ToString();
-            
+
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "IRENGINIO SUMINE KAINA_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
                 "IRENGINIO SUMINE KAINA_EUR"] = this.Device.TotalPrice.ToString();
-            
+
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Kainos suskaiciavimo data", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
                 "Kainos suskaiciavimo data"] = DateTime.Now.ToString();
-
-
 
         }
     }

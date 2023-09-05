@@ -15,7 +15,8 @@ namespace Janitor_V1
 {
     public partial class MainForm : Form
     {
-        private string WorkingDirectory { get; set; }
+        private string WorkingDirectory { get; set; } //programos vieta
+        private string ProjectDirectory { get; set; } //atidaryto projekto vieta
         private Device Device { get; set; }
 
         private List<Node> Data;
@@ -26,8 +27,9 @@ namespace Janitor_V1
         private bool StainlessSteelToolbox = false;
 
         private SldWorks SwApp;
+        private bool Initialized = false;
 
-        public MainForm(SldWorks swApp, string workingDirectory)
+        public MainForm(SldWorks swApp, string workingDirectory, string projectDirectory)
         {
             InitializeComponent();
 
@@ -47,6 +49,7 @@ namespace Janitor_V1
             this.treeListView3.Size = new Size(this.splitContainer3.Panel1.Width, this.splitContainer3.Panel1.Height - this.seachTextBox3.Size.Height);
 
             this.WorkingDirectory = workingDirectory;
+            this.ProjectDirectory = projectDirectory;
             this.Device = new Device();
             this.Prices = new Prices(this.WorkingDirectory);
             this.Calculations = new Calculations();
@@ -114,34 +117,38 @@ namespace Janitor_V1
             colPartType.AspectGetter = x => (x as Node).GetPartType();
             colPartType.Width = 100;
 
-            var colChildNodeAssemblyDuration = new OLVColumn("ChildNodeAssemblyDuration", "ChildNodeAssemblyDuration");
+            var colChildNodeAssemblyDuration = new OLVColumn("Combined assembling duration of sub-assemblies", "Combined assembling duration of sub-assemblies");
             colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
+            colChildNodeAssemblyDuration.ToolTipText = "Combined assembling duration of sub-assemblies";
             colChildNodeAssemblyDuration.Width = 100;
             colChildNodeAssemblyDuration.IsVisible = false;
 
-            var colIndividualComponentAssemblyDuration = new OLVColumn("IndividualComponentAssemblyDuration", "IndividualComponentAssemblyDuration");
+            var colIndividualComponentAssemblyDuration = new OLVColumn("Assembling duration of separate components", "Assembling duration of separate components");
             colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
+            colIndividualComponentAssemblyDuration.ToolTipText = "Assembling duration of separate components";
             colIndividualComponentAssemblyDuration.Width = 100;
             colIndividualComponentAssemblyDuration.IsVisible = false;
 
-            var colAssemblyToParentNodeDuration = new OLVColumn("AssemblyToParentNodeDuration", "AssemblyToParentNodeDuration");
+            var colAssemblyToParentNodeDuration = new OLVColumn("Integration to parent assembly duration", "Integration to parent assembly duration");
             colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
+            colAssemblyToParentNodeDuration.ToolTipText = "Integration to parent assembly duration";
             colAssemblyToParentNodeDuration.Width = 100;
             colAssemblyToParentNodeDuration.IsVisible = false;
 
-            var colCombinedAssemblyTime = new OLVColumn("CombinedAssemblyTime", "CombinedAssemblyTime");
+            var colCombinedAssemblyTime = new OLVColumn("Combined assembling time", "Combined assembling time");
             colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
+            colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
             colCombinedAssemblyTime.IsVisible = false;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
-            colFileLocation.MinimumWidth = 100;
+            colFileLocation.Width = 100;
             colFileLocation.IsVisible = false;
 
             var colDescription = new OLVColumn("Description", "Description");
             colDescription.AspectGetter = x => (x as Node).GetDescription();
-            colDescription.MinimumWidth = 100;
+            colDescription.Width = 100;
 
             var colSurfaceArea = new OLVColumn("SurfaceArea", "SurfaceArea");
             colSurfaceArea.AspectGetter = x => (x as Node).GetSurfaceArea();
@@ -175,12 +182,12 @@ namespace Janitor_V1
 
             var colPrice = new OLVColumn("Price", "Price");
             colPrice.AspectGetter = x => (x as Node).GetPrice();
-            colPrice.MinimumWidth = 100;
+            colPrice.Width = 100;
             colPrice.IsVisible = false;
 
             var colSheetThickness = new OLVColumn("SheetThickness", "SheetThickness");
             colSheetThickness.AspectGetter = x => (x as Node).GetSheetThickness();
-            colSheetThickness.MinimumWidth = 100;
+            colSheetThickness.Width = 100;
             colSheetThickness.IsVisible = false;
 
             // add the columns to the tree
@@ -268,30 +275,34 @@ namespace Janitor_V1
             colComponentType.AspectGetter = x => (x as Node).ComponentType;
             colComponentType.Width = 100;
 
-            var colChildNodeAssemblyDuration = new OLVColumn("ChildNodeAssemblyDuration", "ChildNodeAssemblyDuration");
+            var colChildNodeAssemblyDuration = new OLVColumn("Combined assembling duration of sub-assemblies", "Combined assembling duration of sub-assemblies");
             colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
+            colChildNodeAssemblyDuration.ToolTipText = "Combined assembling duration of sub-assemblies";
             colChildNodeAssemblyDuration.Width = 100;
 
-            var colIndividualComponentAssemblyDuration = new OLVColumn("IndividualComponentAssemblyDuration", "IndividualComponentAssemblyDuration");
+            var colIndividualComponentAssemblyDuration = new OLVColumn("Assembling duration of separate components", "Assembling duration of separate components");
             colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
+            colIndividualComponentAssemblyDuration.ToolTipText = "Assembling duration of separate components";
             colIndividualComponentAssemblyDuration.Width = 100;
 
-            var colAssemblyToParentNodeDuration = new OLVColumn("AssemblyToParentNodeDuration", "AssemblyToParentNodeDuration");
+            var colAssemblyToParentNodeDuration = new OLVColumn("Integration to parent assembly duration", "Integration to parent assembly duration");
             colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
+            colAssemblyToParentNodeDuration.ToolTipText = "Integration to parent assembly duration";
             colAssemblyToParentNodeDuration.Width = 100;
 
-            var colCombinedAssemblyTime = new OLVColumn("CombinedAssemblyTime", "CombinedAssemblyTime");
+            var colCombinedAssemblyTime = new OLVColumn("Combined assembling time", "Combined assembling time");
             colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
+            colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
-            colFileLocation.MinimumWidth = 100;
+            colFileLocation.Width = 100;
             colFileLocation.IsVisible = false;
 
             var colDescription = new OLVColumn("Description", "Description");
             colDescription.AspectGetter = x => (x as Node).GetDescription();
-            colDescription.MinimumWidth = 100;
+            colDescription.Width = 100;
             colDescription.IsVisible = false;
 
             // add the columns to the tree
@@ -403,15 +414,15 @@ namespace Janitor_V1
 
             var colPrice = new OLVColumn("Price", "Price");
             colPrice.AspectGetter = x => (x as Node).Part.Price;
-            colPrice.MinimumWidth = 100;
+            colPrice.Width = 100;
 
             var colSheetThickness = new OLVColumn("SheetThickness", "SheetThickness");
             colSheetThickness.AspectGetter = x => (x as Node).Part.SheetThickness;
-            colSheetThickness.MinimumWidth = 100;
+            colSheetThickness.Width = 100;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
-            colFileLocation.MinimumWidth = 100;
+            colFileLocation.Width = 100;
             colFileLocation.IsVisible = false;
 
 
@@ -459,6 +470,9 @@ namespace Janitor_V1
             this.Data = data;
             this.PartsData = parts;
             this.Device = device;
+            UpdateDevice();
+
+            Initialized = true;
         }
 
         /// <summary>
@@ -606,6 +620,10 @@ namespace Janitor_V1
 
         private void RefreshCalculations()
         {
+            if(!Initialized)
+            {
+                return;
+            }
             Calculations.Calculate(Data, PartsData);
 
             //ASSEMBLY TAB
@@ -619,7 +637,10 @@ namespace Janitor_V1
             this.Device.ChildNodeAssemblyDuration = Calculations.rootChildNodeAssemblyDuration;
 
             this.Device.TotalAssemblyDuration = this.Device.ChildNodeAssemblyDuration + this.Device.IndividualComponentsAssembly + this.Device.AssemblyToParentDuration;
-            this.Device.AssemblyCost = this.Prices.GetById(3).Value;
+            if(this.Device.AssemblyCost == 0)
+            {
+                this.Device.AssemblyCost = this.Prices.GetById(3).Value;
+            }
             this.Device.AssemblyTotalCost = this.Device.AssemblyCost * this.Device.TotalAssemblyDuration;
 
 
@@ -630,11 +651,14 @@ namespace Janitor_V1
             totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + this.Device.AssemblyTotalCost + " €";
 
             //PARTS TAB
-            totalPartsLabel.Text     = "Total parts: " + Calculations.totalParts;
-            totalPartsCostLabel.Text = "Total parts cost: " + Calculations.totalPartsCost + " €";
+            this.Device.NumberOfParts = Calculations.totalParts;
+            this.Device.TotalPartsCost = Calculations.totalPartsCost;
+            this.Device.TotalToolboxWeight = Calculations.toolboxWeight;
+
+            totalPartsLabel.Text     = "Total number of parts: " + this.Device.NumberOfParts;
+            totalPartsCostLabel.Text = "Total cost of the parts: " + this.Device.TotalPartsCost + " €";
 
             double toolboxPrice = 0;
-            double toolboxWeight = Calculations.toolboxWeight;
 
             switch (StainlessSteelToolbox)
             {
@@ -648,16 +672,18 @@ namespace Janitor_V1
                     toolboxPrice = 0;
                     break;
             }
+            this.Device.TotalToolboxCost = toolboxPrice * this.Device.TotalToolboxWeight;
+            this.Device.TotalPartsAndToolboxCost = Calculations.totalPartsCost + this.Device.TotalToolboxCost;
 
-            toolboxWeightTextBox.Text = toolboxWeight.ToString();
+            toolboxWeightTextBox.Text = this.Device.TotalToolboxWeight.ToString();
             toolboxPriceLabel.Text = "Toolbox price: " + toolboxPrice + " €/kg";
-            toolboxTotalPriceLabel.Text = "Toolbox price: " + (toolboxPrice * toolboxWeight) + " €";
+            toolboxTotalPriceLabel.Text = "Toolbox price: " + this.Device.TotalToolboxCost + " €";
 
-            double totalPartsTabCost = Calculations.totalPartsCost + (toolboxPrice * toolboxWeight);
-            totalPartsTabCostLabel.Text        = "Total parts and toolbox cost: " + totalPartsTabCost + " €";
-            totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: " + totalPartsTabCost + " €";
+            
+            totalPartsTabCostTextBox.Text        = this.Device.TotalPartsAndToolboxCost.ToString();
+            totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: " + this.Device.TotalPartsAndToolboxCost + " €";
 
-            finalPriceLabel.Text = "Final price: " + (totalPartsTabCost + this.Device.AssemblyTotalCost) + " €";
+            finalPriceLabel.Text = "Final price: " + (this.Device.TotalPartsAndToolboxCost + this.Device.AssemblyTotalCost) + " €";
         }
 
         /// <summary>
@@ -692,7 +718,7 @@ namespace Janitor_V1
         private void contextMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var toolStripMenuItem = (ToolStripMenuItem)sender;
-            if (toolStripMenuItem.Name == "Open")
+            if (toolStripMenuItem.Name == "OpenDetailsMenuItem")
             {
                 if (tabControl1.SelectedTab.Name == "tabPageGeneral")
                 {
@@ -706,6 +732,10 @@ namespace Janitor_V1
                 {
                     treeListView_ItemActivate(this.treeListView3, e);
                 }
+            }
+            else if(toolStripMenuItem.Name == "OpenInSolidworksMenuItem")
+            {
+                openItemButton_Click(sender, e);
             }
         }
 
@@ -745,20 +775,20 @@ namespace Janitor_V1
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             double count = 0;
-            if ((e.KeyChar == '.'))
+            if ((e.KeyChar == ','))
             {
-                e.KeyChar = ',';
+                e.KeyChar = '.';
             }
 
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == ',')))
+                (e.KeyChar == '.')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
@@ -793,7 +823,7 @@ namespace Janitor_V1
 
         private void openItemInSolidWorks(object sender, EventArgs e)
         {
-            foreach (Node item in (sender as TreeListView).CheckedObjects)
+            foreach (Node item in (sender as TreeListView).SelectedObjects)
             {
                 if (item.ComponentType == NodeType.Part) 
                 {
@@ -827,6 +857,7 @@ namespace Janitor_V1
         {
             this.individualComponentsAssemblyTextBox.Text = this.Device.IndividualComponentsAssembly.ToString();
             this.assemblyToParentTextBox.Text = this.Device.AssemblyToParentDuration.ToString();
+            int a = 0;
         }
 
         private void deviceButton_Click(object sender, EventArgs e)
@@ -885,13 +916,92 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetComponentName());
+                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName());
+                    
+                    item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
+                        "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                    item.swModel.CustomInfo2[item.GetReferencedConfiguration(),
+                        "Paveikslelio failas"] = item.Assembly.ImageLocation;
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
-                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetComponentName());
+                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName());
+                    item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
+                        "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                    item.swModel.CustomInfo2[item.GetReferencedConfiguration(),
+                        "Paveikslelio failas"] = item.Part.ImageLocation;
                 }
             }
+        }
+
+        private void treeListView_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if(treeListView1.CheckedObjects.Count > 0)
+            {
+                this.takePictureButton.Enabled = true;
+                this.readPropertiesButton.Enabled = true;
+            }
+            else
+            {
+                this.takePictureButton.Enabled = false;
+                this.readPropertiesButton.Enabled = false;
+            }
+        }
+
+        private void treeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch ((sender as TreeListView).Name)
+            {
+                case "treeListView1":
+                    if (treeListView1.SelectedIndices.Count > 0)
+                    {
+                        this.openInSolidworksButton1.Enabled = true;
+                    }
+                    else
+                    {
+                        this.openInSolidworksButton1.Enabled = false;
+                    }
+                    break;
+                case "treeListView2":
+                    if (treeListView2.SelectedIndices.Count > 0)
+                    {
+                        this.openInSolidworksButton2.Enabled = true;
+                    }
+                    else
+                    {
+                        this.openInSolidworksButton2.Enabled = false;
+                    }
+                    break;
+                case "treeListView3":
+                    if (treeListView3.SelectedIndices.Count > 0)
+                    {
+                        this.openInSolidworksButton3.Enabled = true;
+                    }
+                    else
+                    {
+                        this.openInSolidworksButton3.Enabled = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void readPropertiesButton_Click(object sender, EventArgs e)
+        {
+            var nodeTraversal = new NodeTraversal();
+            nodeTraversal.swApp = SwApp;
+            foreach (Node node in treeListView1.CheckedObjects)
+            {
+                ReadNodePropertiesFromSolidworks(nodeTraversal, node);
+            }
+            this.UpdateWindow();
+        }
+
+        private void ReadNodePropertiesFromSolidworks(NodeTraversal nodeTraversal, Node node)
+        {
+            var temp = nodeTraversal.ReadProperties(node.swModel, node.swComp, node.GetItemNumber());
+            node.Update(temp);
         }
     }
 }

@@ -50,8 +50,15 @@ namespace Janitor_V1.Models
         public double PackingCost { get; set; }
         public double PackagingMaterialCost { get; set; }
         public double PackagingTotalCost { get; set; }
-
-        
+        //parts
+        public int NumberOfParts { get; set; }
+        public double TotalPartsCost { get; set; }
+        public double TotalToolboxWeight { get; set; }
+        public double TotalToolboxCost { get; set; }
+        public double TotalPartsAndToolboxCost { get; set; }
+        //other costs
+        public double OtherCosts { get; set; }
+        public string OtherCostsDescription { get; set; }
 
         public Device() 
         {
@@ -87,7 +94,14 @@ namespace Janitor_V1.Models
             this.PackingCost = 0;
             this.PackagingMaterialCost = 0;
             this.PackagingTotalCost = 0;
-        }
+            
+            this.NumberOfParts = 0;
+            this.TotalPartsCost = 0;
+            this.TotalToolboxWeight = 0;
+            this.TotalToolboxCost = 0;
+            this.TotalPartsAndToolboxCost = 0;
 
+            this.OtherCosts = 0;
+        }
     }
 }

@@ -25,12 +25,20 @@ namespace Janitor_V1.Models
         public List<Node> Children { get; set; }
 
         public ModelDoc2 swModel { get; set; }
+        public Component2 swComp { get; set; }
 
         public Node()
         {
             this.Children = new List<Node>();
             this.Part = new Part();
             this.Assembly = new Assembly();
+        }
+
+        public void Update(Node data)
+        {
+            this.Part = data.Part;
+            this.Assembly = data.Assembly;
+            this.ComponentType = data.ComponentType;
         }
 
         public string GetItemNumber()

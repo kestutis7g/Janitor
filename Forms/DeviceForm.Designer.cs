@@ -87,10 +87,16 @@ namespace Janitor_V1.Forms
             this.workManagementCostLabel = new System.Windows.Forms.Label();
             this.totalWorkManagementDurationLabel = new System.Windows.Forms.Label();
             this.partsTabPage = new System.Windows.Forms.TabPage();
+            this.totalPartsAndToolboxCostLabel = new System.Windows.Forms.Label();
+            this.totalPartsAndToolboxCostTextBox = new System.Windows.Forms.TextBox();
+            this.totalToolboxWeightLabel = new System.Windows.Forms.Label();
+            this.totalToolboxWeightTextBox = new System.Windows.Forms.TextBox();
+            this.totalToolboxCostLabel = new System.Windows.Forms.Label();
+            this.totalToolboxCostTextBox = new System.Windows.Forms.TextBox();
+            this.numberOfPartsLabel = new System.Windows.Forms.Label();
+            this.numberOfPartsTextBox = new System.Windows.Forms.TextBox();
             this.totalPartsCostLabel = new System.Windows.Forms.Label();
             this.totalPartsCostTextBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.processPartsButton = new System.Windows.Forms.Button();
             this.otherCostsTabPage = new System.Windows.Forms.TabPage();
             this.otherCostsTextBox = new System.Windows.Forms.TextBox();
             this.otherCostsForOneDeviceTextBox = new System.Windows.Forms.TextBox();
@@ -738,10 +744,16 @@ namespace Janitor_V1.Forms
             // 
             // partsTabPage
             // 
+            this.partsTabPage.Controls.Add(this.totalPartsAndToolboxCostLabel);
+            this.partsTabPage.Controls.Add(this.totalPartsAndToolboxCostTextBox);
+            this.partsTabPage.Controls.Add(this.totalToolboxWeightLabel);
+            this.partsTabPage.Controls.Add(this.totalToolboxWeightTextBox);
+            this.partsTabPage.Controls.Add(this.totalToolboxCostLabel);
+            this.partsTabPage.Controls.Add(this.totalToolboxCostTextBox);
+            this.partsTabPage.Controls.Add(this.numberOfPartsLabel);
+            this.partsTabPage.Controls.Add(this.numberOfPartsTextBox);
             this.partsTabPage.Controls.Add(this.totalPartsCostLabel);
             this.partsTabPage.Controls.Add(this.totalPartsCostTextBox);
-            this.partsTabPage.Controls.Add(this.button1);
-            this.partsTabPage.Controls.Add(this.processPartsButton);
             this.partsTabPage.Location = new System.Drawing.Point(4, 22);
             this.partsTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.partsTabPage.Name = "partsTabPage";
@@ -750,10 +762,86 @@ namespace Janitor_V1.Forms
             this.partsTabPage.Text = "Parts";
             this.partsTabPage.UseVisualStyleBackColor = true;
             // 
+            // totalPartsAndToolboxCostLabel
+            // 
+            this.totalPartsAndToolboxCostLabel.AutoSize = true;
+            this.totalPartsAndToolboxCostLabel.Location = new System.Drawing.Point(17, 113);
+            this.totalPartsAndToolboxCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.totalPartsAndToolboxCostLabel.Name = "totalPartsAndToolboxCostLabel";
+            this.totalPartsAndToolboxCostLabel.Size = new System.Drawing.Size(141, 13);
+            this.totalPartsAndToolboxCostLabel.TabIndex = 15;
+            this.totalPartsAndToolboxCostLabel.Text = "Total parts and toolbox cost:";
+            // 
+            // totalPartsAndToolboxCostTextBox
+            // 
+            this.totalPartsAndToolboxCostTextBox.Enabled = false;
+            this.totalPartsAndToolboxCostTextBox.Location = new System.Drawing.Point(166, 110);
+            this.totalPartsAndToolboxCostTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.totalPartsAndToolboxCostTextBox.Name = "totalPartsAndToolboxCostTextBox";
+            this.totalPartsAndToolboxCostTextBox.Size = new System.Drawing.Size(68, 20);
+            this.totalPartsAndToolboxCostTextBox.TabIndex = 14;
+            // 
+            // totalToolboxWeightLabel
+            // 
+            this.totalToolboxWeightLabel.AutoSize = true;
+            this.totalToolboxWeightLabel.Location = new System.Drawing.Point(17, 65);
+            this.totalToolboxWeightLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.totalToolboxWeightLabel.Name = "totalToolboxWeightLabel";
+            this.totalToolboxWeightLabel.Size = new System.Drawing.Size(82, 13);
+            this.totalToolboxWeightLabel.TabIndex = 13;
+            this.totalToolboxWeightLabel.Text = "Toolbox weight:";
+            // 
+            // totalToolboxWeightTextBox
+            // 
+            this.totalToolboxWeightTextBox.Enabled = false;
+            this.totalToolboxWeightTextBox.Location = new System.Drawing.Point(166, 62);
+            this.totalToolboxWeightTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.totalToolboxWeightTextBox.Name = "totalToolboxWeightTextBox";
+            this.totalToolboxWeightTextBox.Size = new System.Drawing.Size(68, 20);
+            this.totalToolboxWeightTextBox.TabIndex = 12;
+            // 
+            // totalToolboxCostLabel
+            // 
+            this.totalToolboxCostLabel.AutoSize = true;
+            this.totalToolboxCostLabel.Location = new System.Drawing.Point(17, 89);
+            this.totalToolboxCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.totalToolboxCostLabel.Name = "totalToolboxCostLabel";
+            this.totalToolboxCostLabel.Size = new System.Drawing.Size(94, 13);
+            this.totalToolboxCostLabel.TabIndex = 11;
+            this.totalToolboxCostLabel.Text = "Total toolbox cost:";
+            // 
+            // totalToolboxCostTextBox
+            // 
+            this.totalToolboxCostTextBox.Enabled = false;
+            this.totalToolboxCostTextBox.Location = new System.Drawing.Point(166, 86);
+            this.totalToolboxCostTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.totalToolboxCostTextBox.Name = "totalToolboxCostTextBox";
+            this.totalToolboxCostTextBox.Size = new System.Drawing.Size(68, 20);
+            this.totalToolboxCostTextBox.TabIndex = 10;
+            // 
+            // numberOfPartsLabel
+            // 
+            this.numberOfPartsLabel.AutoSize = true;
+            this.numberOfPartsLabel.Location = new System.Drawing.Point(17, 17);
+            this.numberOfPartsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.numberOfPartsLabel.Name = "numberOfPartsLabel";
+            this.numberOfPartsLabel.Size = new System.Drawing.Size(85, 13);
+            this.numberOfPartsLabel.TabIndex = 9;
+            this.numberOfPartsLabel.Text = "Number of parts:";
+            // 
+            // numberOfPartsTextBox
+            // 
+            this.numberOfPartsTextBox.Enabled = false;
+            this.numberOfPartsTextBox.Location = new System.Drawing.Point(166, 14);
+            this.numberOfPartsTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.numberOfPartsTextBox.Name = "numberOfPartsTextBox";
+            this.numberOfPartsTextBox.Size = new System.Drawing.Size(68, 20);
+            this.numberOfPartsTextBox.TabIndex = 8;
+            // 
             // totalPartsCostLabel
             // 
             this.totalPartsCostLabel.AutoSize = true;
-            this.totalPartsCostLabel.Location = new System.Drawing.Point(199, 92);
+            this.totalPartsCostLabel.Location = new System.Drawing.Point(17, 41);
             this.totalPartsCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsCostLabel.Name = "totalPartsCostLabel";
             this.totalPartsCostLabel.Size = new System.Drawing.Size(83, 13);
@@ -762,31 +850,12 @@ namespace Janitor_V1.Forms
             // 
             // totalPartsCostTextBox
             // 
-            this.totalPartsCostTextBox.Location = new System.Drawing.Point(294, 90);
+            this.totalPartsCostTextBox.Enabled = false;
+            this.totalPartsCostTextBox.Location = new System.Drawing.Point(166, 38);
             this.totalPartsCostTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.totalPartsCostTextBox.Name = "totalPartsCostTextBox";
             this.totalPartsCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.totalPartsCostTextBox.TabIndex = 6;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(21, 81);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 34);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Calculate total parts cost";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // processPartsButton
-            // 
-            this.processPartsButton.Location = new System.Drawing.Point(21, 23);
-            this.processPartsButton.Margin = new System.Windows.Forms.Padding(2);
-            this.processPartsButton.Name = "processPartsButton";
-            this.processPartsButton.Size = new System.Drawing.Size(123, 36);
-            this.processPartsButton.TabIndex = 4;
-            this.processPartsButton.Text = "Process parts from Solidworks";
-            this.processPartsButton.UseVisualStyleBackColor = true;
             // 
             // otherCostsTabPage
             // 
@@ -811,9 +880,13 @@ namespace Janitor_V1.Forms
             this.otherCostsTextBox.Name = "otherCostsTextBox";
             this.otherCostsTextBox.Size = new System.Drawing.Size(68, 20);
             this.otherCostsTextBox.TabIndex = 11;
+            this.otherCostsTextBox.Text = "0";
+            this.otherCostsTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.otherCostsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numbersOnlyTextBox_KeyPress);
             // 
             // otherCostsForOneDeviceTextBox
             // 
+            this.otherCostsForOneDeviceTextBox.Enabled = false;
             this.otherCostsForOneDeviceTextBox.Location = new System.Drawing.Point(174, 172);
             this.otherCostsForOneDeviceTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.otherCostsForOneDeviceTextBox.Name = "otherCostsForOneDeviceTextBox";
@@ -838,6 +911,7 @@ namespace Janitor_V1.Forms
             this.otherCostsDescriptionTextBox.Name = "otherCostsDescriptionTextBox";
             this.otherCostsDescriptionTextBox.Size = new System.Drawing.Size(603, 85);
             this.otherCostsDescriptionTextBox.TabIndex = 8;
+            this.otherCostsDescriptionTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // otherCostsDescriptionLabel
             // 
@@ -904,9 +978,9 @@ namespace Janitor_V1.Forms
             // 
             // saveToSolidworksButton
             // 
-            this.saveToSolidworksButton.Location = new System.Drawing.Point(516, 476);
+            this.saveToSolidworksButton.Location = new System.Drawing.Point(483, 474);
             this.saveToSolidworksButton.Name = "saveToSolidworksButton";
-            this.saveToSolidworksButton.Size = new System.Drawing.Size(96, 37);
+            this.saveToSolidworksButton.Size = new System.Drawing.Size(129, 39);
             this.saveToSolidworksButton.TabIndex = 7;
             this.saveToSolidworksButton.Text = "Save to Solidworks";
             this.saveToSolidworksButton.UseVisualStyleBackColor = true;
@@ -978,8 +1052,6 @@ namespace Janitor_V1.Forms
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label totalPartsCostLabel;
         private TextBox totalPartsCostTextBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button processPartsButton;
         private TextBox otherCostsTextBox;
         private TextBox otherCostsForOneDeviceTextBox;
         private System.Windows.Forms.Label otherCostsForOneDeviceLabel;
@@ -1026,5 +1098,13 @@ namespace Janitor_V1.Forms
         private TextBox totalAssemblyDurationTextBox;
         private Label totalAssemblyDurationLabel;
         private Button saveToSolidworksButton;
+        private Label totalToolboxWeightLabel;
+        private TextBox totalToolboxWeightTextBox;
+        private Label totalToolboxCostLabel;
+        private TextBox totalToolboxCostTextBox;
+        private Label numberOfPartsLabel;
+        private TextBox numberOfPartsTextBox;
+        private Label totalPartsAndToolboxCostLabel;
+        private TextBox totalPartsAndToolboxCostTextBox;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
@@ -19,7 +21,7 @@ namespace Janitor_V1.Utils
         
             ModelDoc2 swModelDoc = default(ModelDoc2);
             //swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileName, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
-            swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
+            swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, Configuration, ref errors, ref warnings);
             
 
             // Activate the loaded document and prompt for rebuild if the model changed
@@ -60,7 +62,7 @@ namespace Janitor_V1.Utils
             return Math.Round(massprops[5], 2);
         }
 
-        public static string TakePictureOfItem(ISldWorks swApp, string fileLocation, int DocumentType, ModelDoc2 swModel, string pictureName)
+        public static string TakePictureOfItem(ISldWorks swApp, string fileLocation, int DocumentType, ModelDoc2 swModel, string configuration, string destinationFolder, string pictureName)
         {
             int errors = 0;
             int warnings = 0;
@@ -69,15 +71,18 @@ namespace Janitor_V1.Utils
             //swApp = (ISldWorks)Activator.CreateInstance(Type.GetTypeFromProgID("SldWorks.Application"));
 
             ModelDoc2 swModelDoc = default;
-            swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
+            swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, configuration, ref errors, ref warnings);
 
             swModelDoc = (ModelDoc2)swApp.ActivateDoc3(swModelDoc.GetTitle(), false, (int)swRebuildOnActivation_e.swRebuildActiveDoc, ref errors);
 
-            
+            if (!Directory.Exists(destinationFolder))
+            {
+                Directory.CreateDirectory(destinationFolder);
+            }
 
             swModel.ShowNamedView2("*Isometric", 7);
             swModel.ViewZoomtofit2();
-            var location = "C:\\bbb\\" + pictureName + ".PNG";
+            var location = destinationFolder + pictureName + ".PNG";
 
             // Save As
             swModel.SaveAs3(location , 0, 0);
