@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Janitor_V1.Models;
 using Janitor_V1.Utils;
@@ -113,7 +114,8 @@ namespace Janitor_V1
             {
                 node.ComponentType = NodeType.Part;
                 node.Part.ItemNumber = itemNumber;
-                node.Part.ComponentName = swChildComp.Name2;
+                var name = swChildComp.Name2.Split('/');
+                node.Part.ComponentName = new string(' ', (name.Length - 1) * 4) + name.Last();
                 node.Part.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
                 node.Part.FileLocation = swChildComp.GetPathName();
 
@@ -174,7 +176,8 @@ namespace Janitor_V1
                 if (Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
                 {
                     node.Part.PartType = PartType.Toolbox;
-                    node.Part.Weight = Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
+                    //isjungta del ilgo veikimo laiko
+                    //node.Part.Weight = Solidworks_control_tools.WeightOfComponent(swApp, swChildComp.GetPathName(), swChildComp.ReferencedConfiguration);
                 }
                 else
                 {
@@ -226,7 +229,8 @@ namespace Janitor_V1
                 node.ComponentType = NodeType.Assembly;
 
                 node.Assembly.ItemNumber = itemNumber;
-                node.Assembly.ComponentName = swChildComp.Name2;
+                var name = swChildComp.Name2.Split('/');
+                node.Assembly.ComponentName = new string(' ', (name.Length-1)*4) + name.Last();
                 node.Assembly.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
                 node.Assembly.FileLocation = swChildComp.GetPathName();
 

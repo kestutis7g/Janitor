@@ -1,4 +1,5 @@
 ﻿using Janitor_V1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -69,9 +70,9 @@ namespace Janitor_V1.Utils
             double cost = 0;
             foreach (var part in this.PartsData)
             {
-                cost += part.Part.Price ?? default(int);
+                cost += part.Part.Price ?? 0;
             }
-            this.totalPartsCost = cost;
+            this.totalPartsCost = Math.Round(cost,2);
         }
         private void refreshToolboxWeight()
         {
@@ -80,7 +81,7 @@ namespace Janitor_V1.Utils
             {
                 if(part.Part.PartType == PartType.Toolbox)
                 {
-                    weight += part.Part.Weight ?? default;
+                    weight += part.Part.Weight ?? 0;
                 }
             }
             this.toolboxWeight = weight;

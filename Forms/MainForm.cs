@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -41,12 +42,15 @@ namespace Janitor_V1
             this.splitContainer3.SplitterDistance = (80 * this.splitContainer3.Size.Width / 100);
 
             //Fix tree list view size
-            this.treeListView1.Location = new Point(0, this.seachTextBox1.Size.Height);
+            this.treeListView1.Location = new System.Drawing.Point(0, this.seachTextBox1.Size.Height);
             this.treeListView1.Size = new Size(this.splitContainer1.Panel1.Width, this.splitContainer1.Panel1.Height - this.seachTextBox1.Size.Height);
-            this.treeListView2.Location = new Point(0, this.seachTextBox2.Size.Height);
+            this.treeListView2.Location = new System.Drawing.Point(0, this.seachTextBox2.Size.Height);
             this.treeListView2.Size = new Size(this.splitContainer2.Panel1.Width, this.splitContainer2.Panel1.Height - this.seachTextBox2.Size.Height);
-            this.treeListView3.Location = new Point(0, this.seachTextBox3.Size.Height);
+            this.treeListView3.Location = new System.Drawing.Point(0, this.seachTextBox3.Size.Height);
             this.treeListView3.Size = new Size(this.splitContainer3.Panel1.Width, this.splitContainer3.Panel1.Height - this.seachTextBox3.Size.Height);
+
+            //toolbox button tooltip
+
 
             this.WorkingDirectory = workingDirectory;
             this.ProjectDirectory = projectDirectory;
@@ -97,7 +101,7 @@ namespace Janitor_V1
             colImage.MinimumWidth = 40;
 
             var colComponentName = new OLVColumn("ComponentName", "ComponentName");
-            colComponentName.AspectGetter = x => (x as Node).GetComponentName();
+            colComponentName.AspectGetter = x => (x as Node).GetComponentNameWithSpaces();
             colComponentName.Width = 100;
 
             var colReferencedConfiguration = new OLVColumn("ReferencedConfiguration", "ReferencedConfiguration");
@@ -231,9 +235,9 @@ namespace Janitor_V1
         {
             // set the delegate that the tree uses to know if a node is expandable
             this.treeListView3.CanExpandGetter = x => (x as Node).Children.Count > 0 &&
-                                                      (x as Node).Children.Where(c => c.ComponentType.ToString() == "Assembly").Count() > 0;
+                                                      (x as Node).Children.Where(c => c.ComponentType == NodeType.Assembly).Count() > 0;
             // set the delegate that the tree uses to know the children of a node
-            this.treeListView3.ChildrenGetter = x => (x as Node).Children.Where(c => c.ComponentType.ToString() == "Assembly");
+            this.treeListView3.ChildrenGetter = x => (x as Node).Children.Where(c => c.ComponentType == NodeType.Assembly);
 
             // create the tree columns and set the delegates to print the desired object proerty
             var colItemNumber = new OLVColumn("ItemNumber", "ItemNumber");
@@ -259,7 +263,7 @@ namespace Janitor_V1
             colImage.MinimumWidth = 40;
 
             var colComponentName = new OLVColumn("ComponentName", "ComponentName");
-            colComponentName.AspectGetter = x => (x as Node).GetComponentName();
+            colComponentName.AspectGetter = x => (x as Node).GetComponentNameWithSpaces();
             colComponentName.Width = 100;
 
             var colReferencedConfiguration = new OLVColumn("ReferencedConfiguration", "ReferencedConfiguration");
@@ -672,10 +676,14 @@ namespace Janitor_V1
                     toolboxPrice = 0;
                     break;
             }
+            double toolboxWeight = 0;
+            double.TryParse(this.toolboxWeightTextBox.Text, out toolboxWeight);
+            //toolboxWeightTextBox.Text = this.Device.TotalToolboxWeight.ToString();
+            this.Device.TotalToolboxWeight = toolboxWeight;
+
             this.Device.TotalToolboxCost = toolboxPrice * this.Device.TotalToolboxWeight;
             this.Device.TotalPartsAndToolboxCost = Calculations.totalPartsCost + this.Device.TotalToolboxCost;
 
-            toolboxWeightTextBox.Text = this.Device.TotalToolboxWeight.ToString();
             toolboxPriceLabel.Text = "Toolbox price: " + toolboxPrice + " €/kg";
             toolboxTotalPriceLabel.Text = "Toolbox price: " + this.Device.TotalToolboxCost + " €";
 
@@ -910,13 +918,24 @@ namespace Janitor_V1
 
         private void takePicture_Click(object sender, EventArgs e)
         {
-            var checkedItems = treeListView1.CheckedObjects;
+            IList checkedItems;
+            switch ((sender as Button).Name)
+            {
+                case "takePictureButton1":
+                    checkedItems = treeListView1.CheckedObjects;
+                    break;
+                case "takePictureButton2":
+                    checkedItems = treeListView3.CheckedObjects;
+                    break;
+                default:
+                    return;
+            }
 
             foreach (Node item in checkedItems)
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName());
+                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
                     
                     item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
@@ -925,7 +944,7 @@ namespace Janitor_V1
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
-                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName());
+                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
                     item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
                     item.swModel.CustomInfo2[item.GetReferencedConfiguration(),
@@ -936,16 +955,37 @@ namespace Janitor_V1
 
         private void treeListView_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if(treeListView1.CheckedObjects.Count > 0)
+            switch ((sender as TreeListView).Name)
             {
-                this.takePictureButton.Enabled = true;
-                this.readPropertiesButton.Enabled = true;
+                case "treeListView1":
+                    if (treeListView1.CheckedObjects.Count > 0)
+                    {
+                        this.takePictureButton1.Enabled = true;
+                    }
+                    else
+                    {
+                        this.takePictureButton1.Enabled = false;
+                    }
+                    break;
+                case "treeListView3":
+                    if (treeListView3.CheckedObjects.Count > 0)
+                    {
+                        this.takePictureButton2.Enabled = true;
+                    }
+                    else
+                    {
+                        this.takePictureButton2.Enabled = false;
+                    }
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                this.takePictureButton.Enabled = false;
-                this.readPropertiesButton.Enabled = false;
-            }
+
+
+
+
+
+            
         }
 
         private void treeListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -1002,6 +1042,19 @@ namespace Janitor_V1
         {
             var temp = nodeTraversal.ReadProperties(node.swModel, node.swComp, node.GetItemNumber());
             node.Update(temp);
+        }
+
+        private void toolboxRefreshButton_Click(object sender, EventArgs e)
+        {
+            double toolboxWeight = 0;
+            foreach(Node node in Data.Where(x => x.ComponentType == NodeType.Part && 
+                                                 x.Part.PartType == PartType.Toolbox))
+            {
+                node.Part.Weight = Solidworks_control_tools.WeightOfComponent(SwApp, node.GetFileLocation(), node.GetReferencedConfiguration());
+                toolboxWeight += node.Part.Weight ?? 0;
+            }
+            toolboxWeightTextBox.Text = toolboxWeight.ToString();
+            this.Device.TotalToolboxWeight = toolboxWeight;
         }
     }
 }

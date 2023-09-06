@@ -41,6 +41,8 @@ namespace Janitor_V1.Utils
 
         public static double WeightOfComponent(ISldWorks swApp,string componentPath, string Configuration)
         {
+            //reik taisyti
+            //return 0;
             ModelDoc2 swModel;
             int fileError = 0;
             int fileWarning = 0;

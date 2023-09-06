@@ -17,7 +17,7 @@ namespace Janitor_V1
     /// <summary>
     /// Summary description for Janitor_V1.
     /// </summary>
-    [Guid("20CBD339-E564-4C44-B726-03D208883D07"), ComVisible(true)]
+    [Guid("20CBD339-E564-4C44-B726-03D208883D08"), ComVisible(true)]
     [SwAddin(
         Description = "Janitor_V1 description",
         Title = "Janitor_V1",

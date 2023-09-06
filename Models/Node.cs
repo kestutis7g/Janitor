@@ -58,6 +58,18 @@ namespace Janitor_V1.Models
         {
             if (this.ComponentType == NodeType.Part)
             {
+                return Part.ComponentName.Trim();
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.ComponentName.Trim();
+            }
+            return "Unknown";
+        }
+        public string GetComponentNameWithSpaces()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
                 return Part.ComponentName;
             }
             else if (this.ComponentType == NodeType.Assembly)

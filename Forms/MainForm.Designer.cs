@@ -41,7 +41,7 @@ namespace Janitor_V1
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.readPropertiesButton = new System.Windows.Forms.Button();
             this.openInSolidworksButton1 = new System.Windows.Forms.Button();
-            this.takePictureButton = new System.Windows.Forms.Button();
+            this.takePictureButton1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.finalPriceLabel = new System.Windows.Forms.Label();
             this.totalAssemblyCostGeneralLabel = new System.Windows.Forms.Label();
@@ -81,6 +81,7 @@ namespace Janitor_V1
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.openInSolidworksButton3 = new System.Windows.Forms.Button();
+            this.takePictureButton2 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.OpenDetailsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenInSolidworksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,6 +89,8 @@ namespace Janitor_V1
             this.deviceButton = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.pricesButton = new System.Windows.Forms.Button();
+            this.toolboxRefreshButton = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -170,7 +173,7 @@ namespace Janitor_V1
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(879, 475);
-            this.splitContainer1.SplitterDistance = 649;
+            this.splitContainer1.SplitterDistance = 651;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
@@ -193,7 +196,7 @@ namespace Janitor_V1
             this.treeListView1.ShowGroups = false;
             this.treeListView1.ShowImagesOnSubItems = true;
             this.treeListView1.ShowItemToolTips = true;
-            this.treeListView1.Size = new System.Drawing.Size(645, 451);
+            this.treeListView1.Size = new System.Drawing.Size(647, 451);
             this.treeListView1.TabIndex = 3;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.UseFilterIndicator = true;
@@ -212,7 +215,7 @@ namespace Janitor_V1
             this.seachTextBox1.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox1.Name = "seachTextBox1";
-            this.seachTextBox1.Size = new System.Drawing.Size(649, 20);
+            this.seachTextBox1.Size = new System.Drawing.Size(651, 20);
             this.seachTextBox1.TabIndex = 4;
             this.seachTextBox1.TextChanged += new System.EventHandler(this.seachTextBox1_TextChanged);
             // 
@@ -222,12 +225,12 @@ namespace Janitor_V1
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.readPropertiesButton);
             this.panel1.Controls.Add(this.openInSolidworksButton1);
-            this.panel1.Controls.Add(this.takePictureButton);
+            this.panel1.Controls.Add(this.takePictureButton1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(210, 513);
+            this.panel1.Size = new System.Drawing.Size(204, 513);
             this.panel1.TabIndex = 2;
             // 
             // pictureBox1
@@ -237,7 +240,7 @@ namespace Janitor_V1
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Location = new System.Drawing.Point(0, 79);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(210, 120);
+            this.pictureBox1.Size = new System.Drawing.Size(204, 120);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -248,7 +251,7 @@ namespace Janitor_V1
             this.readPropertiesButton.Location = new System.Drawing.Point(0, 52);
             this.readPropertiesButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton.Name = "readPropertiesButton";
-            this.readPropertiesButton.Size = new System.Drawing.Size(210, 27);
+            this.readPropertiesButton.Size = new System.Drawing.Size(204, 27);
             this.readPropertiesButton.TabIndex = 3;
             this.readPropertiesButton.Text = "Read properties";
             this.readPropertiesButton.UseVisualStyleBackColor = true;
@@ -261,24 +264,24 @@ namespace Janitor_V1
             this.openInSolidworksButton1.Location = new System.Drawing.Point(0, 25);
             this.openInSolidworksButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton1.Name = "openInSolidworksButton1";
-            this.openInSolidworksButton1.Size = new System.Drawing.Size(210, 27);
+            this.openInSolidworksButton1.Size = new System.Drawing.Size(204, 27);
             this.openInSolidworksButton1.TabIndex = 0;
             this.openInSolidworksButton1.Text = "Open selected item";
             this.openInSolidworksButton1.UseVisualStyleBackColor = true;
             this.openInSolidworksButton1.Click += new System.EventHandler(this.openItemButton_Click);
             // 
-            // takePictureButton
+            // takePictureButton1
             // 
-            this.takePictureButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.takePictureButton.Enabled = false;
-            this.takePictureButton.Location = new System.Drawing.Point(0, 0);
-            this.takePictureButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.takePictureButton.Name = "takePictureButton";
-            this.takePictureButton.Size = new System.Drawing.Size(210, 25);
-            this.takePictureButton.TabIndex = 1;
-            this.takePictureButton.Text = "Take picture";
-            this.takePictureButton.UseVisualStyleBackColor = true;
-            this.takePictureButton.Click += new System.EventHandler(this.takePicture_Click);
+            this.takePictureButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.takePictureButton1.Enabled = false;
+            this.takePictureButton1.Location = new System.Drawing.Point(0, 0);
+            this.takePictureButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.takePictureButton1.Name = "takePictureButton1";
+            this.takePictureButton1.Size = new System.Drawing.Size(204, 25);
+            this.takePictureButton1.TabIndex = 1;
+            this.takePictureButton1.Text = "Take picture";
+            this.takePictureButton1.UseVisualStyleBackColor = true;
+            this.takePictureButton1.Click += new System.EventHandler(this.takePicture_Click);
             // 
             // panel4
             // 
@@ -298,7 +301,7 @@ namespace Janitor_V1
             this.finalPriceLabel.Location = new System.Drawing.Point(247, 12);
             this.finalPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.finalPriceLabel.Name = "finalPriceLabel";
-            this.finalPriceLabel.Size = new System.Drawing.Size(76, 13);
+            this.finalPriceLabel.Size = new System.Drawing.Size(87, 15);
             this.finalPriceLabel.TabIndex = 12;
             this.finalPriceLabel.Text = "Final price: 0 €";
             // 
@@ -308,7 +311,7 @@ namespace Janitor_V1
             this.totalAssemblyCostGeneralLabel.Location = new System.Drawing.Point(10, 38);
             this.totalAssemblyCostGeneralLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalAssemblyCostGeneralLabel.Name = "totalAssemblyCostGeneralLabel";
-            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(121, 13);
+            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(137, 15);
             this.totalAssemblyCostGeneralLabel.TabIndex = 11;
             this.totalAssemblyCostGeneralLabel.Text = "Total assembly cost: 0 €";
             // 
@@ -318,7 +321,7 @@ namespace Janitor_V1
             this.totalPartsTabCostGeneralLabel.Location = new System.Drawing.Point(10, 12);
             this.totalPartsTabCostGeneralLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsTabCostGeneralLabel.Name = "totalPartsTabCostGeneralLabel";
-            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(159, 13);
+            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(179, 15);
             this.totalPartsTabCostGeneralLabel.TabIndex = 10;
             this.totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: 0 €";
             // 
@@ -337,6 +340,7 @@ namespace Janitor_V1
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.toolboxRefreshButton);
             this.panel5.Controls.Add(this.totalPartsTabCostTextBox);
             this.panel5.Controls.Add(this.totalPartsTabCostLabel);
             this.panel5.Controls.Add(this.toolboxTotalPriceLabel);
@@ -380,7 +384,7 @@ namespace Janitor_V1
             this.toolboxTotalPriceLabel.Location = new System.Drawing.Point(314, 47);
             this.toolboxTotalPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxTotalPriceLabel.Name = "toolboxTotalPriceLabel";
-            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(153, 13);
+            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(175, 15);
             this.toolboxTotalPriceLabel.TabIndex = 8;
             this.toolboxTotalPriceLabel.Text = "Toolbox components price: 0 €";
             // 
@@ -390,16 +394,15 @@ namespace Janitor_V1
             this.toolboxPriceLabel.Location = new System.Drawing.Point(314, 29);
             this.toolboxPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxPriceLabel.Name = "toolboxPriceLabel";
-            this.toolboxPriceLabel.Size = new System.Drawing.Size(170, 13);
+            this.toolboxPriceLabel.Size = new System.Drawing.Size(191, 15);
             this.toolboxPriceLabel.TabIndex = 7;
             this.toolboxPriceLabel.Text = "Toolbox components price: 0 €/kg";
             // 
             // toolboxWeightTextBox
             // 
-            this.toolboxWeightTextBox.Location = new System.Drawing.Point(466, 6);
+            this.toolboxWeightTextBox.Location = new System.Drawing.Point(479, 6);
             this.toolboxWeightTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.toolboxWeightTextBox.Name = "toolboxWeightTextBox";
-            this.toolboxWeightTextBox.ReadOnly = true;
             this.toolboxWeightTextBox.Size = new System.Drawing.Size(68, 20);
             this.toolboxWeightTextBox.TabIndex = 6;
             this.toolboxWeightTextBox.Text = "0";
@@ -412,7 +415,7 @@ namespace Janitor_V1
             this.toolboxWeightLabel.Location = new System.Drawing.Point(314, 8);
             this.toolboxWeightLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxWeightLabel.Name = "toolboxWeightLabel";
-            this.toolboxWeightLabel.Size = new System.Drawing.Size(140, 13);
+            this.toolboxWeightLabel.Size = new System.Drawing.Size(161, 15);
             this.toolboxWeightLabel.TabIndex = 5;
             this.toolboxWeightLabel.Text = "Toolbox components weight";
             // 
@@ -422,7 +425,7 @@ namespace Janitor_V1
             this.toolboxTypeLabel.Location = new System.Drawing.Point(200, 8);
             this.toolboxTypeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxTypeLabel.Name = "toolboxTypeLabel";
-            this.toolboxTypeLabel.Size = new System.Drawing.Size(71, 13);
+            this.toolboxTypeLabel.Size = new System.Drawing.Size(79, 15);
             this.toolboxTypeLabel.TabIndex = 4;
             this.toolboxTypeLabel.Text = "Toolbox type:";
             // 
@@ -432,7 +435,7 @@ namespace Janitor_V1
             this.useStainlessSteel.Location = new System.Drawing.Point(203, 46);
             this.useStainlessSteel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.useStainlessSteel.Name = "useStainlessSteel";
-            this.useStainlessSteel.Size = new System.Drawing.Size(92, 17);
+            this.useStainlessSteel.Size = new System.Drawing.Size(107, 19);
             this.useStainlessSteel.TabIndex = 3;
             this.useStainlessSteel.Text = "Stainless steel";
             this.useStainlessSteel.UseVisualStyleBackColor = true;
@@ -445,7 +448,7 @@ namespace Janitor_V1
             this.useBlackSteel.Location = new System.Drawing.Point(203, 26);
             this.useBlackSteel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.useBlackSteel.Name = "useBlackSteel";
-            this.useBlackSteel.Size = new System.Drawing.Size(77, 17);
+            this.useBlackSteel.Size = new System.Drawing.Size(87, 19);
             this.useBlackSteel.TabIndex = 2;
             this.useBlackSteel.TabStop = true;
             this.useBlackSteel.Text = "Black steel";
@@ -458,7 +461,7 @@ namespace Janitor_V1
             this.totalPartsCostLabel.Location = new System.Drawing.Point(10, 32);
             this.totalPartsCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsCostLabel.Name = "totalPartsCostLabel";
-            this.totalPartsCostLabel.Size = new System.Drawing.Size(131, 13);
+            this.totalPartsCostLabel.Size = new System.Drawing.Size(145, 15);
             this.totalPartsCostLabel.TabIndex = 1;
             this.totalPartsCostLabel.Text = "Total cost of the parts: 0 €";
             // 
@@ -468,7 +471,7 @@ namespace Janitor_V1
             this.totalPartsLabel.Location = new System.Drawing.Point(10, 8);
             this.totalPartsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsLabel.Name = "totalPartsLabel";
-            this.totalPartsLabel.Size = new System.Drawing.Size(119, 13);
+            this.totalPartsLabel.Size = new System.Drawing.Size(136, 15);
             this.totalPartsLabel.TabIndex = 0;
             this.totalPartsLabel.Text = "Total number of parts: 0";
             // 
@@ -493,7 +496,7 @@ namespace Janitor_V1
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer2.Panel2.Controls.Add(this.panel2);
             this.splitContainer2.Size = new System.Drawing.Size(879, 475);
-            this.splitContainer2.SplitterDistance = 638;
+            this.splitContainer2.SplitterDistance = 640;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
             this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
@@ -515,7 +518,7 @@ namespace Janitor_V1
             this.treeListView2.ShowGroups = false;
             this.treeListView2.ShowImagesOnSubItems = true;
             this.treeListView2.ShowItemToolTips = true;
-            this.treeListView2.Size = new System.Drawing.Size(635, 452);
+            this.treeListView2.Size = new System.Drawing.Size(637, 452);
             this.treeListView2.TabIndex = 4;
             this.treeListView2.UseCompatibleStateImageBehavior = false;
             this.treeListView2.UseFilterIndicator = true;
@@ -533,7 +536,7 @@ namespace Janitor_V1
             this.seachTextBox2.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox2.Name = "seachTextBox2";
-            this.seachTextBox2.Size = new System.Drawing.Size(638, 20);
+            this.seachTextBox2.Size = new System.Drawing.Size(640, 20);
             this.seachTextBox2.TabIndex = 5;
             // 
             // panel2
@@ -545,7 +548,7 @@ namespace Janitor_V1
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 541);
+            this.panel2.Size = new System.Drawing.Size(215, 541);
             this.panel2.TabIndex = 0;
             // 
             // pictureBox2
@@ -555,7 +558,7 @@ namespace Janitor_V1
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox2.Location = new System.Drawing.Point(0, 25);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(221, 120);
+            this.pictureBox2.Size = new System.Drawing.Size(215, 120);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
@@ -566,7 +569,7 @@ namespace Janitor_V1
             this.openInSolidworksButton2.Location = new System.Drawing.Point(0, 0);
             this.openInSolidworksButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton2.Name = "openInSolidworksButton2";
-            this.openInSolidworksButton2.Size = new System.Drawing.Size(221, 25);
+            this.openInSolidworksButton2.Size = new System.Drawing.Size(215, 25);
             this.openInSolidworksButton2.TabIndex = 0;
             this.openInSolidworksButton2.Text = "Open selected item";
             this.openInSolidworksButton2.UseVisualStyleBackColor = true;
@@ -608,7 +611,7 @@ namespace Janitor_V1
             this.totalAssemblyCostLabel.Location = new System.Drawing.Point(330, 51);
             this.totalAssemblyCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalAssemblyCostLabel.Name = "totalAssemblyCostLabel";
-            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(121, 13);
+            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(137, 15);
             this.totalAssemblyCostLabel.TabIndex = 8;
             this.totalAssemblyCostLabel.Text = "Total assembly cost: 0 €";
             // 
@@ -618,7 +621,7 @@ namespace Janitor_V1
             this.assemblyCostLabel.Location = new System.Drawing.Point(330, 29);
             this.assemblyCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.assemblyCostLabel.Name = "assemblyCostLabel";
-            this.assemblyCostLabel.Size = new System.Drawing.Size(106, 13);
+            this.assemblyCostLabel.Size = new System.Drawing.Size(117, 15);
             this.assemblyCostLabel.TabIndex = 7;
             this.assemblyCostLabel.Text = "Assembly cost: 0 €/h";
             // 
@@ -629,7 +632,7 @@ namespace Janitor_V1
             this.combinedAssemblyDurationLabel.Location = new System.Drawing.Point(330, 7);
             this.combinedAssemblyDurationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.combinedAssemblyDurationLabel.Name = "combinedAssemblyDurationLabel";
-            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(144, 13);
+            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(170, 15);
             this.combinedAssemblyDurationLabel.TabIndex = 6;
             this.combinedAssemblyDurationLabel.Text = "Combined assembly duration:";
             // 
@@ -652,7 +655,7 @@ namespace Janitor_V1
             this.assemblyToParentLabel.Location = new System.Drawing.Point(9, 51);
             this.assemblyToParentLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.assemblyToParentLabel.Name = "assemblyToParentLabel";
-            this.assemblyToParentLabel.Size = new System.Drawing.Size(137, 13);
+            this.assemblyToParentLabel.Size = new System.Drawing.Size(158, 15);
             this.assemblyToParentLabel.TabIndex = 4;
             this.assemblyToParentLabel.Text = "Assembly to parent duration";
             // 
@@ -675,7 +678,7 @@ namespace Janitor_V1
             this.individualComponentsAssemblyLabel.Location = new System.Drawing.Point(9, 29);
             this.individualComponentsAssemblyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.individualComponentsAssemblyLabel.Name = "individualComponentsAssemblyLabel";
-            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(200, 13);
+            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(233, 15);
             this.individualComponentsAssemblyLabel.TabIndex = 2;
             this.individualComponentsAssemblyLabel.Text = "Individual components assembly duration";
             // 
@@ -686,7 +689,7 @@ namespace Janitor_V1
             this.rootChildNodeAssemblyTime.Location = new System.Drawing.Point(9, 7);
             this.rootChildNodeAssemblyTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rootChildNodeAssemblyTime.Name = "rootChildNodeAssemblyTime";
-            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(131, 13);
+            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(154, 15);
             this.rootChildNodeAssemblyTime.TabIndex = 1;
             this.rootChildNodeAssemblyTime.Text = "Child node assembly time: ";
             // 
@@ -751,6 +754,7 @@ namespace Janitor_V1
             this.treeListView3.View = System.Windows.Forms.View.Details;
             this.treeListView3.VirtualMode = true;
             this.treeListView3.ItemActivate += new System.EventHandler(this.treeListView_ItemActivate);
+            this.treeListView3.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.treeListView_ItemChecked);
             this.treeListView3.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.treeListView_ItemSelectionChanged);
             this.treeListView3.SelectedIndexChanged += new System.EventHandler(this.treeListView_SelectedIndexChanged);
             // 
@@ -758,11 +762,12 @@ namespace Janitor_V1
             // 
             this.panel3.Controls.Add(this.pictureBox3);
             this.panel3.Controls.Add(this.openInSolidworksButton3);
+            this.panel3.Controls.Add(this.takePictureButton2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(188, 634);
+            this.panel3.Size = new System.Drawing.Size(184, 634);
             this.panel3.TabIndex = 0;
             // 
             // pictureBox3
@@ -770,9 +775,9 @@ namespace Janitor_V1
             this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 26);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 51);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(188, 120);
+            this.pictureBox3.Size = new System.Drawing.Size(184, 120);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
             // 
@@ -780,14 +785,27 @@ namespace Janitor_V1
             // 
             this.openInSolidworksButton3.Dock = System.Windows.Forms.DockStyle.Top;
             this.openInSolidworksButton3.Enabled = false;
-            this.openInSolidworksButton3.Location = new System.Drawing.Point(0, 0);
+            this.openInSolidworksButton3.Location = new System.Drawing.Point(0, 25);
             this.openInSolidworksButton3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton3.Name = "openInSolidworksButton3";
-            this.openInSolidworksButton3.Size = new System.Drawing.Size(188, 26);
+            this.openInSolidworksButton3.Size = new System.Drawing.Size(184, 26);
             this.openInSolidworksButton3.TabIndex = 0;
             this.openInSolidworksButton3.Text = "Open selected item";
             this.openInSolidworksButton3.UseVisualStyleBackColor = true;
             this.openInSolidworksButton3.Click += new System.EventHandler(this.openItemButton_Click);
+            // 
+            // takePictureButton2
+            // 
+            this.takePictureButton2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.takePictureButton2.Enabled = false;
+            this.takePictureButton2.Location = new System.Drawing.Point(0, 0);
+            this.takePictureButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.takePictureButton2.Name = "takePictureButton2";
+            this.takePictureButton2.Size = new System.Drawing.Size(184, 25);
+            this.takePictureButton2.TabIndex = 4;
+            this.takePictureButton2.Text = "Take picture";
+            this.takePictureButton2.UseVisualStyleBackColor = true;
+            this.takePictureButton2.Click += new System.EventHandler(this.takePicture_Click);
             // 
             // contextMenuStrip1
             // 
@@ -796,20 +814,20 @@ namespace Janitor_V1
             this.OpenDetailsMenuItem,
             this.OpenInSolidworksMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(177, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(207, 52);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // OpenDetailsMenuItem
             // 
             this.OpenDetailsMenuItem.Name = "OpenDetailsMenuItem";
-            this.OpenDetailsMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.OpenDetailsMenuItem.Size = new System.Drawing.Size(206, 24);
             this.OpenDetailsMenuItem.Text = "Open details";
             this.OpenDetailsMenuItem.Click += new System.EventHandler(this.contextMenuToolStripMenuItem_Click);
             // 
             // OpenInSolidworksMenuItem
             // 
             this.OpenInSolidworksMenuItem.Name = "OpenInSolidworksMenuItem";
-            this.OpenInSolidworksMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.OpenInSolidworksMenuItem.Size = new System.Drawing.Size(206, 24);
             this.OpenInSolidworksMenuItem.Text = "Open in Solidworks";
             this.OpenInSolidworksMenuItem.Click += new System.EventHandler(this.contextMenuToolStripMenuItem_Click);
             // 
@@ -830,7 +848,7 @@ namespace Janitor_V1
             this.deviceButton.Location = new System.Drawing.Point(61, 1);
             this.deviceButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.deviceButton.Name = "deviceButton";
-            this.deviceButton.Size = new System.Drawing.Size(144, 25);
+            this.deviceButton.Size = new System.Drawing.Size(157, 25);
             this.deviceButton.TabIndex = 2;
             this.deviceButton.Text = "Parent device calculation";
             this.deviceButton.UseVisualStyleBackColor = true;
@@ -840,11 +858,12 @@ namespace Janitor_V1
             // 
             this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button5.Location = new System.Drawing.Point(209, 3);
+            this.button5.Location = new System.Drawing.Point(222, 3);
             this.button5.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(23, 23);
             this.button5.TabIndex = 1;
+            this.toolTip.SetToolTip(this.button5, "Recalculate node assembling duration");
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -858,6 +877,19 @@ namespace Janitor_V1
             this.pricesButton.Text = "Prices";
             this.pricesButton.UseVisualStyleBackColor = true;
             this.pricesButton.Click += new System.EventHandler(this.pricesButton_Click);
+            // 
+            // toolboxRefreshButton
+            // 
+            this.toolboxRefreshButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolboxRefreshButton.BackgroundImage")));
+            this.toolboxRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.toolboxRefreshButton.Location = new System.Drawing.Point(551, 4);
+            this.toolboxRefreshButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.toolboxRefreshButton.Name = "toolboxRefreshButton";
+            this.toolboxRefreshButton.Size = new System.Drawing.Size(23, 23);
+            this.toolboxRefreshButton.TabIndex = 11;
+            this.toolTip.SetToolTip(this.toolboxRefreshButton, "Refresh toolbox components weight");
+            this.toolboxRefreshButton.UseVisualStyleBackColor = true;
+            this.toolboxRefreshButton.Click += new System.EventHandler(this.toolboxRefreshButton_Click);
             // 
             // MainForm
             // 
@@ -921,7 +953,7 @@ namespace Janitor_V1
         private BrightIdeasSoftware.TreeListView treeListView2;
         private TextBox seachTextBox1;
         private TextBox seachTextBox2;
-        private System.Windows.Forms.Button takePictureButton;
+        private System.Windows.Forms.Button takePictureButton1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button openInSolidworksButton1;
@@ -968,6 +1000,9 @@ namespace Janitor_V1
         private TextBox totalPartsTabCostTextBox;
         private ToolStripMenuItem OpenInSolidworksMenuItem;
         private Button readPropertiesButton;
+        private Button takePictureButton2;
+        private Button toolboxRefreshButton;
+        private ToolTip toolTip;
     }
 }
 
