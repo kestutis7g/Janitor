@@ -417,7 +417,7 @@ namespace Janitor_V1
                 "C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\",
                 nodeTraversal.ProjectLocation);
 
-            this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly, nodeTraversal.Device);
+            this.mainForm.SetData(nodeTraversal.AssemblingoNariai, nodeTraversal.PartsOnly, nodeTraversal.NonTreeData, nodeTraversal.Device);
             this.mainForm.Show();
             this.mainForm.Start();
         }

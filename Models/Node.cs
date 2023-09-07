@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
@@ -20,12 +21,13 @@ namespace Janitor_V1.Models
         Description("Component Type")]
         public NodeType ComponentType { get; set; }
 
+        [Category("General"),
+        Description("Full item number")]
+        public string ItemNumber { get; set; }
+
         [Category("Other"),
         Description("All child nodes")]
         public List<Node> Children { get; set; }
-
-        public ModelDoc2 swModel { get; set; }
-        public Component2 swComp { get; set; }
 
         public Node()
         {
@@ -39,19 +41,6 @@ namespace Janitor_V1.Models
             this.Part = data.Part;
             this.Assembly = data.Assembly;
             this.ComponentType = data.ComponentType;
-        }
-
-        public string GetItemNumber()
-        {
-            if(this.ComponentType == NodeType.Part)
-            {
-                return Part.ItemNumber;
-            }
-            else if(this.ComponentType == NodeType.Assembly)
-            {
-                return Assembly.ItemNumber;
-            }
-            return "Unknown";
         }
 
         public string GetComponentName()
@@ -132,11 +121,15 @@ namespace Janitor_V1.Models
         }
         public Image GetSmallImage(string workingDirectory)
         {
-            if (this.ComponentType == NodeType.Part && !string.IsNullOrEmpty(Part.ImageLocation))
+            if (this.ComponentType == NodeType.Part && 
+                !string.IsNullOrWhiteSpace(Part.ImageLocation) &&
+                File.Exists(Part.ImageLocation))
             {
                 return Image.FromFile(Part.ImageLocation);
             }
-            else if (this.ComponentType == NodeType.Assembly && !string.IsNullOrEmpty(Assembly.ImageLocation))
+            else if (this.ComponentType == NodeType.Assembly && 
+                !string.IsNullOrWhiteSpace(Assembly.ImageLocation) &&
+                File.Exists(Assembly.ImageLocation))
             {
                 return Image.FromFile(Assembly.ImageLocation);
             }
@@ -146,11 +139,15 @@ namespace Janitor_V1.Models
         public Image GetBigImage(string workingDirectory)
         {
 
-            if (this.ComponentType == NodeType.Part && !string.IsNullOrEmpty(Part.ImageLocation))
+            if (this.ComponentType == NodeType.Part && 
+                !string.IsNullOrWhiteSpace(Part.ImageLocation) &&
+                File.Exists(Part.ImageLocation))
             {
                 return Image.FromFile(Part.ImageLocation);
             }
-            else if (this.ComponentType == NodeType.Assembly && !string.IsNullOrEmpty(Assembly.ImageLocation))
+            else if (this.ComponentType == NodeType.Assembly && 
+                !string.IsNullOrWhiteSpace(Assembly.ImageLocation) &&
+                File.Exists(Assembly.ImageLocation))
             {
                 return Image.FromFile(Assembly.ImageLocation);
             }
@@ -324,6 +321,32 @@ namespace Janitor_V1.Models
             else if (this.ComponentType == NodeType.Assembly)
             {
                 return null;
+            }
+            return null;
+        }
+
+        public ModelDoc2 GetSwModel()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.swModel;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.swModel;
+            }
+            return null;
+        }
+
+        public Component2 GetSwComp()
+        {
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.swComp;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.swComp;
             }
             return null;
         }

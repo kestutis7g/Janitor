@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
 {
@@ -12,10 +13,6 @@ namespace Janitor_V1.Models
     }
     public class Part
     {
-        [Category("General"),
-        Description("Full item number")]
-        public string ItemNumber { get; set; }
-
         [Category("General"),
         Description("Name of the component")]
         public string ComponentName { get; set; }
@@ -127,6 +124,9 @@ namespace Janitor_V1.Models
         Description("Other part parameters")]
         public OtherPart OtherPart { get; set; }
 
+        public ModelDoc2 swModel { get; set; }
+        public Component2 swComp { get; set; }
+
         public Part()
         {
             ComponentID = 0;
@@ -148,9 +148,8 @@ namespace Janitor_V1.Models
             Bent = false;
             OtherPart = new OtherPart();
         }
-        public Part(string itemNumber, string componentName, string description, string referencedConfiguration, int componentID, string fileLocation, Image image, string material, double? weight, double? surfaceArea, double? sheetThickness, string coverage, double? price, double? markup, double? purchasePrice, double? metalPrice, double? paintingCost, double? cuttingCost, double? punchingCost, double? bendingCost, double? cutLength, int? numberOfBends, int? numberOfPunches, bool? welded, bool? bent, DateTime? updatedAt)
+        public Part(string componentName, string description, string referencedConfiguration, int componentID, string fileLocation, Image image, string material, double? weight, double? surfaceArea, double? sheetThickness, string coverage, double? price, double? markup, double? purchasePrice, double? metalPrice, double? paintingCost, double? cuttingCost, double? punchingCost, double? bendingCost, double? cutLength, int? numberOfBends, int? numberOfPunches, bool? welded, bool? bent, DateTime? updatedAt)
         {
-            ItemNumber = itemNumber;
             ComponentName = componentName;
             Description = description;
             ReferencedConfiguration = referencedConfiguration;

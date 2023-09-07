@@ -16,6 +16,7 @@ namespace Janitor_V1
         public SldWorks swApp;
         public List<Node> AssemblingoNariai;
         public List<Node> PartsOnly;
+        public List<Node> NonTreeData;
         public Device Device;
         public string ProjectLocation = "C:\\bbb\\";
 
@@ -23,6 +24,7 @@ namespace Janitor_V1
         {
             AssemblingoNariai = new List<Node>();
             PartsOnly = new List<Node>();
+            NonTreeData = new List<Node>();
             Device = new Device();
         }
 
@@ -45,6 +47,8 @@ namespace Janitor_V1
             ReadDeviceProperties(swModel.Extension.get_CustomPropertyManager(
                 this.Device.Configuration));
 
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
                 // Resolve all lightweight components
@@ -55,6 +59,10 @@ namespace Janitor_V1
                 TraverseComponent(swRootComp, 1, "", root);
                 this.AssemblingoNariai = root.Children;
             }
+
+            //watch.Stop();
+            //var elapsedMs = watch.ElapsedMilliseconds;
+            //int a = 0;
 
             // Calculate TotalTime and print it
             //double FinishTime = Timer(); // End time (use Stopwatch for more precision)
@@ -89,6 +97,7 @@ namespace Janitor_V1
                             {
                                 PartsOnly.Add(node);
                             }
+                            NonTreeData.Add(node);
                             parent.Children.Add(node);
                             TraverseComponent(swChildComp, nLevel + 1, itemNumber, node);
                         }
@@ -105,18 +114,27 @@ namespace Janitor_V1
                 return null;
             }
             int swModelType = swModel.GetType();
-            node.swModel = swModel;
-            node.swComp = swChildComp;
           
             CustomPropertyManager CustPropMgr = swModel.Extension.get_CustomPropertyManager(swChildComp.ReferencedConfiguration);
 
             if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
+                node.Part.swModel = swModel;
+                node.Part.swComp = swChildComp;
+
                 node.ComponentType = NodeType.Part;
-                node.Part.ItemNumber = itemNumber;
+                node.ItemNumber = itemNumber;
                 var name = swChildComp.Name2.Split('/');
-                node.Part.ComponentName = new string(' ', (name.Length - 1) * 4) + name.Last();
+                node.Part.ComponentName = new string(' ', (name.Length - 1) * 4) + name.Last().Remove(name.Last().LastIndexOf('-'));
                 node.Part.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
+
+                var duplicate = FindNodeIfExists(node.GetComponentName(), node.GetReferencedConfiguration());
+                if (duplicate != null)
+                {
+                    node.Part = duplicate.Part;
+                    return node;
+                }
+
                 node.Part.FileLocation = swChildComp.GetPathName();
 
                 node.Part.SurfaceArea = ReadPropertiesFromSolidworks_doubleOut(
@@ -173,6 +191,9 @@ namespace Janitor_V1
                 node.Part.BendingCost = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Skardos sulenkimo kaina_Eur uz vnt", CustPropMgr);
 
+                node.Part.ImageLocation = ReadPropertiesFromSolidworks_stringOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Paveikslelio failas");
+
                 if (Solidworks_control_tools.CheckToolboxComponents(swModel) != 0)
                 {
                     node.Part.PartType = PartType.Toolbox;
@@ -226,12 +247,22 @@ namespace Janitor_V1
             }
             else if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
             {
-                node.ComponentType = NodeType.Assembly;
+                node.Assembly.swModel = swModel;
+                node.Assembly.swComp = swChildComp;
 
-                node.Assembly.ItemNumber = itemNumber;
+                node.ComponentType = NodeType.Assembly;
+                node.ItemNumber = itemNumber;
                 var name = swChildComp.Name2.Split('/');
-                node.Assembly.ComponentName = new string(' ', (name.Length-1)*4) + name.Last();
+                node.Assembly.ComponentName = new string(' ', (name.Length-1)*4) + name.Last().Remove(name.Last().LastIndexOf('-'));
                 node.Assembly.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
+
+                var duplicate = FindNodeIfExists(node.GetComponentName(), node.GetReferencedConfiguration());
+                if (duplicate != null)
+                {
+                    node.Assembly = duplicate.Assembly;
+                    return node;
+                }
+
                 node.Assembly.FileLocation = swChildComp.GetPathName();
 
                 node.Assembly.ChildNodeAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
@@ -429,7 +460,14 @@ namespace Janitor_V1
             //MessageBox.Show("Komponento " + swModel.GetPathName() + " properčio " + PropertyName + " reikšmė: "+ResValue ).ToString();
 
             return value;
-        }   
+        }
+        
+        private Node FindNodeIfExists(string name, string configuration)
+        {
+            var node = NonTreeData.FirstOrDefault(x => x.GetComponentName() == name &&
+            x.GetReferencedConfiguration() == configuration);
+            return node;
+        }
     }
 }
 

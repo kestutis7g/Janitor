@@ -22,6 +22,7 @@ namespace Janitor_V1
 
         private List<Node> Data;
         private List<Node> PartsData;
+        private List<Node> NonTreeData;
         private Calculations Calculations;
 
         private Prices Prices;
@@ -79,7 +80,7 @@ namespace Janitor_V1
 
             // create the tree columns and set the delegates to print the desired object proerty
             var colItemNumber = new OLVColumn("ItemNumber", "ItemNumber");
-            colItemNumber.AspectGetter = x => (x as Node).GetItemNumber();
+            colItemNumber.AspectGetter = x => (x as Node).ItemNumber;
             colItemNumber.MinimumWidth = 80;
             colItemNumber.HeaderCheckBox = true;
 
@@ -87,7 +88,7 @@ namespace Janitor_V1
             this.treeListView1.LargeImageList = new ImageList();
             var colImage = new OLVColumn("Image", "Image");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).GetItemNumber();
+                String key = (row as Node).ItemNumber;
                 if (!this.treeListView1.LargeImageList.Images.ContainsKey(key))
                 {
                     Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
@@ -241,7 +242,7 @@ namespace Janitor_V1
 
             // create the tree columns and set the delegates to print the desired object proerty
             var colItemNumber = new OLVColumn("ItemNumber", "ItemNumber");
-            colItemNumber.AspectGetter = x => (x as Node).GetItemNumber();
+            colItemNumber.AspectGetter = x => (x as Node).ItemNumber;
             colItemNumber.MinimumWidth = 80;
             colItemNumber.HeaderCheckBox = true;
 
@@ -249,7 +250,7 @@ namespace Janitor_V1
             this.treeListView3.LargeImageList = new ImageList();
             var colImage = new OLVColumn("Image", "Image");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).GetItemNumber();
+                String key = (row as Node).ItemNumber;
                 if (!this.treeListView3.LargeImageList.Images.ContainsKey(key))
                 {
                     Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
@@ -298,6 +299,11 @@ namespace Janitor_V1
             colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
             colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
+            
+            var colWeldingDuration = new OLVColumn("Welding duration", "Welding duration");
+            colWeldingDuration.AspectGetter = x => (x as Node).Assembly.WeldingDuration;
+            colWeldingDuration.ToolTipText = "Welding duration";
+            colWeldingDuration.Width = 100;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
@@ -350,7 +356,7 @@ namespace Janitor_V1
 
             // create the tree columns and set the delegates to print the desired object proerty
             var colItemNumber = new OLVColumn("ItemNumber", "ItemNumber");
-            colItemNumber.AspectGetter = x => (x as Node).GetItemNumber();
+            colItemNumber.AspectGetter = x => (x as Node).ItemNumber;
             colItemNumber.MinimumWidth = 80;
             colItemNumber.HeaderCheckBox = true;
 
@@ -358,7 +364,7 @@ namespace Janitor_V1
             this.treeListView2.LargeImageList = new ImageList();
             var colImage = new OLVColumn("Image", "Image");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).GetItemNumber();
+                String key = (row as Node).ItemNumber;
                 if (!this.treeListView2.LargeImageList.Images.ContainsKey(key))
                 {
                     Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
@@ -469,10 +475,11 @@ namespace Janitor_V1
             this.treeListView2.CheckBoxes = true;
         }
 
-        public void SetData(List<Node> data, List<Node> parts, Device device)
+        public void SetData(List<Node> data, List<Node> parts, List<Node> nonTreeData, Device device)
         {
             this.Data = data;
             this.PartsData = parts;
+            this.NonTreeData = nonTreeData;
             this.Device = device;
             UpdateDevice();
 
@@ -521,7 +528,7 @@ namespace Janitor_V1
         {
             var parent = String.Join(".", nodeNumber.Split('.').Take(currentLevel));
 
-            var parentNode = nodes.FirstOrDefault(x => x.GetItemNumber() == parent);
+            var parentNode = nodes.FirstOrDefault(x => x.ItemNumber == parent);
 
             if (parentNode == null)
             {
@@ -554,7 +561,7 @@ namespace Janitor_V1
 
             if(type == NodeType.Part)
             {
-                node.Part.ItemNumber = info[0];
+                node.ItemNumber = info[0];
                 node.Part.ComponentName = info[1];
                 node.Part.ReferencedConfiguration = info[2];
                 node.Part.ComponentID = int.Parse(info[3]);
@@ -563,7 +570,7 @@ namespace Janitor_V1
             }
             else if(type == NodeType.Assembly)
             {
-                node.Assembly.ItemNumber = info[0];
+                node.ItemNumber = info[0];
                 node.Assembly.ComponentName = info[1];
                 node.Assembly.ReferencedConfiguration = info[2];
                 node.Assembly.ComponentID = int.Parse(info[3]);
@@ -752,26 +759,29 @@ namespace Janitor_V1
             var detailsForm = new DetailsForm(this.WorkingDirectory, item, this.PartsData, () => UpdateWindow(), showControls);
             detailsForm.Show();
         }
-
-        private void seachTextBox1_TextChanged(object sender, EventArgs e)
+        private void seachTextBox_TextChanged(object sender, EventArgs e)
         {
-            var filter = TextMatchFilter.Contains(this.treeListView1, seachTextBox1.Text.Split(' '));
-            this.treeListView1.AdditionalFilter = filter;
-            this.treeListView1.DefaultRenderer = new HighlightTextRenderer(filter);
-        }
-
-        private void seachTextBox2_TextChanged(object sender, EventArgs e)
-        {
-            var filter = TextMatchFilter.Contains(this.treeListView2, seachTextBox2.Text.Split(' '));
-            this.treeListView2.AdditionalFilter = filter;
-            this.treeListView2.DefaultRenderer = new HighlightTextRenderer(filter);
-        }
-
-        private void seachTextBox3_TextChanged(object sender, EventArgs e)
-        {
-            var filter = TextMatchFilter.Contains(this.treeListView3, seachTextBox3.Text.Split(' '));
-            this.treeListView3.AdditionalFilter = filter;
-            this.treeListView3.DefaultRenderer = new HighlightTextRenderer(filter);
+            TextMatchFilter filter;
+            switch ((sender as TextBox).Name)
+            {
+                case "seachTextBox1":
+                    filter = TextMatchFilter.Contains(this.treeListView1, seachTextBox1.Text.Split(' '));
+                    this.treeListView1.AdditionalFilter = filter;
+                    this.treeListView1.DefaultRenderer = new HighlightTextRenderer(filter);
+                    break;
+                case "seachTextBox2":
+                    filter = TextMatchFilter.Contains(this.treeListView2, seachTextBox2.Text.Split(' '));
+                    this.treeListView2.AdditionalFilter = filter;
+                    this.treeListView2.DefaultRenderer = new HighlightTextRenderer(filter);
+                    break;
+                case "seachTextBox3":
+                    filter = TextMatchFilter.Contains(this.treeListView3, seachTextBox3.Text.Split(' '));
+                    this.treeListView3.AdditionalFilter = filter;
+                    this.treeListView3.DefaultRenderer = new HighlightTextRenderer(filter);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void pricesButton_Click(object sender, EventArgs e)
@@ -865,7 +875,6 @@ namespace Janitor_V1
         {
             this.individualComponentsAssemblyTextBox.Text = this.Device.IndividualComponentsAssembly.ToString();
             this.assemblyToParentTextBox.Text = this.Device.AssemblyToParentDuration.ToString();
-            int a = 0;
         }
 
         private void deviceButton_Click(object sender, EventArgs e)
@@ -925,6 +934,9 @@ namespace Janitor_V1
                     checkedItems = treeListView1.CheckedObjects;
                     break;
                 case "takePictureButton2":
+                    checkedItems = treeListView2.CheckedObjects;
+                    break;
+                case "takePictureButton3":
                     checkedItems = treeListView3.CheckedObjects;
                     break;
                 default:
@@ -935,19 +947,19 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
+                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
                     
-                    item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
+                    item.GetSwModel().AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
-                    item.swModel.CustomInfo2[item.GetReferencedConfiguration(),
+                    item.GetSwModel().CustomInfo2[item.GetReferencedConfiguration(),
                         "Paveikslelio failas"] = item.Assembly.ImageLocation;
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
-                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.swModel, item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
-                    item.swModel.AddCustomInfo3(item.GetReferencedConfiguration(),
+                    item.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
+                    item.GetSwModel().AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
-                    item.swModel.CustomInfo2[item.GetReferencedConfiguration(),
+                    item.GetSwModel().CustomInfo2[item.GetReferencedConfiguration(),
                         "Paveikslelio failas"] = item.Part.ImageLocation;
                 }
             }
@@ -961,31 +973,41 @@ namespace Janitor_V1
                     if (treeListView1.CheckedObjects.Count > 0)
                     {
                         this.takePictureButton1.Enabled = true;
+                        this.readPropertiesButton1.Enabled = true;
                     }
                     else
                     {
                         this.takePictureButton1.Enabled = false;
+                        this.readPropertiesButton1.Enabled = false;
+                    }
+                    break;
+                case "treeListView2":
+                    if (treeListView2.CheckedObjects.Count > 0)
+                    {
+                        this.takePictureButton2.Enabled = true;
+                        this.readPropertiesButton2.Enabled = true;
+                    }
+                    else
+                    {
+                        this.takePictureButton2.Enabled = false;
+                        this.readPropertiesButton2.Enabled = false;
                     }
                     break;
                 case "treeListView3":
                     if (treeListView3.CheckedObjects.Count > 0)
                     {
-                        this.takePictureButton2.Enabled = true;
+                        this.takePictureButton3.Enabled = true;
+                        this.readPropertiesButton3.Enabled = true;
                     }
                     else
                     {
-                        this.takePictureButton2.Enabled = false;
+                        this.takePictureButton3.Enabled = false;
+                        this.readPropertiesButton3.Enabled = false;
                     }
                     break;
                 default:
                     break;
             }
-
-
-
-
-
-            
         }
 
         private void treeListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -1031,7 +1053,24 @@ namespace Janitor_V1
         {
             var nodeTraversal = new NodeTraversal();
             nodeTraversal.swApp = SwApp;
-            foreach (Node node in treeListView1.CheckedObjects)
+
+            IList checkedItems;
+            switch ((sender as Button).Name)
+            {
+                case "readPropertiesButton1":
+                    checkedItems = treeListView1.CheckedObjects;
+                    break;
+                case "readPropertiesButton2":
+                    checkedItems = treeListView2.CheckedObjects;
+                    break;
+                case "readPropertiesButton3":
+                    checkedItems = treeListView3.CheckedObjects;
+                    break;
+                default:
+                    return;
+            }
+
+            foreach (Node node in checkedItems)
             {
                 ReadNodePropertiesFromSolidworks(nodeTraversal, node);
             }
@@ -1040,7 +1079,7 @@ namespace Janitor_V1
 
         private void ReadNodePropertiesFromSolidworks(NodeTraversal nodeTraversal, Node node)
         {
-            var temp = nodeTraversal.ReadProperties(node.swModel, node.swComp, node.GetItemNumber());
+            var temp = nodeTraversal.ReadProperties(node.GetSwModel(), node.GetSwComp(), node.ItemNumber);
             node.Update(temp);
         }
 
@@ -1056,5 +1095,7 @@ namespace Janitor_V1
             toolboxWeightTextBox.Text = toolboxWeight.ToString();
             this.Device.TotalToolboxWeight = toolboxWeight;
         }
+
+        
     }
 }
