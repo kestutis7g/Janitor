@@ -1,8 +1,9 @@
 ﻿using Janitor_V1.Models;
+using Janitor_V1.Utils;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Janitor_V1
@@ -10,21 +11,26 @@ namespace Janitor_V1
     public partial class DetailsForm : Form
     {
         public string WorkingDirectory { set; get; }
+        public string ProjectDirectory { set; get; }
         public Node Data { set; get; }
         public List<Node> List { set; get; }
         public bool ShowControls { set; get; }
         private Action UpdateMainForm { set; get; }
+        private SldWorks SwApp;
         private int index;
 
-        public DetailsForm(string workingDirectory, Node data, List<Node> list, Action updateMainForm, bool showControls)
+        public DetailsForm(string workingDirectory, string projectDirectory, Node data, List<Node> list, Action updateMainForm, SldWorks swApp, bool showControls)
         {
+            //komponentų properčių peržiūrėjimo lango kodas
             InitializeComponent();
 
             this.WorkingDirectory = workingDirectory;
+            this.ProjectDirectory = projectDirectory;
             this.Data = data;
             this.List = list;
             this.ShowControls = showControls;
             this.UpdateMainForm = updateMainForm;
+            this.SwApp = swApp;
 
             if(!ShowControls)
             {
@@ -72,6 +78,7 @@ namespace Janitor_V1
 
         private void nextButton_Click(object sender, System.EventArgs e)
         {
+            //eina per detales
             Data = List[this.index + 1];
             InitializeData();
             UpdateMainForm();
@@ -79,6 +86,7 @@ namespace Janitor_V1
 
         private void previousButton_Click(object sender, System.EventArgs e)
         {
+            //eina per detales
             Data = List[index - 1];
             InitializeData();
             UpdateMainForm();
@@ -86,6 +94,7 @@ namespace Janitor_V1
 
         private void UpdateControls()
         {
+            //kai nueini iki galo, tai nebelaidžia ėjimo per komponentus mygtukų spaudžioti
             if (index == 0)
             {
                 previousButton.Enabled = false;
@@ -111,6 +120,7 @@ namespace Janitor_V1
         /// <param name="formType"></param>
         private void RemoveTabs(string formType)
         {
+            //tabų išjungimas pagal komponento tipą
             if (formType == "part")
             {
                 this.tabControl1.TabPages.RemoveByKey("weldingTabPage");
@@ -153,6 +163,7 @@ namespace Janitor_V1
 
         private void FillManufacturingTab()
         {
+            //Užpildo gamybos tabo textboxus duomenimis
             this.materialWeightTextBox.Text =
                 Data.Part.OtherPart.MaterialWeight.ToString();
 
@@ -177,11 +188,13 @@ namespace Janitor_V1
         }
         private void FillStripsTab()
         {
+            //Konvejerio juostų tabo duomenų pildymas
             this.stripMaterialCostTextBox.Text =
                 Data.Part.OtherPart.StripMaterialCost.ToString();
         }
         private void FillPurchasesTab()
         {
+            //Perkamų komponentų tabo textboxų užpildymas
             this.purchaseDescriptionTextBox.Text =
                 Data.Part.OtherPart.Description.ToString();
 
@@ -210,6 +223,7 @@ namespace Janitor_V1
         }
         private void FillAssemblyTab()
         {
+            //Surinkimo tabo textboxo duomenų užpildymas
             var time = new Time((double)this.Data.Assembly.ChildNodeAssemblyDuration);
             this.childNodeAssemblyDurationHourTextBox.Text = time.Hour.ToString();
             this.childNodeAssemblyDurationMinuteTextBox.Text = time.Minute.ToString();
@@ -235,6 +249,7 @@ namespace Janitor_V1
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            //Išsaugojimas į Solidworksą 
             if(this.Data.ComponentType == NodeType.Assembly)
             {
                 SaveAssembly();
@@ -243,6 +258,7 @@ namespace Janitor_V1
             }
             else if(this.Data.ComponentType == NodeType.Part)
             {
+                //Į partus kol kas nesaugo
                 SavePart();
 
                 ReloadPart();
@@ -251,10 +267,24 @@ namespace Janitor_V1
 
         private void SavePart() 
         {
-            //fill data
+            //part tipo komponentų properčių surašymas į Solidworks
+            //šį metodą reikia papildyti 
+            //image
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Paveikslelio failas"] = this.Data.GetImageLocation();
+
+            //general
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Description"] = this.Data.GetDescription();
+            int a = 0;
         }
         private void ReloadPart()
         {
+            //Perkrauna tabus, pvz įrašius laikus. Perkrauna tabų text boxus
             propertyGrid1.SelectedObject = Data.Part;
             if(this.Data.Part.PartType == PartType.Other)
             {
@@ -267,6 +297,7 @@ namespace Janitor_V1
 
         private void SaveAssembly()
         {
+            //Assemblingo properčių surašymas į Solidworksą
             var time = new Time(this.childNodeAssemblyDurationHourTextBox.Text,
                                 this.childNodeAssemblyDurationMinuteTextBox.Text);
             this.Data.Assembly.ChildNodeAssemblyDuration = time.HourTime;
@@ -335,10 +366,17 @@ namespace Janitor_V1
             this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
                 "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Paveikslelio failas"] = this.Data.Assembly.ImageLocation;
+                "Paveikslelio failas"] = this.Data.GetImageLocation();
+
+            //general
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Description"] = this.Data.GetDescription();
         }
         private void ReloadAssembly()
         {
+            //Perkrauna assemblingui skirtus textboxus
             propertyGrid1.SelectedObject = Data.Assembly;
             FillWeldingTab();
             FillAssemblyTab();
@@ -388,6 +426,30 @@ namespace Janitor_V1
             {
                 e.Handled = true;
             }
+        }
+
+        private void takePictureButton_Click(object sender, EventArgs e)
+        {
+            //paspaudus šį mygtuką padaroma nuotrauka
+            if (Data.ComponentType == NodeType.Assembly)
+            {
+                Data.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, Data.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, Data.GetSwModel(), Data.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", Data.GetComponentName() + "(" + Data.GetReferencedConfiguration() + ")");
+
+                Data.GetSwModel().AddCustomInfo3(Data.GetReferencedConfiguration(),
+                    "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                Data.GetSwModel().CustomInfo2[Data.GetReferencedConfiguration(),
+                    "Paveikslelio failas"] = Data.Assembly.ImageLocation;
+            }
+            else if (Data.ComponentType == NodeType.Part)
+            {
+                Data.Part.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, Data.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, Data.GetSwModel(), Data.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", Data.GetComponentName() + "(" + Data.GetReferencedConfiguration() + ")");
+                Data.GetSwModel().AddCustomInfo3(Data.GetReferencedConfiguration(),
+                    "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                Data.GetSwModel().CustomInfo2[Data.GetReferencedConfiguration(),
+                    "Paveikslelio failas"] = Data.Part.ImageLocation;
+            }
+
+            this.pictureBox1.BackgroundImage = Data.GetBigImage(this.WorkingDirectory);
         }
     }
 }

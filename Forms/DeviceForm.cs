@@ -38,8 +38,9 @@ namespace Janitor_V1.Forms
 
             this.plannedDesignDurationTextBox.Text = this.Device.PlannedDesigningDuration.ToString();
 
-            this.Device.DesigningTotalPrice = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration;
-            this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPrice.ToString();
+            this.Device.DesigningTotalPricePerUnit = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration / 
+                (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
+            this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
 
 
             //welding tab
@@ -64,7 +65,7 @@ namespace Janitor_V1.Forms
 
             this.totalWorkManagementDurationTextBox.Text = this.Device.TotalWorkManagementDuration.ToString();
 
-            this.workManagementTotalCostTextBox.Text = this.Device.WorkManagementTotalCost.ToString();
+            this.workManagementTotalCostTextBox.Text = this.Device.WorkManagementTotalCostPerUnit.ToString();
             //-------------------------
             if (Device.SupplyCost == 0)
             {
@@ -74,7 +75,7 @@ namespace Janitor_V1.Forms
 
             this.totalSupplyDurationTextBox.Text = this.Device.TotalSupplyDuration.ToString();
 
-            this.supplyTotalCostTextBox.Text = this.Device.SupplyTotalCost.ToString();
+            this.supplyTotalCostTextBox.Text = this.Device.SupplyTotalCostPerUnit.ToString();
             //-------------------------
             if (Device.AssemblyCost == 0)
             {
@@ -116,18 +117,25 @@ namespace Janitor_V1.Forms
             this.otherCostsDescriptionTextBox.Text = this.Device.OtherCostsDescription.ToString();
 
             //footer
-            this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.TotalPartsAndToolboxCost +
-                                         this.Device.WeldingTotalPrice +
-                                         this.Device.AssemblyTotalCost +
-                                         this.Device.PackagingTotalCost) +
-                                     this.Device.DesigningTotalPrice +
-                                     this.Device.WorkManagementTotalCost +
-                                     this.Device.SupplyTotalCost +
+            this.Device.TotalPrice = this.Device.TotalPartsAndToolboxCost +
+                                     this.Device.WeldingTotalPrice +
+                                     this.Device.AssemblyTotalCost +
+                                     this.Device.PackagingTotalCost +
+                                     this.Device.DesigningTotalPricePerUnit +
+                                     this.Device.WorkManagementTotalCostPerUnit +
+                                     this.Device.SupplyTotalCostPerUnit +
                                      this.Device.OtherCosts;
+
+            this.Device.TotalHours = this.Device.TotalAssemblyDuration +
+                                     this.Device.TotalPackagingDuration +
+                                     this.Device.PlannedWeldingDuration +
+                                     (this.Device.PlannedDesigningDuration +
+                                      this.Device.TotalWorkManagementDuration +
+                                      this.Device.TotalSupplyDuration) / this.Device.AmountOfDevices;
 
             this.amountOfDevicesTextBox.Text = this.Device.AmountOfDevices.ToString();
             this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
+            this.totalDeviceHoursTextBox.Text = this.Device.TotalHours.ToString();
 
             this.Initialized = true;
         }
@@ -141,6 +149,11 @@ namespace Janitor_V1.Forms
             double tempDouble = 0;
             int tempInt = 0;
 
+            if (int.TryParse(this.amountOfDevicesTextBox.Text, out tempInt))
+            {
+                this.Device.AmountOfDevices = tempInt == 0 ? 1 : tempInt;
+            }
+
             //design tab
             if (double.TryParse(this.plannedDesignDurationTextBox.Text, out tempDouble))
             {
@@ -152,8 +165,9 @@ namespace Janitor_V1.Forms
                 this.Device.DesigningCostWithoutVAT = tempDouble;
             }
 
-            this.Device.DesigningTotalPrice = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration;
-            this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPrice.ToString();
+            this.Device.DesigningTotalPricePerUnit = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration /
+                (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
+            this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
 
             //welding tab
             if (double.TryParse(this.weldingCostTextBox.Text, out tempDouble))
@@ -175,8 +189,9 @@ namespace Janitor_V1.Forms
                 this.Device.TotalWorkManagementDuration = tempDouble;
             }
 
-            this.Device.WorkManagementTotalCost = this.Device.WorkManagementCost * this.Device.TotalWorkManagementDuration;
-            this.workManagementTotalCostTextBox.Text = this.Device.WorkManagementTotalCost.ToString();
+            this.Device.WorkManagementTotalCostPerUnit = this.Device.WorkManagementCost * this.Device.TotalWorkManagementDuration /
+                (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
+            this.workManagementTotalCostTextBox.Text = this.Device.WorkManagementTotalCostPerUnit.ToString();
             //-------------------------
             if (double.TryParse(this.supplyCostTextBox.Text, out tempDouble))
             {
@@ -188,8 +203,9 @@ namespace Janitor_V1.Forms
                 this.Device.TotalSupplyDuration = tempDouble;
             }
 
-            this.Device.SupplyTotalCost = this.Device.SupplyCost * this.Device.TotalSupplyDuration;
-            this.supplyTotalCostTextBox.Text = this.Device.SupplyTotalCost.ToString();
+            this.Device.SupplyTotalCostPerUnit = this.Device.SupplyCost * this.Device.TotalSupplyDuration /
+                (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
+            this.supplyTotalCostTextBox.Text = this.Device.SupplyTotalCostPerUnit.ToString();
             //-------------------------
             if (double.TryParse(this.individualComponentsAssemblyTextBox.Text, out tempDouble))
             {
@@ -236,26 +252,26 @@ namespace Janitor_V1.Forms
                 this.Device.OtherCosts = tempDouble;
             }
             this.Device.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
-            
 
             //footer
-            if (int.TryParse(this.amountOfDevicesTextBox.Text, out tempInt))
-            {
-                this.Device.AmountOfDevices = tempInt;
-            }
-
-            this.Device.TotalPrice = this.Device.AmountOfDevices *
-                                        (this.Device.TotalPartsAndToolboxCost +
-                                         this.Device.WeldingTotalPrice +
-                                         this.Device.AssemblyTotalCost +
-                                         this.Device.PackagingTotalCost) +
-                                     this.Device.DesigningTotalPrice +
-                                     this.Device.WorkManagementTotalCost +
-                                     this.Device.SupplyTotalCost + 
+            this.Device.TotalPrice = this.Device.TotalPartsAndToolboxCost +
+                                     this.Device.WeldingTotalPrice +
+                                     this.Device.AssemblyTotalCost +
+                                     this.Device.PackagingTotalCost +
+                                     this.Device.DesigningTotalPricePerUnit +
+                                     this.Device.WorkManagementTotalCostPerUnit + 
+                                     this.Device.SupplyTotalCostPerUnit +
                                      this.Device.OtherCosts;
 
-            this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
+            this.Device.TotalHours = this.Device.TotalAssemblyDuration +
+                                     this.Device.TotalPackagingDuration +
+                                     this.Device.PlannedWeldingDuration +
+                                     (this.Device.PlannedDesigningDuration +
+                                      this.Device.TotalWorkManagementDuration +
+                                      this.Device.TotalSupplyDuration) / this.Device.AmountOfDevices;
 
+            this.totalDeviceCostTextBox.Text = this.Device.TotalPrice.ToString();
+            this.totalDeviceHoursTextBox.Text = this.Device.TotalHours.ToString();
             
 
             UpdateDeviceFields();
@@ -319,7 +335,7 @@ namespace Janitor_V1.Forms
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "PROJEKTAVIMO kaina vienam irenginiui", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
-                "PROJEKTAVIMO kaina vienam irenginiui"] = this.Device.DesigningTotalPrice.ToString();
+                "PROJEKTAVIMO kaina vienam irenginiui"] = this.Device.DesigningTotalPricePerUnit.ToString();
             
             //welding tab
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
@@ -351,7 +367,7 @@ namespace Janitor_V1.Forms
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Darbu organizavimo irenginiui kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
-                "Darbu organizavimo irenginiui kaina"] = this.Device.WorkManagementTotalCost.ToString();
+                "Darbu organizavimo irenginiui kaina"] = this.Device.WorkManagementTotalCostPerUnit.ToString();
             //-------------------------
             
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
@@ -367,7 +383,7 @@ namespace Janitor_V1.Forms
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Tiekimo irenginiam kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
-                "Tiekimo irenginiam kaina"] = this.Device.SupplyTotalCost.ToString();
+                "Tiekimo irenginiam kaina"] = this.Device.SupplyTotalCostPerUnit.ToString();
             //-------------------------
             
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
@@ -468,6 +484,11 @@ namespace Janitor_V1.Forms
                 "IRENGINIO SUMINE KAINA_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Device.swModel.CustomInfo2[this.Device.Configuration,
                 "IRENGINIO SUMINE KAINA_EUR"] = this.Device.TotalPrice.ToString();
+            
+            this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
+                "IRENGINIO SUMINES VALANDOS", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Device.swModel.CustomInfo2[this.Device.Configuration,
+                "IRENGINIO SUMINES VALANDOS"] = this.Device.TotalHours.ToString();
 
             this.Device.swModel.AddCustomInfo3(this.Device.Configuration,
                 "Kainos suskaiciavimo data", (int)swCustomInfoType_e.swCustomInfoText, "");

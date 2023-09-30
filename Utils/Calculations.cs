@@ -7,6 +7,7 @@ namespace Janitor_V1.Utils
 {
     public class Calculations
     {
+        //įrenginio įvairūs skaičiavimai
         private List<Node> Data { get; set; }
         private List<Node> PartsData { get; set; }
 
@@ -33,6 +34,7 @@ namespace Janitor_V1.Utils
 
         public double CountTotalWeldingDuration(List<Node> data)
         {
+            //suskaičiuojamas bendras virinimo laikas
             double totalWeldingDuration = 0;
             foreach(Node node in data) 
             {
@@ -53,6 +55,7 @@ namespace Janitor_V1.Utils
 
         private void refreshRootChildNodeAssemblyDuration()
         {
+            //įrenginio vaikų surinkimo laikas
             double assemblyDuration = 0;
             foreach (var item in this.Data)
             {
@@ -63,10 +66,12 @@ namespace Janitor_V1.Utils
 
         private void refreshTotalParts()
         {
+            //atnaujina detalių skaičių
             this.totalParts = PartsData.Count();
         }
         private void refreshTotalPartsCost()
         {
+            //detalių bendra kaina
             double cost = 0;
             foreach (var part in this.PartsData)
             {
@@ -76,6 +81,7 @@ namespace Janitor_V1.Utils
         }
         private void refreshToolboxWeight()
         {
+            //susumuoja Toolbox komponentų svorį
             double weight = 0;
             foreach (var part in this.PartsData)
             {

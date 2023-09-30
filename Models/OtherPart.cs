@@ -6,6 +6,7 @@ namespace Janitor_V1.Models
 {
     public class OtherPart
     {
+        //Detalės tipo OTHER properčiai
         [Category("General"),
         Description("Description")]
         public string Description { get; set; }

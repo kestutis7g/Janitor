@@ -7,7 +7,8 @@ namespace Janitor_V1.Models
 {
     public enum PartType
     {
-        Sheet,
+        //parto tipo enumeratorius
+        Sheet, //kol kas šito tipo dar neatskyrėm, bet turbūt reikės
         Toolbox,
         Other
     }
@@ -19,7 +20,7 @@ namespace Janitor_V1.Models
         
         [Category("General"),
         Description("Part type")]
-        public PartType PartType { get; set; }
+        public PartType PartType { get; set; } 
 
         [Category("General"),
         Description("Description of the component")]

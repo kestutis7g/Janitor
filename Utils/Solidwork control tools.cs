@@ -13,17 +13,21 @@ namespace Janitor_V1.Utils
 
         public static void OpenItem(ISldWorks swApp, string fileLocation, int DocumentType, string Configuration)
         {
+            //aitemo atidarymas Solidworkse
             int errors = 0;
             int warnings = 0;
 
             //ISldWorks swApp;
             //swApp = (ISldWorks)Activator.CreateInstance(Type.GetTypeFromProgID("SldWorks.Application"));
         
+        
             ModelDoc2 swModelDoc = default(ModelDoc2);
             //swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileName, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
             swModelDoc = (ModelDoc2)swApp.OpenDoc6(fileLocation, DocumentType, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, Configuration, ref errors, ref warnings);
-            
-
+            if (swModelDoc.ConfigurationManager.ActiveConfiguration.Name != Configuration) 
+            { 
+                swModelDoc.ShowConfiguration2(Configuration); 
+            }
             // Activate the loaded document and prompt for rebuild if the model changed
             swModelDoc = (ModelDoc2)swApp.ActivateDoc3(swModelDoc.GetTitle(), false, (int)swRebuildOnActivation_e.swUserDecision, ref errors);
             Debug.Print("Error code after document activation: " + errors.ToString());
@@ -31,6 +35,7 @@ namespace Janitor_V1.Utils
 
         public static int CheckToolboxComponents(ModelDoc2 swModel)
         {
+            //patikrinama ar kompoentas yra Toolbox
             ModelDocExtension modelDocExt;
 
             // Tikrinama ar komponentas nera Toolbox
@@ -66,6 +71,7 @@ namespace Janitor_V1.Utils
 
         public static string TakePictureOfItem(ISldWorks swApp, string fileLocation, int DocumentType, ModelDoc2 swModel, string configuration, string destinationFolder, string pictureName)
         {
+            //padaro nuotrauką su Solidworks
             int errors = 0;
             int warnings = 0;
 
@@ -86,7 +92,14 @@ namespace Janitor_V1.Utils
             swModel.ViewZoomtofit2();
             var location = destinationFolder + pictureName + ".PNG";
 
+            if (File.Exists(location))
+            {
+                //File.Delete(location);
+            }
+
             // Save As
+            //Antrą kartą bandant išsaugoti nuotrauką Windows neleidžia to padaryti,
+            //nes Solidworks yra atidarę nuotraukos failą
             swModel.SaveAs3(location , 0, 0);
             swApp.CloseDoc(swModelDoc.GetTitle());
             return location;
@@ -95,6 +108,7 @@ namespace Janitor_V1.Utils
 
         public static double DetalesZaliavosKaina(ISldWorks swApp, string fileLocation, ModelDoc2 swModel)
         {
+            //žaliavos kainos skaičiavimas
             int errors = 0;
             int warnings = 0;
             var swPart = (PartDoc)swApp.OpenDoc6(fileLocation, (int)swDocumentTypes_e.swDocPART, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", ref errors, ref warnings);
@@ -217,14 +231,6 @@ namespace Janitor_V1.Utils
             model.SketchManager.AddToDB = false;
             model.SketchManager.Insert3DSketch(true);
         }
-
-
-
-
-
-
-
-
 
     }
 }

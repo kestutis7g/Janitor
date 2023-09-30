@@ -112,6 +112,7 @@ namespace Janitor_V1
             this.saveAssemblyButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.takePictureButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.manufacturingTabPage.SuspendLayout();
             this.stripsTabPage.SuspendLayout();
@@ -154,7 +155,7 @@ namespace Janitor_V1
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(725, 486);
+            this.tabControl1.Size = new System.Drawing.Size(800, 486);
             this.tabControl1.TabIndex = 1;
             // 
             // manufacturingTabPage
@@ -179,7 +180,7 @@ namespace Janitor_V1
             this.manufacturingTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.manufacturingTabPage.Name = "manufacturingTabPage";
             this.manufacturingTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.manufacturingTabPage.Size = new System.Drawing.Size(717, 457);
+            this.manufacturingTabPage.Size = new System.Drawing.Size(792, 457);
             this.manufacturingTabPage.TabIndex = 0;
             this.manufacturingTabPage.Text = "Manufacturing";
             this.manufacturingTabPage.UseVisualStyleBackColor = true;
@@ -320,7 +321,7 @@ namespace Janitor_V1
             this.partDescriptionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.partDescriptionTextBox.Multiline = true;
             this.partDescriptionTextBox.Name = "partDescriptionTextBox";
-            this.partDescriptionTextBox.Size = new System.Drawing.Size(700, 59);
+            this.partDescriptionTextBox.Size = new System.Drawing.Size(775, 59);
             this.partDescriptionTextBox.TabIndex = 0;
             // 
             // stripsTabPage
@@ -956,7 +957,7 @@ namespace Janitor_V1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -965,22 +966,36 @@ namespace Janitor_V1
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.takePictureButton);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Size = new System.Drawing.Size(1133, 486);
-            this.splitContainer1.SplitterDistance = 725;
+            this.splitContainer1.SplitterDistance = 800;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 13;
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 43);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 486);
+            this.pictureBox1.Size = new System.Drawing.Size(328, 443);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // takePictureButton
+            // 
+            this.takePictureButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.takePictureButton.Location = new System.Drawing.Point(0, 0);
+            this.takePictureButton.Name = "takePictureButton";
+            this.takePictureButton.Size = new System.Drawing.Size(328, 36);
+            this.takePictureButton.TabIndex = 1;
+            this.takePictureButton.Text = "Take picture";
+            this.takePictureButton.UseVisualStyleBackColor = true;
+            this.takePictureButton.Click += new System.EventHandler(this.takePictureButton_Click);
             // 
             // DetailsForm
             // 
@@ -1106,5 +1121,6 @@ namespace Janitor_V1
         private TextBox plannedWeldingDurationMinuteTextBox;
         private Label minutesLabel1;
         private Label hoursLabel1;
+        private Button takePictureButton;
     }
 }

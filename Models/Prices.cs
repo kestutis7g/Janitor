@@ -9,6 +9,7 @@ namespace Janitor_V1.Models
 {
     internal class Prices
     {
+        //Šis modulis yra skirtas darbų ir medžiagų įkainių pasiėmimui iš duomenų bazės
         private OleDbConnection mdbConnection { get; set; }
 
         private List<Price> allData = new List<Price>();
@@ -20,11 +21,14 @@ namespace Janitor_V1.Models
 
         public Prices(string workingDirectory) 
         {
+            //prisijungimas prie duomenų bazės
             this.mdbConnection = new OleDbConnection(
                 "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path.Combine(workingDirectory, "DB\\Database.mdb"));
 
             //create table in Access database if table is not present
             mdbConnection.Open();
+            //patikrinama ar duomenų bazėje yra tokia lentėlė
+            //tokiu atveju, jei ten nebūtų tokios lentelės, tuomet lentelė būtų sukurta ir pradedama pildyti
             DataTable dTable = mdbConnection.GetSchema("TABLES", new string[] { null, null, "Prices" });
 
             if (dTable.Rows.Count == 0)
@@ -57,6 +61,7 @@ namespace Janitor_V1.Models
         /// <returns>Result if refresh was successful</returns>
         public bool Refresh()
         {
+            //pasiima šviežiai duomenis iš duomenų bazės
             this.workPrices = new List<Price>();
             this.materialPrices = new List<Price>();
 
@@ -100,20 +105,24 @@ namespace Janitor_V1.Models
         }
 
         public List<Price> GetWorkPrices()
+        //šis metodas gauna visus darbų įkainius
         {
             return this.workPrices;
         }
         public List<Price> GetMaterialPrices()
+            //šis metodas gauna visus žaliavų įkainius
         {
             return this.materialPrices;
         }
         public List<Price> GetAllPrices()
+            //pasiima absoliučiai visus įkainius
         {
             return this.allData;
         }
 
         public Price GetById(int id)
         {
+            //iš duomenų bazės paima įkainį pagal ID
             mdbConnection.Open();
             string query =
                 @"SELECT Id, Name, Data, GroupName, UpdatedAt FROM Prices WHERE Id = " + id + ";";
@@ -144,6 +153,7 @@ namespace Janitor_V1.Models
 
         public void Add(Price price)
         {
+            //prideda įkainį į duomenų bazę
             string query = "INSERT INTO Prices (Name, Data, GroupName, UpdatedAt) VALUES (@Name,@Data,@GroupName,@UpdatedAt)";
             mdbConnection.Open();
             try
@@ -166,6 +176,8 @@ namespace Janitor_V1.Models
 
         public void Update(int id, Price price)
         {
+
+            //įkainio atnaujinimas duomenų bazėje
             string query = "UPDATE Prices SET Name = @Name, Data = @Data, GroupName = @GroupName, UpdatedAt = @UpdatedAt WHERE Id=@Id";
             mdbConnection.Open();
             try
@@ -190,11 +202,12 @@ namespace Janitor_V1.Models
 
     internal class Price
     {
+        //įkainio objektas, t.y. duomenų struktūra
         public int? Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } //įkainio pavadinimas
         public double Value { get; set; }
-        public string Group { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string Group { get; set; } //darbų arba žaliavų
+        public DateTime UpdatedAt { get; set; } //laikas kada atnaujinta
 
         public Price(string name, double value, string group)
         {

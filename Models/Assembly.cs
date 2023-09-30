@@ -6,6 +6,7 @@ namespace Janitor_V1.Models
 {
     public class Assembly
     {
+        //assemblingo properčiai
         [Category("General"),
         Description("Name of the component")]
         public string ComponentName { get; set; }
@@ -61,7 +62,7 @@ namespace Janitor_V1.Models
         [Category("Image"),
         Description("Image file location")]
         public string ImageLocation { get; set; }
-
+        
         public ModelDoc2 swModel { get; set; }
         public Component2 swComp { get; set; }
 

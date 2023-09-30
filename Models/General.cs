@@ -2,6 +2,7 @@
 
 namespace Janitor_V1.Models
 {
+    //Šis modulis naudojamas valandų konvertavimui
     internal class Time
     {
         public int Hour { get; set; }

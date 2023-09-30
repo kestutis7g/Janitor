@@ -16,20 +16,20 @@ namespace Janitor_V1
 {
     public partial class MainForm : Form
     {
-        private string WorkingDirectory { get; set; } //programos vieta
+        private string WorkingDirectory { get; set; } //programos vieta, kur yra pats Janitor
         private string ProjectDirectory { get; set; } //atidaryto projekto vieta
-        private Device Device { get; set; }
+        private Device Device { get; set; } //įrenginio objektas
 
-        private List<Node> Data;
-        private List<Node> PartsData;
+        private List<Node> Data; //visų komponentų medžio struktūra
+        private List<Node> PartsData; //detalių sąrašas (ne medis)
         private List<Node> NonTreeData;
-        private Calculations Calculations;
+        private Calculations Calculations; //skaičiavimų objektas
 
-        private Prices Prices;
-        private bool StainlessSteelToolbox = false;
+        private Prices Prices; //Įkainių objektas. Į jį kreipiamasi norint pasiimti, atnaujinti ir tt.
+        private bool StainlessSteelToolbox = false; //naudojamas pasižymėti kokio tipo yra toolbox komponentai
 
         private SldWorks SwApp;
-        private bool Initialized = false;
+        private bool Initialized = false; //vėliavėlė pasižymėti ar jau supildyti duomenys į formą.
 
         public MainForm(SldWorks swApp, string workingDirectory, string projectDirectory)
         {
@@ -50,9 +50,6 @@ namespace Janitor_V1
             this.treeListView3.Location = new System.Drawing.Point(0, this.seachTextBox3.Size.Height);
             this.treeListView3.Size = new Size(this.splitContainer3.Panel1.Width, this.splitContainer3.Panel1.Height - this.seachTextBox3.Size.Height);
 
-            //toolbox button tooltip
-
-
             this.WorkingDirectory = workingDirectory;
             this.ProjectDirectory = projectDirectory;
             this.Device = new Device();
@@ -63,6 +60,7 @@ namespace Janitor_V1
 
         public void Start()
         {
+            //formos paleidimas, t.y. supildo formą, atnaujina skaičiavimus
             FillTree();
             FillAssembliesTree();
             FillPartsTree();
@@ -73,6 +71,7 @@ namespace Janitor_V1
 
         private void FillTree()
         {
+            //grid view (tree list view) užpildymas
             // set the delegate that the tree uses to know if a node is expandable
             this.treeListView1.CanExpandGetter = x => (x as Node).Children.Count > 0;
             // set the delegate that the tree uses to know the children of a node
@@ -123,28 +122,34 @@ namespace Janitor_V1
             colPartType.Width = 100;
 
             var colChildNodeAssemblyDuration = new OLVColumn("Combined assembling duration of sub-assemblies", "Combined assembling duration of sub-assemblies");
-            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
+            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDurationString();
             colChildNodeAssemblyDuration.ToolTipText = "Combined assembling duration of sub-assemblies";
             colChildNodeAssemblyDuration.Width = 100;
             colChildNodeAssemblyDuration.IsVisible = false;
 
             var colIndividualComponentAssemblyDuration = new OLVColumn("Assembling duration of separate components", "Assembling duration of separate components");
-            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
+            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDurationString();
             colIndividualComponentAssemblyDuration.ToolTipText = "Assembling duration of separate components";
             colIndividualComponentAssemblyDuration.Width = 100;
             colIndividualComponentAssemblyDuration.IsVisible = false;
 
             var colAssemblyToParentNodeDuration = new OLVColumn("Integration to parent assembly duration", "Integration to parent assembly duration");
-            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
+            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDurationString();
             colAssemblyToParentNodeDuration.ToolTipText = "Integration to parent assembly duration";
             colAssemblyToParentNodeDuration.Width = 100;
             colAssemblyToParentNodeDuration.IsVisible = false;
 
             var colCombinedAssemblyTime = new OLVColumn("Combined assembling time", "Combined assembling time");
-            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
+            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTimeString();
             colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
             colCombinedAssemblyTime.IsVisible = false;
+
+            var colWeldingDuration = new OLVColumn("Welding duration", "Welding duration");
+            colWeldingDuration.AspectGetter = x => (x as Node).GetWeldingDurationString();
+            colWeldingDuration.ToolTipText = "Welding duration";
+            colWeldingDuration.Width = 100;
+            colWeldingDuration.IsVisible = false;
 
             var colFileLocation = new OLVColumn("FileLocation", "FileLocation");
             colFileLocation.AspectGetter = x => (x as Node).GetFileLocation();
@@ -216,6 +221,7 @@ namespace Janitor_V1
             this.treeListView1.AllColumns.Add(colIndividualComponentAssemblyDuration);
             this.treeListView1.AllColumns.Add(colAssemblyToParentNodeDuration);
             this.treeListView1.AllColumns.Add(colCombinedAssemblyTime);
+            this.treeListView1.AllColumns.Add(colWeldingDuration);
             this.treeListView1.AllColumns.Add(colFileLocation);
             this.treeListView1.AllColumns.Add(colDescription);
             this.treeListView1.AllColumns.Add(colSurfaceArea);
@@ -234,6 +240,7 @@ namespace Janitor_V1
 
         private void FillAssembliesTree()
         {
+            //assemblio tabo grid view užpildymas
             // set the delegate that the tree uses to know if a node is expandable
             this.treeListView3.CanExpandGetter = x => (x as Node).Children.Count > 0 &&
                                                       (x as Node).Children.Where(c => c.ComponentType == NodeType.Assembly).Count() > 0;
@@ -281,27 +288,27 @@ namespace Janitor_V1
             colComponentType.Width = 100;
 
             var colChildNodeAssemblyDuration = new OLVColumn("Combined assembling duration of sub-assemblies", "Combined assembling duration of sub-assemblies");
-            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDuration();
+            colChildNodeAssemblyDuration.AspectGetter = x => (x as Node).GetChildNodeAssemblyDurationString();
             colChildNodeAssemblyDuration.ToolTipText = "Combined assembling duration of sub-assemblies";
             colChildNodeAssemblyDuration.Width = 100;
 
             var colIndividualComponentAssemblyDuration = new OLVColumn("Assembling duration of separate components", "Assembling duration of separate components");
-            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDuration();
+            colIndividualComponentAssemblyDuration.AspectGetter = x => (x as Node).GetIndividualComponentAssemblyDurationString();
             colIndividualComponentAssemblyDuration.ToolTipText = "Assembling duration of separate components";
             colIndividualComponentAssemblyDuration.Width = 100;
 
             var colAssemblyToParentNodeDuration = new OLVColumn("Integration to parent assembly duration", "Integration to parent assembly duration");
-            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDuration();
+            colAssemblyToParentNodeDuration.AspectGetter = x => (x as Node).GetAssemblyToParentNodeDurationString();
             colAssemblyToParentNodeDuration.ToolTipText = "Integration to parent assembly duration";
             colAssemblyToParentNodeDuration.Width = 100;
 
             var colCombinedAssemblyTime = new OLVColumn("Combined assembling time", "Combined assembling time");
-            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTime();
+            colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTimeString();
             colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
             
             var colWeldingDuration = new OLVColumn("Welding duration", "Welding duration");
-            colWeldingDuration.AspectGetter = x => (x as Node).Assembly.WeldingDuration;
+            colWeldingDuration.AspectGetter = x => (x as Node).GetWeldingDurationString();
             colWeldingDuration.ToolTipText = "Welding duration";
             colWeldingDuration.Width = 100;
 
@@ -326,6 +333,7 @@ namespace Janitor_V1
             this.treeListView3.Columns.Add(colIndividualComponentAssemblyDuration);
             this.treeListView3.Columns.Add(colAssemblyToParentNodeDuration);
             this.treeListView3.Columns.Add(colCombinedAssemblyTime);
+            this.treeListView3.Columns.Add(colWeldingDuration);
             //this.treeListView3.Columns.Add(colFileLocation);
 
             //add columns for column hiding
@@ -339,6 +347,7 @@ namespace Janitor_V1
             this.treeListView3.AllColumns.Add(colIndividualComponentAssemblyDuration);
             this.treeListView3.AllColumns.Add(colAssemblyToParentNodeDuration);
             this.treeListView3.AllColumns.Add(colCombinedAssemblyTime);
+            this.treeListView3.AllColumns.Add(colWeldingDuration);
             this.treeListView3.AllColumns.Add(colFileLocation);
             this.treeListView3.AllColumns.Add(colDescription);
 
@@ -349,6 +358,7 @@ namespace Janitor_V1
 
         private void FillPartsTree()
         {
+            //grid view užpildymas part tabe
             // set the delegate that the tree uses to know if a node is expandable
             this.treeListView2.CanExpandGetter = x => (x as Node).Children.Count > 0;
             // set the delegate that the tree uses to know the children of a node
@@ -388,6 +398,10 @@ namespace Janitor_V1
             var colPartType = new OLVColumn("PartType", "PartType");
             colPartType.AspectGetter = x => (x as Node).GetPartType();
             colPartType.Width = 100;
+            
+            var colAmount = new OLVColumn("Amount", "Amount");
+            colAmount.AspectGetter = x => (x as Node).DuplicateAmount;
+            colAmount.Width = 100;
 
             var colDescription = new OLVColumn("Description", "Description");
             colDescription.AspectGetter = x => (x as Node).GetDescription();
@@ -442,6 +456,7 @@ namespace Janitor_V1
             this.treeListView2.Columns.Add(colComponentName);
             this.treeListView2.Columns.Add(colReferencedConfiguration);
             this.treeListView2.Columns.Add(colPartType);
+            this.treeListView2.Columns.Add(colAmount);
             this.treeListView2.Columns.Add(colDescription);
             //this.treeListView3.Columns.Add(colComponentID);
             this.treeListView2.Columns.Add(colSurfaceArea);
@@ -458,6 +473,7 @@ namespace Janitor_V1
             this.treeListView2.AllColumns.Add(colComponentName);
             this.treeListView2.AllColumns.Add(colReferencedConfiguration);
             this.treeListView2.AllColumns.Add(colPartType);
+            this.treeListView2.AllColumns.Add(colAmount);
             this.treeListView2.AllColumns.Add(colDescription);
             this.treeListView2.AllColumns.Add(colComponentID);
             this.treeListView2.AllColumns.Add(colSurfaceArea);
@@ -477,6 +493,7 @@ namespace Janitor_V1
 
         public void SetData(List<Node> data, List<Node> parts, List<Node> nonTreeData, Device device)
         {
+            //prieš start metodo paleidimą iškviečiamas šis metodas, kad formai paduotų komponentų duomenis
             this.Data = data;
             this.PartsData = parts;
             this.NonTreeData = nonTreeData;
@@ -488,6 +505,7 @@ namespace Janitor_V1
 
         /// <summary>
         /// Initialize data tree
+        /// Is exelio BANDYMAMS
         /// </summary>
         public void InitializeData()
         {
@@ -519,6 +537,7 @@ namespace Janitor_V1
 
         /// <summary>
         /// Find parent of the node recursively
+        /// Is exelio BANDYMAMS
         /// </summary>
         /// <param name="nodeNumber">node number</param>
         /// <param name="nodes">current level nodes</param>
@@ -544,6 +563,7 @@ namespace Janitor_V1
             FindDataParent(nodeNumber, parentNode.Children, partInfo, currentLevel + 1);
         }
 
+        //Is exelio BANDYMAMS
         private Node FormatNode(string data)
         {
             var info = data.Split(';');
@@ -585,7 +605,9 @@ namespace Janitor_V1
         }
 
         /// <summary>
+        /// BANDYMAMS
         /// Add node to List<Node>
+        /// Is exelio
         /// </summary>
         /// <param name="list">list of nodes</param>
         /// <param name="data">string data of the node</param>
@@ -599,8 +621,10 @@ namespace Janitor_V1
                 PartsData.Add(node);
             }
         }
+
         private void CalculateChildNodeAssemblyDuration(List<Node> nodes)
         {
+            //suskaičiuoja vaikų surinkimo laiką
             nodes.ForEach(x => {
                 if (x.ComponentType.ToString() == "Assembly")
                 {
@@ -631,6 +655,7 @@ namespace Janitor_V1
 
         private void RefreshCalculations()
         {
+            //apatinio lango formoje reikšmių perskaičiavimas
             if(!Initialized)
             {
                 return;
@@ -708,6 +733,7 @@ namespace Janitor_V1
         /// <param name="e"></param>
         private void treeListView_ItemActivate(object sender, EventArgs e)
         {
+            //atidaro pasirinktą objektą
             foreach (Node item in (sender as TreeListView).SelectedObjects)
             {
                 OpenItemDetailedView(item, (sender as TreeListView).Name == "treeListView2");
@@ -732,6 +758,7 @@ namespace Janitor_V1
 
         private void contextMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //dešinio pelės mygtuko paspaudimo virš pasirinkto aitemo eventas
             var toolStripMenuItem = (ToolStripMenuItem)sender;
             if (toolStripMenuItem.Name == "OpenDetailsMenuItem")
             {
@@ -756,11 +783,12 @@ namespace Janitor_V1
 
         private void OpenItemDetailedView(Node item, bool showControls = false)
         {
-            var detailsForm = new DetailsForm(this.WorkingDirectory, item, this.PartsData, () => UpdateWindow(), showControls);
+            var detailsForm = new DetailsForm(this.WorkingDirectory, this.ProjectDirectory, item, this.PartsData, () => UpdateWindow(), this.SwApp, showControls);
             detailsForm.Show();
         }
         private void seachTextBox_TextChanged(object sender, EventArgs e)
         {
+            //paieškos eventas
             TextMatchFilter filter;
             switch ((sender as TextBox).Name)
             {
@@ -786,12 +814,14 @@ namespace Janitor_V1
 
         private void pricesButton_Click(object sender, EventArgs e)
         {
+            //atidaroma įkainių forma paspaudus mygtuką
             var pricesForm = new PricesForm(this.WorkingDirectory);
             pricesForm.ShowDialog();
         }
 
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //eventas, kuris užtikrina, kad Textboxe įrašomas realus skaičius
             double count = 0;
             if ((e.KeyChar == ','))
             {
@@ -819,12 +849,14 @@ namespace Janitor_V1
 
         private void useSteel_CheckedChanged(object sender, EventArgs e)
         {
+            //jei pasikeitė Toolbox tipas, tai šis eventas perskaičiuoja
             this.StainlessSteelToolbox = this.useStainlessSteel.Checked;
             RefreshCalculations();
         }
 
         private void openItemButton_Click(object sender, EventArgs e)
         {
+            //atidarymo Solidworkse mygtuko eventas
             if (tabControl1.SelectedTab.Name == "tabPageGeneral")
             {
                 openItemInSolidWorks(this.treeListView1, e);
@@ -841,6 +873,7 @@ namespace Janitor_V1
 
         private void openItemInSolidWorks(object sender, EventArgs e)
         {
+            //Komponento atidarymas Solidworkse
             foreach (Node item in (sender as TreeListView).SelectedObjects)
             {
                 if (item.ComponentType == NodeType.Part) 
@@ -856,6 +889,7 @@ namespace Janitor_V1
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
+            //Atnaujinimo mygtukas, kad viską perskaičiuotų
             CalculateChildNodeAssemblyDuration(Data);
             RefreshCalculations();
 
@@ -879,12 +913,14 @@ namespace Janitor_V1
 
         private void deviceButton_Click(object sender, EventArgs e)
         {
+            //Atidaro įrenginio formą
             var deviceForm = new DeviceForm(this.WorkingDirectory, this.Device, this.Data, this.Calculations, () => UpdateDevice());
             deviceForm.ShowDialog();
         }
 
         private void treeListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            //LEntelės aitemo pasirinkimo eventas (parodo nuotrauką dešinėje)
             var selected = (sender as TreeListView).SelectedObject as Node;
 
             if(selected != null)
@@ -908,6 +944,7 @@ namespace Janitor_V1
 
         private void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
+            //Split screeno eventas, kuris resaizina nuotrauką pagal splitscreeno dydį. 
             switch ((sender as SplitContainer).Name)
             {
                 case "splitContainer1":
@@ -927,6 +964,7 @@ namespace Janitor_V1
 
         private void takePicture_Click(object sender, EventArgs e)
         {
+            //nuotraukos nufotografavimas (pačekintos varnelėmis komponentai
             IList checkedItems;
             switch ((sender as Button).Name)
             {
@@ -948,7 +986,7 @@ namespace Janitor_V1
                 if (item.ComponentType == NodeType.Assembly)
                 {
                     item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
-                    
+                    //įrašo į properčius nuotraukos lokaciją
                     item.GetSwModel().AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
                     item.GetSwModel().CustomInfo2[item.GetReferencedConfiguration(),
@@ -963,10 +1001,26 @@ namespace Janitor_V1
                         "Paveikslelio failas"] = item.Part.ImageLocation;
                 }
             }
+
+            switch ((sender as Button).Name)
+            {
+                case "takePictureButton1":
+                    treeListView_ItemSelectionChanged(treeListView1, null);
+                    break;
+                case "takePictureButton2":
+                    treeListView_ItemSelectionChanged(treeListView2, null);
+                    break;
+                case "takePictureButton3":
+                    treeListView_ItemSelectionChanged(treeListView3, null);
+                    break;
+                default:
+                    return;
+            }
         }
 
         private void treeListView_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
+            //varnele pažymėjimo eventas, kuris įjungia ir išjungia mygtukus dešinėje
             switch ((sender as TreeListView).Name)
             {
                 case "treeListView1":
@@ -1012,6 +1066,7 @@ namespace Janitor_V1
 
         private void treeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //paselektinimo eventas, kuris įjungia atidarymo Solidworkse mygtuką
             switch ((sender as TreeListView).Name)
             {
                 case "treeListView1":
@@ -1051,6 +1106,7 @@ namespace Janitor_V1
 
         private void readPropertiesButton_Click(object sender, EventArgs e)
         {
+            //nuskaitomi pažymėtų varnelėmis properčiai iš Solidworks
             var nodeTraversal = new NodeTraversal();
             nodeTraversal.swApp = SwApp;
 
@@ -1085,6 +1141,7 @@ namespace Janitor_V1
 
         private void toolboxRefreshButton_Click(object sender, EventArgs e)
         {
+            //atnaujina Toolbox komponentų svorį
             double toolboxWeight = 0;
             foreach(Node node in Data.Where(x => x.ComponentType == NodeType.Part && 
                                                  x.Part.PartType == PartType.Toolbox))
@@ -1096,6 +1153,20 @@ namespace Janitor_V1
             this.Device.TotalToolboxWeight = toolboxWeight;
         }
 
-        
+        private void generateDXFandPDFbutton_Click(object sender, EventArgs e)
+        {
+            IList checkedItems;
+            checkedItems = treeListView2.CheckedObjects;
+
+            foreach (Node node in checkedItems)
+            {
+                generateDXFandPDF(node);
+            }
+        }
+
+        private void generateDXFandPDF(Node node)
+        {
+
+        }
     }
 }

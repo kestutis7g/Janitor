@@ -65,6 +65,7 @@ namespace Janitor_V1
             this.seachTextBox2 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.generateDXFandPDFbutton = new System.Windows.Forms.Button();
             this.readPropertiesButton2 = new System.Windows.Forms.Button();
             this.openInSolidworksButton2 = new System.Windows.Forms.Button();
             this.takePictureButton2 = new System.Windows.Forms.Button();
@@ -550,6 +551,7 @@ namespace Janitor_V1
             // 
             this.panel2.BackColor = System.Drawing.Color.LightGray;
             this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Controls.Add(this.generateDXFandPDFbutton);
             this.panel2.Controls.Add(this.readPropertiesButton2);
             this.panel2.Controls.Add(this.openInSolidworksButton2);
             this.panel2.Controls.Add(this.takePictureButton2);
@@ -565,12 +567,25 @@ namespace Janitor_V1
             this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 95);
+            this.pictureBox2.Location = new System.Drawing.Point(0, 128);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(214, 148);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
+            // 
+            // generateDXFandPDFbutton
+            // 
+            this.generateDXFandPDFbutton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.generateDXFandPDFbutton.Enabled = false;
+            this.generateDXFandPDFbutton.Location = new System.Drawing.Point(0, 95);
+            this.generateDXFandPDFbutton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.generateDXFandPDFbutton.Name = "generateDXFandPDFbutton";
+            this.generateDXFandPDFbutton.Size = new System.Drawing.Size(214, 33);
+            this.generateDXFandPDFbutton.TabIndex = 6;
+            this.generateDXFandPDFbutton.Text = "Generate DXF and PDF";
+            this.generateDXFandPDFbutton.UseVisualStyleBackColor = true;
+            this.generateDXFandPDFbutton.Click += new System.EventHandler(this.generateDXFandPDFbutton_Click);
             // 
             // readPropertiesButton2
             // 
@@ -1038,6 +1053,7 @@ namespace Janitor_V1
         private System.Windows.Forms.Button takePictureButton3;
         private System.Windows.Forms.Button toolboxRefreshButton;
         private ToolTip toolTip;
+        private Button generateDXFandPDFbutton;
     }
 }
 

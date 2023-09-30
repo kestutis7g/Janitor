@@ -14,11 +14,11 @@ namespace Janitor_V1
     public class NodeTraversal
     {
         public SldWorks swApp;
-        public List<Node> AssemblingoNariai;
-        public List<Node> PartsOnly;
-        public List<Node> NonTreeData;
-        public Device Device;
-        public string ProjectLocation = "C:\\bbb\\";
+        public List<Node> AssemblingoNariai; //visų komponentų medžio struktūra
+        public List<Node> PartsOnly; //tik detalių sąrašas
+        public List<Node> NonTreeData; //visų komponentų sąrašas
+        public Device Device; //motininio įrenginio informacija
+        public string ProjectLocation = ""; //Solidworks projekto vieta
 
         public NodeTraversal()
         {
@@ -83,6 +83,11 @@ namespace Janitor_V1
             for (int i = 0; i < vChildComp.Length; i++)
             {
                 Component2 swChildComp = vChildComp[i] as Component2;
+                if (swChildComp.ExcludeFromBOM)
+                {
+                    continue;
+                }
+
                 if (swChildComp != null)
                 {
                     if (swChildComp.GetSuppression() != (int)swComponentSuppressionState_e.swComponentSuppressed)
@@ -93,12 +98,9 @@ namespace Janitor_V1
                         var node = ReadProperties(swModel, swChildComp, itemNumber);
                         if (node != null)
                         {
-                            if(node.ComponentType == NodeType.Part)
-                            {
-                                PartsOnly.Add(node);
-                            }
                             NonTreeData.Add(node);
                             parent.Children.Add(node);
+                         //Jei aitemas turi vaikų, tai eina gilyn ir nuskaito juos.
                             TraverseComponent(swChildComp, nLevel + 1, itemNumber, node);
                         }
                     }
@@ -121,6 +123,7 @@ namespace Janitor_V1
             {
                 node.Part.swModel = swModel;
                 node.Part.swComp = swChildComp;
+                node.DuplicateAmount = 1;
 
                 node.ComponentType = NodeType.Part;
                 node.ItemNumber = itemNumber;
@@ -128,14 +131,23 @@ namespace Janitor_V1
                 node.Part.ComponentName = new string(' ', (name.Length - 1) * 4) + name.Last().Remove(name.Last().LastIndexOf('-'));
                 node.Part.ReferencedConfiguration = swChildComp.ReferencedConfiguration;
 
+                //čia daroma, kad nedublikuotų objektų
                 var duplicate = FindNodeIfExists(node.GetComponentName(), node.GetReferencedConfiguration());
                 if (duplicate != null)
                 {
                     node.Part = duplicate.Part;
+                    duplicate.DuplicateAmount++;
                     return node;
+                }
+                else
+                {
+                    PartsOnly.Add(node);
                 }
 
                 node.Part.FileLocation = swChildComp.GetPathName();
+
+                node.Part.Description = ReadPropertiesFromSolidworks_stringOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Description");
 
                 node.Part.SurfaceArea = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Pavirsiaus plotas_m2", CustPropMgr);
@@ -249,6 +261,7 @@ namespace Janitor_V1
             {
                 node.Assembly.swModel = swModel;
                 node.Assembly.swComp = swChildComp;
+                node.DuplicateAmount = 1;
 
                 node.ComponentType = NodeType.Assembly;
                 node.ItemNumber = itemNumber;
@@ -260,10 +273,14 @@ namespace Janitor_V1
                 if (duplicate != null)
                 {
                     node.Assembly = duplicate.Assembly;
+                    duplicate.DuplicateAmount++;
                     return node;
                 }
 
                 node.Assembly.FileLocation = swChildComp.GetPathName();
+
+                node.Assembly.Description = ReadPropertiesFromSolidworks_stringOut(
+                    swModel, swChildComp.ReferencedConfiguration, "Description");
 
                 node.Assembly.ChildNodeAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
                     swModel, swChildComp.ReferencedConfiguration, "Pomazgiu sumontavimo trukme_val", CustPropMgr);
@@ -300,17 +317,17 @@ namespace Janitor_V1
 
         private void ReadDeviceProperties(CustomPropertyManager CustPropMgr)
         {
-            //designing
+            //designing tabe
             this.Device.PlannedDesigningDuration = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Planuojama projektavimo trukme_val", CustPropMgr);
 
             this.Device.DesigningCostWithoutVAT = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Projektavimo valandos kaina", CustPropMgr);
 
-            this.Device.DesigningTotalPrice = ReadPropertiesFromSolidworks_doubleOut(
+            this.Device.DesigningTotalPricePerUnit = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "PROJEKTAVIMO kaina vienam irenginiui", CustPropMgr);
 
-            //welding tab
+            //welding tabe
             this.Device.PlannedWeldingDuration = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Planuojama suvirinimo trukme_val", CustPropMgr);
 
@@ -320,14 +337,14 @@ namespace Janitor_V1
             this.Device.WeldingTotalPrice = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "SUVIRINIMO kaina", CustPropMgr);
 
-            //assembly and packaging
+            //assembly and packaging tabe
             this.Device.TotalWorkManagementDuration = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Darbu organiz trukme visiems ireng_val", CustPropMgr);
 
             this.Device.WorkManagementCost = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Darbu organizavimo valandos kaina", CustPropMgr);
 
-            this.Device.WorkManagementTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+            this.Device.WorkManagementTotalCostPerUnit = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Darbu organizavimo irenginiui kaina", CustPropMgr);
             //-------------------------
             this.Device.TotalSupplyDuration = ReadPropertiesFromSolidworks_doubleOut(
@@ -336,7 +353,7 @@ namespace Janitor_V1
             this.Device.SupplyCost = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Tiekimo valandos kaina", CustPropMgr);
 
-            this.Device.SupplyTotalCost = ReadPropertiesFromSolidworks_doubleOut(
+            this.Device.SupplyTotalCostPerUnit = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "Tiekimo irenginiam kaina", CustPropMgr);
             //-------------------------
             this.Device.ChildNodeAssemblyDuration = ReadPropertiesFromSolidworks_doubleOut(
@@ -395,10 +412,13 @@ namespace Janitor_V1
             //footer
             this.Device.AmountOfDevices = ReadPropertiesFromSolidworks_intOut(
                     this.Device.swModel, this.Device.Configuration, "Uzsakomu irenginiu skaicius");
+            this.Device.AmountOfDevices = this.Device.AmountOfDevices <= 0 ? 1 : this.Device.AmountOfDevices;
 
             this.Device.TotalPrice = ReadPropertiesFromSolidworks_doubleOut(
                     this.Device.swModel, this.Device.Configuration, "IRENGINIO SUMINE KAINA_EUR", CustPropMgr);
-
+            
+            this.Device.TotalHours = ReadPropertiesFromSolidworks_doubleOut(
+                    this.Device.swModel, this.Device.Configuration, "IRENGINIO SUMINES VALANDOS", CustPropMgr);
         }
 
         public string GetItemNumber(string parentItemNumber, int childIndex)
@@ -410,11 +430,11 @@ namespace Janitor_V1
             return $"{parentItemNumber}.{childIndex}";
         }
 
-        public double Timer()
-        {
-            // Use System.Diagnostics.Stopwatch for more precision in C#
-            return (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
-        }
+        //public double Timer()
+        //{
+        //    // Use System.Diagnostics.Stopwatch for more precision in C#
+        //    return (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
+        //}
 
         public string ReadPropertiesFromSolidworks_stringOut(ModelDoc2 swModel, string Configuration, string PropertyName)
         {
@@ -463,6 +483,7 @@ namespace Janitor_V1
         }
         
         private Node FindNodeIfExists(string name, string configuration)
+            //šis metodas suranda komponentą pagal vardą ir konfiguraciją
         {
             var node = NonTreeData.FirstOrDefault(x => x.GetComponentName() == name &&
             x.GetReferencedConfiguration() == configuration);

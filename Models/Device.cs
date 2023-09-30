@@ -9,35 +9,38 @@ namespace Janitor_V1.Models
 {
     public class Device
     {
+        //Viso įrenginio objektas su properčiais
         public ModelDoc2 swModel { get; set; }
         public string Configuration { get; set; }
         public string FileLocation { get; set; }
 
 
         public double TotalPrice { get; set; }
+        public double TotalHours { get; set; }
         public int AmountOfDevices { get; set; }
 
-        //design
+        //design tabas
+        
         public double PlannedDesigningDuration { get; set; }
         public double RealDesigningDuration { get; set; }
         public double DesigningCostWithoutVAT { get; set; }
-        public double DesigningTotalPrice { get; set; }
+        public double DesigningTotalPricePerUnit { get; set; }
 
 
-        //welding
+        //welding tabas
         public double PlannedWeldingDuration { get; set; }
         public double RealWeldingDuration { get; set; }
         public double WeldingCostWithoutVAT { get; set; }
         public double WeldingTotalPrice { get; set; }
         
-        //assembly
+        //assembly tabas
         public double TotalWorkManagementDuration { get; set; }
         public double WorkManagementCost { get; set; }
-        public double WorkManagementTotalCost { get; set; }
+        public double WorkManagementTotalCostPerUnit { get; set; }
 
         public double TotalSupplyDuration { get; set; }
         public double SupplyCost { get; set; }
-        public double SupplyTotalCost { get; set; }
+        public double SupplyTotalCostPerUnit { get; set; }
         
         public double IndividualComponentsAssembly { get; set; }
         public double AssemblyToParentDuration { get; set; }
@@ -50,25 +53,27 @@ namespace Janitor_V1.Models
         public double PackingCost { get; set; }
         public double PackagingMaterialCost { get; set; }
         public double PackagingTotalCost { get; set; }
-        //parts
+        //parts tabas
         public int NumberOfParts { get; set; }
         public double TotalPartsCost { get; set; }
         public double TotalToolboxWeight { get; set; }
         public double TotalToolboxCost { get; set; }
         public double TotalPartsAndToolboxCost { get; set; }
-        //other costs
+        //other costs tabas
         public double OtherCosts { get; set; }
         public string OtherCostsDescription { get; set; }
 
         public Device() 
         {
+            //defaulto sukūrimas
             this.TotalPrice = 0;
+            this.TotalHours = 0;
             this.AmountOfDevices = 1;
 
             this.PlannedDesigningDuration = 0;
             this.RealDesigningDuration = 0;
             this.DesigningCostWithoutVAT = 0;
-            this.DesigningTotalPrice = 0;
+            this.DesigningTotalPricePerUnit = 0;
 
             this.PlannedWeldingDuration = 0;
             this.RealWeldingDuration = 0;
@@ -77,11 +82,11 @@ namespace Janitor_V1.Models
             
             this.TotalWorkManagementDuration = 0;
             this.WorkManagementCost = 0;
-            this.WorkManagementTotalCost = 0;
+            this.WorkManagementTotalCostPerUnit = 0;
 
             this.TotalSupplyDuration = 0;
             this.SupplyCost = 0;
-            this.SupplyTotalCost = 0;
+            this.SupplyTotalCostPerUnit = 0;
 
             this.IndividualComponentsAssembly = 0;
             this.AssemblyToParentDuration = 0;

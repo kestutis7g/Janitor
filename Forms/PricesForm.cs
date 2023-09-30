@@ -12,6 +12,7 @@ namespace Janitor_V1
         private Prices Prices { get; set; }
         public PricesForm(string workingDirectory)
         {
+            //Įkainių supildymas į DataGridView
             InitializeComponent();
             this.Prices = new Prices(workingDirectory);
             this.Prices.Refresh();
@@ -81,6 +82,7 @@ namespace Janitor_V1
         /// <returns>true if saved, false if row was not changed</returns>
         private bool SaveTableRow(DataGridViewRow row, List<Price> allData, string priceGroup)
         {
+            //jei yra naujų duomenų, išsaugoma į duomenų bazę
             if (row.Cells["Id"].Value == null)
             {
                 return false;

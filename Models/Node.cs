@@ -8,29 +8,39 @@ namespace Janitor_V1.Models
 {
     public enum NodeType
     {
+        //enumeratorius. Komponentų tipai.
         Part,
         Assembly,
     }
 
     public class Node
     {
+        //Partas ir Assemblis turi skirtingus properčius
         public Part Part { get; set; }
         public Assembly Assembly { get; set; }
 
+        //Bendri properčiai abiems tipams
         [Category("General"),
         Description("Component Type")]
-        public NodeType ComponentType { get; set; }
+        public NodeType ComponentType { get; set; } //enumeratoriaus tipo propertis, kuris gali turėti tik dvi reikšmes
 
-        [Category("General"),
+        /*propertis priskiriamas kategorijai ir po to tverkingai atvaizduojamas
+            komponento properčių tabe */
+        [Category("General") ,
         Description("Full item number")]
         public string ItemNumber { get; set; }
 
+        [Category("General"),
+        Description("Amount of duplicate components")]
+        public int DuplicateAmount { get; set; } //kiek įrenginyje yra tokių pačių assemblingų ir partų
+
         [Category("Other"),
         Description("All child nodes")]
-        public List<Node> Children { get; set; }
+        public List<Node> Children { get; set; } //vaikų sąrašas
 
         public Node()
         {
+            //naujo objekto aitemui sukūrimas
             this.Children = new List<Node>();
             this.Part = new Part();
             this.Assembly = new Assembly();
@@ -38,6 +48,7 @@ namespace Janitor_V1.Models
 
         public void Update(Node data)
         {
+            //priskiria identišką objektą kitam, tokiam pačiam jau buvusiam objektui
             this.Part = data.Part;
             this.Assembly = data.Assembly;
             this.ComponentType = data.ComponentType;
@@ -45,6 +56,7 @@ namespace Janitor_V1.Models
 
         public string GetComponentName()
         {
+            //šis metodas gražina vardą be tarpo priekyje
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.ComponentName.Trim();
@@ -57,6 +69,7 @@ namespace Janitor_V1.Models
         }
         public string GetComponentNameWithSpaces()
         {
+            //šis metodas gražina vardą su tarpu priekyje, jei jis yra kažkieno vaikas
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.ComponentName;
@@ -70,6 +83,7 @@ namespace Janitor_V1.Models
 
         public string GetReferencedConfiguration()
         {
+            //šis metodas gražina aitemo konfiguraciją
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.ReferencedConfiguration;
@@ -78,11 +92,12 @@ namespace Janitor_V1.Models
             {
                 return Assembly.ReferencedConfiguration;
             }
-            return "Unknown";
+            return "Unknown"; //šis identifikatorius gražinamas, jei aitemas nėra nei partas nei assemblingas
         }
 
         public int GetComponentID()
         {
+            //šis metodas gražina komponento ID. Kol kas su šituo ID beveik niekas nedaryta ir nenaudota. 
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.ComponentID;
@@ -96,6 +111,7 @@ namespace Janitor_V1.Models
 
         public string GetDescription()
         {
+            //šis metodas gražina komponento aprašymą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Description;
@@ -109,6 +125,8 @@ namespace Janitor_V1.Models
 
         public string GetFileLocation()
         {
+
+            //gražina komponento failo adresą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.FileLocation;
@@ -121,6 +139,7 @@ namespace Janitor_V1.Models
         }
         public Image GetSmallImage(string workingDirectory)
         {
+            //gražina mažą nuotrauką. Naudojama toje vietoje, kur dedama maža ikonėlė. 
             if (this.ComponentType == NodeType.Part && 
                 !string.IsNullOrWhiteSpace(Part.ImageLocation) &&
                 File.Exists(Part.ImageLocation))
@@ -138,7 +157,7 @@ namespace Janitor_V1.Models
         }
         public Image GetBigImage(string workingDirectory)
         {
-
+            //paima didelę nuotrauką, kuri vaizduojama tabe.
             if (this.ComponentType == NodeType.Part && 
                 !string.IsNullOrWhiteSpace(Part.ImageLocation) &&
                 File.Exists(Part.ImageLocation))
@@ -155,6 +174,7 @@ namespace Janitor_V1.Models
         }
         public string GetImageLocation()
         {
+            //pasiima nuotraukos failo vietą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.ImageLocation;
@@ -169,6 +189,7 @@ namespace Janitor_V1.Models
 
         public double? GetChildNodeAssemblyDuration()
         {
+            //pasiima vaikų bendrą surinkimo laiką (ne iš Solidworks, bet iš programos skaičiavimo rezultatų). 
             if (this.ComponentType == NodeType.Part)
             {
                 return null;
@@ -179,8 +200,28 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public string GetChildNodeAssemblyDurationString()
+        {
+            //gražina ankstesniame metode suskaičiuotą laiką, tik jį performatuoja į val ir min
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                var time = new Time((double)Assembly.ChildNodeAssemblyDuration);
+                string result = "";
+                if(time.Hour > 0)
+                {
+                    result += string.Format("{0}h ", time.Hour.ToString());
+                }
+                return result + string.Format("{0}min", time.Minute.ToString());
+            }
+            return "Unknown";
+        }
         public double? GetIndividualComponentAssemblyDuration()
         {
+            //gražina palaidų komponentų surinkimo laiką
             if (this.ComponentType == NodeType.Part)
             {
                 return null;
@@ -191,8 +232,28 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public string GetIndividualComponentAssemblyDurationString()
+        {
+            //ankstesnio metodo suskaičiuotą laiką paverčia į stringą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                var time = new Time((double)Assembly.IndividualComponentAssemblyDuration);
+                string result = "";
+                if (time.Hour > 0)
+                {
+                    result += string.Format("{0}h ", time.Hour.ToString());
+                }
+                return result + string.Format("{0}min", time.Minute.ToString());
+            }
+            return "Unknown";
+        }
         public double? GetAssemblyToParentNodeDuration()
         {
+            //gražina surinkimo į tėvinį assemblingą laiką
             if (this.ComponentType == NodeType.Part)
             {
                 return null;
@@ -203,8 +264,28 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public string GetAssemblyToParentNodeDurationString()
+        {
+            //ankstesnio metodo gautą laiką pavarčia į stringą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                var time = new Time((double)Assembly.AssemblyToParentNodeDuration);
+                string result = "";
+                if (time.Hour > 0)
+                {
+                    result += string.Format("{0}h ", time.Hour.ToString());
+                }
+                return result + string.Format("{0}min", time.Minute.ToString());
+            }
+            return "Unknown";
+        }
         public double? GetCombinedAssemblyTime()
         {
+            //gražina bendrą assemblingo surinkimo laiką
             if (this.ComponentType == NodeType.Part)
             {
                 return null;
@@ -215,9 +296,62 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public string GetCombinedAssemblyTimeString()
+        {
+            //ankstesnio metodo gautą laiką paverčia į stringą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                var time = new Time((double)Assembly.CombinedAssemblyTime);
+                string result = "";
+                if (time.Hour > 0)
+                {
+                    result += string.Format("{0}h ", time.Hour.ToString());
+                }
+                return result + string.Format("{0}min", time.Minute.ToString());
+            }
+            return "Unknown";
+        }
+
+        public double? GetWeldingDuration()
+        {
+            //gražina suvirinimo laiką
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.WeldingDuration;
+            }
+            return -999;
+        }
+        public string GetWeldingDurationString()
+        {
+            //ankstesnio metodo gautą laiką paverčia į stringą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return null;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                var time = new Time((double)Assembly.WeldingDuration);
+                string result = "";
+                if (time.Hour > 0)
+                {
+                    result += string.Format("{0}h ", time.Hour.ToString());
+                }
+                return result + string.Format("{0}min", time.Minute.ToString());
+            }
+            return "Unknown";
+        }
 
         public double? GetSurfaceArea()
         {
+            //gražina detalės paviršiaus plotą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.SurfaceArea;
@@ -230,6 +364,7 @@ namespace Janitor_V1.Models
         }
         public double? GetWeight()
         {
+            //gražina detalės svorį
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Weight;
@@ -242,6 +377,7 @@ namespace Janitor_V1.Models
         }
         public bool? GetWelded()
         {
+            //gražina ar detalė yra virinta
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Welded;
@@ -254,6 +390,7 @@ namespace Janitor_V1.Models
         }
         public bool? GetBent()
         {
+            //gražina ar detalė yra lankstoma
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Bent;
@@ -266,6 +403,7 @@ namespace Janitor_V1.Models
         }
         public string GetMaterial()
         {
+            //gražina detalės medžiagos pavadinimą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Material;
@@ -278,6 +416,7 @@ namespace Janitor_V1.Models
         }
         public string GetCoverage()
         {
+            //gražina padengimą (dažymas, cinkavimas)
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Coverage;
@@ -290,6 +429,7 @@ namespace Janitor_V1.Models
         }
         public double? GetPrice()
         {
+            //gražina detalės kainą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.Price;
@@ -302,6 +442,7 @@ namespace Janitor_V1.Models
         }
         public double? GetSheetThickness()
         {
+            //gražina detalės skardos storį
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.SheetThickness;
@@ -314,6 +455,7 @@ namespace Janitor_V1.Models
         }
         public PartType? GetPartType()
         {
+            //gražina detalės tipą, t.y. ar detalė yra Toolbox, Sheet ar Other
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.PartType;
@@ -327,6 +469,7 @@ namespace Janitor_V1.Models
 
         public ModelDoc2 GetSwModel()
         {
+            //Pasiima komponento SW modelį.
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.swModel;
@@ -340,6 +483,7 @@ namespace Janitor_V1.Models
 
         public Component2 GetSwComp()
         {
+            //pasiima Component2 objektą
             if (this.ComponentType == NodeType.Part)
             {
                 return Part.swComp;
