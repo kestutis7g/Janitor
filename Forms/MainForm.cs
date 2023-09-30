@@ -1040,11 +1040,13 @@ namespace Janitor_V1
                     {
                         this.takePictureButton2.Enabled = true;
                         this.readPropertiesButton2.Enabled = true;
+                        this.generateDXFandPDFbutton.Enabled = true;
                     }
                     else
                     {
                         this.takePictureButton2.Enabled = false;
                         this.readPropertiesButton2.Enabled = false;
+                        this.generateDXFandPDFbutton.Enabled = false;
                     }
                     break;
                 case "treeListView3":
@@ -1166,7 +1168,19 @@ namespace Janitor_V1
 
         private void generateDXFandPDF(Node node)
         {
-
+            if(node.Part.SheetThickness != 0)
+            {
+                var exporter = new ExportDXFandPDF();
+                var success = exporter.ProcessComponent(SwApp, node.GetSwModel(), node.GetReferencedConfiguration(), node.DuplicateAmount);
+                if (!success)
+                {
+                    MessageBox.Show("Error generating DXF!");
+                }
+            }
+            else
+            {
+                MessageBox.Show(node.GetComponentName() + " is not sheet type part!");
+            }
         }
     }
 }
