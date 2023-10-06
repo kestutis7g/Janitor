@@ -1,8 +1,11 @@
-﻿using SolidWorks.Interop.sldworks;
+﻿using Microsoft.Office.Interop.Excel;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Janitor_V1.Utils
 {
@@ -143,7 +146,8 @@ namespace Janitor_V1.Utils
                 System.Text.RegularExpressions.Match regExMatch = regExMatches[i];
                 string tokenName = regExMatch.Value.Substring(1, regExMatch.Value.Length - 2);
 
-                outFileName = outFileName.Substring(0, regExMatch.Index) + ResolveToken(tokenName, rootModel, sheetMetalModel, conf, flatPatternFeat, cutListFeat, duplicateQuantity) + outFileName.Substring(regExMatch.Index + regExMatch.Length);
+                var temp = ResolveToken(tokenName, rootModel, sheetMetalModel, conf, flatPatternFeat, cutListFeat, duplicateQuantity);
+                outFileName = outFileName.Substring(0, regExMatch.Index) + temp + outFileName.Substring(regExMatch.Index + regExMatch.Length);
             }
 
             return ReplaceInvalidPathSymbols(GetFullPath(rootModel, outFileName));
@@ -242,7 +246,7 @@ namespace Janitor_V1.Utils
 
         public static string GetFileNameWithoutExtension(string path)
         {
-            return System.IO.Path.GetFileNameWithoutExtension(path);
+            return Path.GetFileNameWithoutExtension(path);
         }
 
         public object GetCutListFeatures(ModelDoc2 model)
@@ -501,7 +505,7 @@ namespace Janitor_V1.Utils
 
         public void CreateDirectories(string path)
         {
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(path);
+            DirectoryInfo di = new DirectoryInfo(path);
             if (!di.Exists)
             {
                 CreateDirectories(di.Parent.FullName);
@@ -538,29 +542,52 @@ namespace Janitor_V1.Utils
             return path.StartsWith("\\");
         }
 
-        public void AtidarykBreziniIrSugeneruokPdf()
-        {
-            // Implement the code for this subroutine
-        }
-
-        public void CheckFileExists(ModelDoc2 rootModel, ModelDoc2 sheetMetalModel, string conf)
+        public bool GeneratePDF(ModelDoc2 sheetMetalModel, string conf)
         {
             string PathName = sheetMetalModel.GetPathName();
-            string FileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(PathName);
-            string FolderOfTheFile = System.IO.Path.GetDirectoryName(PathName);
-            string pdfFailoVardas = EksportuojamoBrezinioFailoPavadinimas + ".pdf";
+            string FileNameWithoutExtension = Path.GetFileNameWithoutExtension(PathName);
+            string FolderOfTheFile = Path.GetDirectoryName(PathName);
+            string PDFFileName = EksportuojamoBrezinioFailoPavadinimas + ".pdf";
             string DrawingFileName = Path.Combine(FolderOfTheFile, FileNameWithoutExtension + ".slddrw");
 
-            if (!System.IO.File.Exists(DrawingFileName))
+            if (!File.Exists(DrawingFileName))
             {
-                System.Windows.Forms.MessageBox.Show("Nera sukurta detales brezinio");
+                MessageBox.Show("Drawing file missing!");
+                return false;
             }
             else
             {
                 ModelDoc2 doc = swApp.OpenDoc6(DrawingFileName, (int)swDocumentTypes_e.swDocDRAWING, (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", 0, 0);
-                ExportPdfData swExportPDFData = (ExportPdfData)swApp.GetExportFileData((int)swExportDataFileType_e.swExportPdfData);
-                doc.Extension.SaveAs(pdfFailoVardas, (int)swSaveAsVersion_e.swSaveAsCurrentVersion, (int)swSaveAsOptions_e.swSaveAsOptions_Silent, swExportPDFData, 0, 0);
+                IDrawingDoc swDraw = (IDrawingDoc)doc;
+
+                var vSheetNames = (Array)swDraw.GetSheetNames();
+                bool generated = false;
+                for (int i = 0; i <= vSheetNames.GetUpperBound(0); i++)
+                {
+                    string name = vSheetNames.GetValue(i).ToString();
+                    if(name != conf)
+                    {
+                        continue;
+                    }
+                    string[] strSheetName = new string[] { name };
+                    Array varSheetName = strSheetName;
+
+                    ExportPdfData swExportPDFData =
+                        (ExportPdfData)swApp.GetExportFileData((int)swExportDataFileType_e.swExportPdfData);
+
+                    swExportPDFData.SetSheets((int)swExportDataSheetsToExport_e.swExportData_ExportSpecifiedSheets, varSheetName);
+
+                    doc.Extension.SaveAs(PDFFileName, (int)swSaveAsVersion_e.swSaveAsCurrentVersion, (int)swSaveAsOptions_e.swSaveAsOptions_Silent, swExportPDFData, 0, 0);
+                    generated = true;
+                }
+
                 swApp.CloseDoc(DrawingFileName);
+
+                if(!generated)
+                {
+                    MessageBox.Show("Error generating PDF!\nConfiguration not fount!");
+                }
+                return generated;
             }
         }
     }

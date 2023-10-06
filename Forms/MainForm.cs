@@ -87,7 +87,12 @@ namespace Janitor_V1
             this.treeListView1.LargeImageList = new ImageList();
             var colImage = new OLVColumn("Image", "Image");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).ItemNumber;
+                String key = (row as Node).GetImageLocation();
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    key = "none";
+                }
+
                 if (!this.treeListView1.LargeImageList.Images.ContainsKey(key))
                 {
                     Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
@@ -255,13 +260,13 @@ namespace Janitor_V1
 
             this.treeListView3.SmallImageList = new ImageList();
             this.treeListView3.LargeImageList = new ImageList();
-            var colImage = new OLVColumn("Image", "Image");
+            var colImage = new OLVColumn("Success", "Success");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).ItemNumber;
+                String key = (row as Node).GetStatusMessage().ToString();
                 if (!this.treeListView3.LargeImageList.Images.ContainsKey(key))
                 {
-                    Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
-                    Image largeImage = (row as Node).GetBigImage(this.WorkingDirectory);
+                    Image smallImage = (row as Node).GetStatusMessageIcon(this.WorkingDirectory);
+                    Image largeImage = (row as Node).GetStatusMessageIcon(this.WorkingDirectory);
                     this.treeListView3.SmallImageList.Images.Add(key, smallImage);
                     this.treeListView3.LargeImageList.Images.Add(key, largeImage);
                 }
@@ -372,13 +377,13 @@ namespace Janitor_V1
 
             this.treeListView2.SmallImageList = new ImageList();
             this.treeListView2.LargeImageList = new ImageList();
-            var colImage = new OLVColumn("Image", "Image");
+            var colImage = new OLVColumn("Success", "Success");
             colImage.ImageGetter = delegate (object row) {
-                String key = (row as Node).ItemNumber;
+                String key = (row as Node).GetStatusMessage().ToString();
                 if (!this.treeListView2.LargeImageList.Images.ContainsKey(key))
                 {
-                    Image smallImage = (row as Node).GetSmallImage(this.WorkingDirectory);
-                    Image largeImage = (row as Node).GetBigImage(this.WorkingDirectory);
+                    Image smallImage = (row as Node).GetStatusMessageIcon(this.WorkingDirectory);
+                    Image largeImage = (row as Node).GetStatusMessageIcon(this.WorkingDirectory);
                     this.treeListView2.SmallImageList.Images.Add(key, smallImage);
                     this.treeListView2.LargeImageList.Images.Add(key, largeImage);
                 }
@@ -1139,6 +1144,7 @@ namespace Janitor_V1
         {
             var temp = nodeTraversal.ReadProperties(node.GetSwModel(), node.GetSwComp(), node.ItemNumber);
             node.Update(temp);
+            node.CheckIfComponentValuesEmpty();
         }
 
         private void toolboxRefreshButton_Click(object sender, EventArgs e)
@@ -1168,14 +1174,74 @@ namespace Janitor_V1
 
         private void generateDXFandPDF(Node node)
         {
+            if (node.GetComponentName().ToLower().Contains("mirror"))
+            {
+                var confirmResult = MessageBox.Show("You are trying to export mirror component!",
+                                     "Continue!",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
             if(node.Part.SheetThickness != 0)
             {
+                var allMirrors = 
+                    PartsData.Where(x => (x.GetComponentName().ToLower().StartsWith("mirror") ||
+                                          x.GetComponentName().ToLower().EndsWith("mirror")) &&
+                                          x.GetReferencedConfiguration() == node.GetReferencedConfiguration());
+                int mirrorAmount = 0;
+                foreach (var mirror in allMirrors)
+                {
+                    bool isMirror = false;
+                    string name = mirror.GetComponentName();
+                    if (name.ToLower().StartsWith("mirror") &&
+                        name.Substring(6) == node.GetComponentName())
+                    { isMirror = true; }
+                    
+                    if(name.ToLower().StartsWith("mirror_") &&
+                        name.Substring(7) == node.GetComponentName())
+                    { isMirror = true; }
+                    
+                    if(name.ToLower().EndsWith("mirror") &&
+                        name.Substring(0, name.Length - 6) == node.GetComponentName())
+                    { isMirror = true; }
+                    
+                    if(name.ToLower().EndsWith("_mirror") &&
+                        name.Substring(0, name.Length - 7) == node.GetComponentName())
+                    { isMirror = true; }
+
+                    if (isMirror)
+                    {
+                        mirrorAmount = mirror.DuplicateAmount;
+                        break;
+                    }
+                }
+
                 var exporter = new ExportDXFandPDF();
-                var success = exporter.ProcessComponent(SwApp, node.GetSwModel(), node.GetReferencedConfiguration(), node.DuplicateAmount);
+                var success = exporter.ProcessComponent(SwApp, node.GetSwModel(), 
+                                                        node.GetReferencedConfiguration(), 
+                                                        node.DuplicateAmount + mirrorAmount);
                 if (!success)
                 {
+                    node.SetStatusMessage(StatusMessage.DXF_Error);
                     MessageBox.Show("Error generating DXF!");
                 }
+                else
+                {
+                    node.SetStatusMessage(StatusMessage.Success);
+                }
+
+                var pdf_success = exporter.GeneratePDF(node.GetSwModel(), node.GetReferencedConfiguration());
+                if (success && !pdf_success)
+                {
+                    node.SetStatusMessage(StatusMessage.PDF_Error);
+                }
+                else
+                {
+                    node.SetStatusMessage(StatusMessage.Success);
+                }
+
             }
             else
             {

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Janitor_V1.Models;
 using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
@@ -74,6 +75,7 @@ namespace Janitor_V1.Utils
             //padaro nuotrauką su Solidworks
             int errors = 0;
             int warnings = 0;
+            bool boolstatus;
 
             //ISldWorks swApp;
             //swApp = (ISldWorks)Activator.CreateInstance(Type.GetTypeFromProgID("SldWorks.Application"));
@@ -90,17 +92,45 @@ namespace Janitor_V1.Utils
 
             swModel.ShowNamedView2("*Isometric", 7);
             swModel.ViewZoomtofit2();
+            boolstatus = swModel.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
+            if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
+            {
+                swModel.ViewDisplayHiddenremoved();
+                swModel.Extension.InsertScene(@"\scenes\01 basic scenes\11 white kitchen.p2s");
+                swModel.ForceRebuild3(false);
+            }
+
             var location = destinationFolder + pictureName + ".PNG";
 
             if (File.Exists(location))
             {
-                //File.Delete(location);
+                //swModel.ForceReleaseLocks();
+              //  File.Delete(location);
             }
+
+            boolstatus = swModel.Extension.SaveAs2(location, 0, (int)swSaveAsOptions_e.swSaveAsOptions_Copy, null, "", false, errors, warnings);
+
+
+            //atidaryti, uzdaryti
+
+
+
+            // File.Delete(location);
+
 
             // Save As
             //Antrą kartą bandant išsaugoti nuotrauką Windows neleidžia to padaryti,
             //nes Solidworks yra atidarę nuotraukos failą
-            swModel.SaveAs3(location , 0, 0);
+            if (swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
+            {
+                ModelView activeModelView = swModel.ActiveView as ModelView;
+                if (activeModelView != null)
+                {
+                    activeModelView.DisplayMode = (int)swViewDisplayMode_e.swViewDisplayMode_ShadedWithEdges;
+                }
+                swModel.Extension.InsertScene(@"\scenes\01 basic scenes\00 3 point faded.p2s");
+            }
+
             swApp.CloseDoc(swModelDoc.GetTitle());
             return location;
         }

@@ -6,12 +6,12 @@ using SolidWorks.Interop.sldworks;
 
 namespace Janitor_V1.Models
 {
+    //enumeratorius. Komponentų tipai.
     public enum NodeType
     {
-        //enumeratorius. Komponentų tipai.
         Part,
         Assembly,
-    }
+    }    
 
     public class Node
     {
@@ -37,6 +37,8 @@ namespace Janitor_V1.Models
         [Category("Other"),
         Description("All child nodes")]
         public List<Node> Children { get; set; } //vaikų sąrašas
+
+        private StatusMessage StatusMessage { get; set;} = StatusMessage.None;
 
         public Node()
         {
@@ -153,7 +155,6 @@ namespace Janitor_V1.Models
                 return Image.FromFile(Assembly.ImageLocation);
             }
             return Image.FromFile(workingDirectory + "Assets\\placeholder-small.jpg");
-            //return Image.FromFile("C:\\Users\\Dell\\OneDrive - UAB Novatronas\\DARBAI su SOLIDWORKS_V2019\\JANITOR\\Janitor_V1\\Assets\\placeholder-small.jpg");
         }
         public Image GetBigImage(string workingDirectory)
         {
@@ -495,6 +496,54 @@ namespace Janitor_V1.Models
             return null;
         }
 
+        public void CheckIfComponentValuesEmpty()
+        {
+            if(this.ComponentType == NodeType.Assembly &&
+                this.Assembly.ChildNodeAssemblyDuration == 0 &&
+                this.Assembly.AssemblyToParentNodeDuration == 0 &&
+                this.Assembly.IndividualComponentAssemblyDuration == 0 &&
+                this.Assembly.CombinedAssemblyTime == 0 &&
+                this.Assembly.WeldingDuration == 0)
+            {
+                this.SetStatusMessage(StatusMessage.Missing_Params);
+            }
+            else if (this.ComponentType == NodeType.Part &&
+                this.Part.Price == 0)
+            {
+                //this.SetStatusMessage(StatusMessage.Missing_Params);
+            }
+            else
+            {
+                this.SetStatusMessage(StatusMessage.None);
+            }
+        }
+
+        public void SetStatusMessage(StatusMessage statusMessage)
+        {
+            this.StatusMessage = statusMessage;
+        }
+        public StatusMessage GetStatusMessage()
+        {
+            return this.StatusMessage;
+        }
+        public Image GetStatusMessageIcon(string workingDirectory)
+        {
+            switch (this.StatusMessage)
+            {
+                case StatusMessage.None:
+                    return Image.FromFile(workingDirectory + "Assets\\none.jpg");
+                case StatusMessage.Success:
+                    return Image.FromFile(workingDirectory + "Assets\\success.jpg");
+                case StatusMessage.DXF_Error:
+                    return Image.FromFile(workingDirectory + "Assets\\warning.jpg");
+                case StatusMessage.PDF_Error:
+                    return Image.FromFile(workingDirectory + "Assets\\error.jpg");
+                case StatusMessage.Missing_Params:
+                    return Image.FromFile(workingDirectory + "Assets\\error.jpg");
+                default:
+                    return Image.FromFile(workingDirectory + "Assets\\none.jpg");
+            }            
+        }
 
     }
 }

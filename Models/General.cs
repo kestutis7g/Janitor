@@ -2,6 +2,15 @@
 
 namespace Janitor_V1.Models
 {
+    public enum StatusMessage
+    {
+        None,
+        Success,
+        DXF_Error,
+        PDF_Error,
+        Missing_Params,
+    }
+
     //Šis modulis naudojamas valandų konvertavimui
     internal class Time
     {

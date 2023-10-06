@@ -263,6 +263,7 @@ namespace Janitor_V1
 
                 ReloadPart();
             }
+            Data.CheckIfComponentValuesEmpty();
         }
 
         private void SavePart() 
@@ -280,7 +281,6 @@ namespace Janitor_V1
                 "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
                 "Description"] = this.Data.GetDescription();
-            int a = 0;
         }
         private void ReloadPart()
         {

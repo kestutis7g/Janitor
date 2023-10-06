@@ -77,7 +77,7 @@ namespace Janitor_V1
         public void TraverseComponent(Component2 swComp, long nLevel, string parentItemNumber, Node parent)
         {
             object[] vChildComp = (object[])swComp.GetChildren();
-            int numberOfMembers = vChildComp.Length;
+            //int numberOfMembers = vChildComp.Length;
             //Debug.WriteLine($"Number of members in the array: {numberOfMembers}");
             
             for (int i = 0; i < vChildComp.Length; i++)
@@ -95,12 +95,15 @@ namespace Janitor_V1
                         string itemNumber = GetItemNumber(parentItemNumber, i + 1);
 
                         ModelDoc2 swModel = (ModelDoc2)swChildComp.GetModelDoc2();
-                        var node = ReadProperties(swModel, swChildComp, itemNumber);
+                        Node node = ReadProperties(swModel, swChildComp, itemNumber);
+
                         if (node != null)
                         {
+                            //assemblingo nariu surinkimas
                             NonTreeData.Add(node);
                             parent.Children.Add(node);
-                         //Jei aitemas turi vaikų, tai eina gilyn ir nuskaito juos.
+                                
+                            //Jei aitemas turi vaikų, tai eina gilyn ir nuskaito juos.
                             TraverseComponent(swChildComp, nLevel + 1, itemNumber, node);
                         }
                     }
@@ -255,6 +258,8 @@ namespace Janitor_V1
                     node.Part.OtherPart.MaterialWeight = Math.Round(Solidworks_control_tools.DetalesZaliavosKaina(swApp, node.GetFileLocation(), swModel), 2);
                 }
 
+                node.CheckIfComponentValuesEmpty();
+
                 return node;
             }
             else if (swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
@@ -305,6 +310,8 @@ namespace Janitor_V1
                 
                 node.Assembly.ImageLocation = ReadPropertiesFromSolidworks_stringOut(
                     swModel, swChildComp.ReferencedConfiguration, "Paveikslelio failas");
+
+                node.CheckIfComponentValuesEmpty();
 
                 return node;
             }
