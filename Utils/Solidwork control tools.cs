@@ -2,8 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Janitor_V1.Models;
-using Microsoft.Office.Interop.Excel;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 

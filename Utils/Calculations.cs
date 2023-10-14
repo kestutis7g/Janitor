@@ -67,7 +67,12 @@ namespace Janitor_V1.Utils
         private void refreshTotalParts()
         {
             //atnaujina detalių skaičių
-            this.totalParts = PartsData.Count();
+            this.totalParts = 0;
+            foreach (var part in PartsData)
+            {
+                this.totalParts += part.DuplicateAmount;
+            }
+
         }
         private void refreshTotalPartsCost()
         {
@@ -75,7 +80,7 @@ namespace Janitor_V1.Utils
             double cost = 0;
             foreach (var part in this.PartsData)
             {
-                cost += part.Part.Price ?? 0;
+                cost += (part.Part.Price ?? 0) * part.DuplicateAmount;
             }
             this.totalPartsCost = Math.Round(cost,2);
         }
@@ -87,7 +92,7 @@ namespace Janitor_V1.Utils
             {
                 if(part.Part.PartType == PartType.Toolbox)
                 {
-                    weight += part.Part.Weight ?? 0;
+                    weight += (part.Part.Weight ?? 0) * part.DuplicateAmount;
                 }
             }
             this.toolboxWeight = weight;

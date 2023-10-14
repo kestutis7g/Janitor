@@ -15,6 +15,10 @@ namespace Janitor_V1.Models
         Description("Description of the component")]
         public string Description { get; set; }
 
+        [Category("General"),
+        Description("Notes")]
+        public string Notes { get; set; }
+
         [Category("Other"),
         Description("Part reference configuration")]
         public string ReferencedConfiguration { get; set; }

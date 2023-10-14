@@ -39,6 +39,7 @@ namespace Janitor_V1
             this.seachTextBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.exportExelButton1 = new System.Windows.Forms.Button();
             this.readPropertiesButton1 = new System.Windows.Forms.Button();
             this.openInSolidworksButton1 = new System.Windows.Forms.Button();
             this.takePictureButton1 = new System.Windows.Forms.Button();
@@ -65,6 +66,9 @@ namespace Janitor_V1
             this.seachTextBox2 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.exportPurchasedPartsButton = new System.Windows.Forms.Button();
+            this.exportSheetPartsToWordButton = new System.Windows.Forms.Button();
+            this.exportExelButton2 = new System.Windows.Forms.Button();
             this.generateDXFandPDFbutton = new System.Windows.Forms.Button();
             this.readPropertiesButton2 = new System.Windows.Forms.Button();
             this.openInSolidworksButton2 = new System.Windows.Forms.Button();
@@ -84,6 +88,7 @@ namespace Janitor_V1
             this.treeListView3 = new BrightIdeasSoftware.TreeListView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.exportExelButton3 = new System.Windows.Forms.Button();
             this.readPropertiesButton3 = new System.Windows.Forms.Button();
             this.openInSolidworksButton3 = new System.Windows.Forms.Button();
             this.takePictureButton3 = new System.Windows.Forms.Button();
@@ -135,22 +140,22 @@ namespace Janitor_V1
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageParts);
             this.tabControl1.Controls.Add(this.tabPageAssemblies);
-            this.tabControl1.Location = new System.Drawing.Point(1, 41);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.tabControl1.Location = new System.Drawing.Point(1, 33);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1185, 700);
+            this.tabControl1.Size = new System.Drawing.Size(889, 569);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPageGeneral
             // 
             this.tabPageGeneral.Controls.Add(this.splitContainer1);
             this.tabPageGeneral.Controls.Add(this.panel4);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 25);
-            this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPageGeneral.Size = new System.Drawing.Size(1177, 671);
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.tabPageGeneral.Size = new System.Drawing.Size(881, 543);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -162,7 +167,7 @@ namespace Janitor_V1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -176,8 +181,9 @@ namespace Janitor_V1
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1172, 585);
-            this.splitContainer1.SplitterDistance = 944;
+            this.splitContainer1.Size = new System.Drawing.Size(879, 475);
+            this.splitContainer1.SplitterDistance = 659;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             // 
@@ -190,8 +196,8 @@ namespace Janitor_V1
             this.treeListView1.CellEditUseWholeCell = false;
             this.treeListView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeListView1.HideSelection = false;
-            this.treeListView1.Location = new System.Drawing.Point(3, 28);
-            this.treeListView1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.treeListView1.Location = new System.Drawing.Point(2, 23);
+            this.treeListView1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.treeListView1.Name = "treeListView1";
             this.treeListView1.SelectColumnsMenuStaysOpen = false;
             this.treeListView1.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -199,7 +205,7 @@ namespace Janitor_V1
             this.treeListView1.ShowGroups = false;
             this.treeListView1.ShowImagesOnSubItems = true;
             this.treeListView1.ShowItemToolTips = true;
-            this.treeListView1.Size = new System.Drawing.Size(938, 554);
+            this.treeListView1.Size = new System.Drawing.Size(655, 451);
             this.treeListView1.TabIndex = 3;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.UseFilterIndicator = true;
@@ -216,9 +222,9 @@ namespace Janitor_V1
             // 
             this.seachTextBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.seachTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.seachTextBox1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.seachTextBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox1.Name = "seachTextBox1";
-            this.seachTextBox1.Size = new System.Drawing.Size(944, 22);
+            this.seachTextBox1.Size = new System.Drawing.Size(659, 20);
             this.seachTextBox1.TabIndex = 4;
             this.seachTextBox1.TextChanged += new System.EventHandler(this.seachTextBox_TextChanged);
             // 
@@ -226,14 +232,15 @@ namespace Janitor_V1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.exportExelButton1);
             this.panel1.Controls.Add(this.readPropertiesButton1);
             this.panel1.Controls.Add(this.openInSolidworksButton1);
             this.panel1.Controls.Add(this.takePictureButton1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(203, 631);
+            this.panel1.Size = new System.Drawing.Size(196, 513);
             this.panel1.TabIndex = 2;
             // 
             // pictureBox1
@@ -241,21 +248,32 @@ namespace Janitor_V1
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 97);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 106);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(203, 148);
+            this.pictureBox1.Size = new System.Drawing.Size(196, 120);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // exportExelButton1
+            // 
+            this.exportExelButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.exportExelButton1.Location = new System.Drawing.Point(0, 79);
+            this.exportExelButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.exportExelButton1.Name = "exportExelButton1";
+            this.exportExelButton1.Size = new System.Drawing.Size(196, 27);
+            this.exportExelButton1.TabIndex = 4;
+            this.exportExelButton1.Text = "Export view as Exel";
+            this.exportExelButton1.UseVisualStyleBackColor = true;
+            this.exportExelButton1.Click += new System.EventHandler(this.exportExelButton_Click);
             // 
             // readPropertiesButton1
             // 
             this.readPropertiesButton1.Dock = System.Windows.Forms.DockStyle.Top;
             this.readPropertiesButton1.Enabled = false;
-            this.readPropertiesButton1.Location = new System.Drawing.Point(0, 64);
-            this.readPropertiesButton1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.readPropertiesButton1.Location = new System.Drawing.Point(0, 52);
+            this.readPropertiesButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton1.Name = "readPropertiesButton1";
-            this.readPropertiesButton1.Size = new System.Drawing.Size(203, 33);
+            this.readPropertiesButton1.Size = new System.Drawing.Size(196, 27);
             this.readPropertiesButton1.TabIndex = 3;
             this.readPropertiesButton1.Text = "Read properties";
             this.readPropertiesButton1.UseVisualStyleBackColor = true;
@@ -265,10 +283,10 @@ namespace Janitor_V1
             // 
             this.openInSolidworksButton1.Dock = System.Windows.Forms.DockStyle.Top;
             this.openInSolidworksButton1.Enabled = false;
-            this.openInSolidworksButton1.Location = new System.Drawing.Point(0, 31);
-            this.openInSolidworksButton1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.openInSolidworksButton1.Location = new System.Drawing.Point(0, 25);
+            this.openInSolidworksButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton1.Name = "openInSolidworksButton1";
-            this.openInSolidworksButton1.Size = new System.Drawing.Size(203, 33);
+            this.openInSolidworksButton1.Size = new System.Drawing.Size(196, 27);
             this.openInSolidworksButton1.TabIndex = 0;
             this.openInSolidworksButton1.Text = "Open selected item";
             this.openInSolidworksButton1.UseVisualStyleBackColor = true;
@@ -279,9 +297,9 @@ namespace Janitor_V1
             this.takePictureButton1.Dock = System.Windows.Forms.DockStyle.Top;
             this.takePictureButton1.Enabled = false;
             this.takePictureButton1.Location = new System.Drawing.Point(0, 0);
-            this.takePictureButton1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.takePictureButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.takePictureButton1.Name = "takePictureButton1";
-            this.takePictureButton1.Size = new System.Drawing.Size(203, 31);
+            this.takePictureButton1.Size = new System.Drawing.Size(196, 25);
             this.takePictureButton1.TabIndex = 1;
             this.takePictureButton1.Text = "Take picture";
             this.takePictureButton1.UseVisualStyleBackColor = true;
@@ -293,36 +311,39 @@ namespace Janitor_V1
             this.panel4.Controls.Add(this.totalAssemblyCostGeneralLabel);
             this.panel4.Controls.Add(this.totalPartsTabCostGeneralLabel);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(3, 590);
-            this.panel4.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel4.Location = new System.Drawing.Point(2, 477);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1171, 80);
+            this.panel4.Size = new System.Drawing.Size(877, 65);
             this.panel4.TabIndex = 2;
             // 
             // finalPriceLabel
             // 
             this.finalPriceLabel.AutoSize = true;
-            this.finalPriceLabel.Location = new System.Drawing.Point(329, 15);
+            this.finalPriceLabel.Location = new System.Drawing.Point(247, 12);
+            this.finalPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.finalPriceLabel.Name = "finalPriceLabel";
-            this.finalPriceLabel.Size = new System.Drawing.Size(92, 16);
+            this.finalPriceLabel.Size = new System.Drawing.Size(87, 15);
             this.finalPriceLabel.TabIndex = 12;
             this.finalPriceLabel.Text = "Final price: 0 €";
             // 
             // totalAssemblyCostGeneralLabel
             // 
             this.totalAssemblyCostGeneralLabel.AutoSize = true;
-            this.totalAssemblyCostGeneralLabel.Location = new System.Drawing.Point(13, 47);
+            this.totalAssemblyCostGeneralLabel.Location = new System.Drawing.Point(10, 38);
+            this.totalAssemblyCostGeneralLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalAssemblyCostGeneralLabel.Name = "totalAssemblyCostGeneralLabel";
-            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(151, 16);
+            this.totalAssemblyCostGeneralLabel.Size = new System.Drawing.Size(137, 15);
             this.totalAssemblyCostGeneralLabel.TabIndex = 11;
             this.totalAssemblyCostGeneralLabel.Text = "Total assembly cost: 0 €";
             // 
             // totalPartsTabCostGeneralLabel
             // 
             this.totalPartsTabCostGeneralLabel.AutoSize = true;
-            this.totalPartsTabCostGeneralLabel.Location = new System.Drawing.Point(13, 15);
+            this.totalPartsTabCostGeneralLabel.Location = new System.Drawing.Point(10, 12);
+            this.totalPartsTabCostGeneralLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsTabCostGeneralLabel.Name = "totalPartsTabCostGeneralLabel";
-            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(195, 16);
+            this.totalPartsTabCostGeneralLabel.Size = new System.Drawing.Size(179, 15);
             this.totalPartsTabCostGeneralLabel.TabIndex = 10;
             this.totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: 0 €";
             // 
@@ -330,11 +351,11 @@ namespace Janitor_V1
             // 
             this.tabPageParts.Controls.Add(this.panel5);
             this.tabPageParts.Controls.Add(this.splitContainer2);
-            this.tabPageParts.Location = new System.Drawing.Point(4, 25);
-            this.tabPageParts.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.tabPageParts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageParts.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tabPageParts.Name = "tabPageParts";
-            this.tabPageParts.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPageParts.Size = new System.Drawing.Size(1177, 671);
+            this.tabPageParts.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.tabPageParts.Size = new System.Drawing.Size(881, 543);
             this.tabPageParts.TabIndex = 2;
             this.tabPageParts.Text = "Parts";
             this.tabPageParts.UseVisualStyleBackColor = true;
@@ -354,20 +375,20 @@ namespace Janitor_V1
             this.panel5.Controls.Add(this.totalPartsCostLabel);
             this.panel5.Controls.Add(this.totalPartsLabel);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(3, 590);
-            this.panel5.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel5.Location = new System.Drawing.Point(2, 477);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1171, 80);
+            this.panel5.Size = new System.Drawing.Size(877, 65);
             this.panel5.TabIndex = 7;
             // 
             // toolboxRefreshButton
             // 
             this.toolboxRefreshButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolboxRefreshButton.BackgroundImage")));
             this.toolboxRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolboxRefreshButton.Location = new System.Drawing.Point(735, 5);
-            this.toolboxRefreshButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.toolboxRefreshButton.Location = new System.Drawing.Point(569, 4);
+            this.toolboxRefreshButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.toolboxRefreshButton.Name = "toolboxRefreshButton";
-            this.toolboxRefreshButton.Size = new System.Drawing.Size(31, 28);
+            this.toolboxRefreshButton.Size = new System.Drawing.Size(23, 23);
             this.toolboxRefreshButton.TabIndex = 11;
             this.toolTip.SetToolTip(this.toolboxRefreshButton, "Refresh toolbox components weight");
             this.toolboxRefreshButton.UseVisualStyleBackColor = true;
@@ -375,46 +396,49 @@ namespace Janitor_V1
             // 
             // totalPartsTabCostTextBox
             // 
-            this.totalPartsTabCostTextBox.Location = new System.Drawing.Point(1019, 21);
-            this.totalPartsTabCostTextBox.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.totalPartsTabCostTextBox.Location = new System.Drawing.Point(764, 17);
+            this.totalPartsTabCostTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.totalPartsTabCostTextBox.Name = "totalPartsTabCostTextBox";
             this.totalPartsTabCostTextBox.ReadOnly = true;
-            this.totalPartsTabCostTextBox.Size = new System.Drawing.Size(89, 22);
+            this.totalPartsTabCostTextBox.Size = new System.Drawing.Size(68, 20);
             this.totalPartsTabCostTextBox.TabIndex = 10;
             this.totalPartsTabCostTextBox.Text = "0";
             // 
             // totalPartsTabCostLabel
             // 
-            this.totalPartsTabCostLabel.Location = new System.Drawing.Point(805, 17);
+            this.totalPartsTabCostLabel.Location = new System.Drawing.Point(604, 9);
+            this.totalPartsTabCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsTabCostLabel.Name = "totalPartsTabCostLabel";
-            this.totalPartsTabCostLabel.Size = new System.Drawing.Size(208, 44);
+            this.totalPartsTabCostLabel.Size = new System.Drawing.Size(156, 48);
             this.totalPartsTabCostLabel.TabIndex = 9;
-            this.totalPartsTabCostLabel.Text = "Total price of the parts (including toolbox components):";
+            this.totalPartsTabCostLabel.Text = "Total price of the parts (including toolbox components), €:";
             // 
             // toolboxTotalPriceLabel
             // 
             this.toolboxTotalPriceLabel.AutoSize = true;
-            this.toolboxTotalPriceLabel.Location = new System.Drawing.Point(419, 58);
+            this.toolboxTotalPriceLabel.Location = new System.Drawing.Point(314, 47);
+            this.toolboxTotalPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxTotalPriceLabel.Name = "toolboxTotalPriceLabel";
-            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(190, 16);
+            this.toolboxTotalPriceLabel.Size = new System.Drawing.Size(175, 15);
             this.toolboxTotalPriceLabel.TabIndex = 8;
             this.toolboxTotalPriceLabel.Text = "Toolbox components price: 0 €";
             // 
             // toolboxPriceLabel
             // 
             this.toolboxPriceLabel.AutoSize = true;
-            this.toolboxPriceLabel.Location = new System.Drawing.Point(419, 36);
+            this.toolboxPriceLabel.Location = new System.Drawing.Point(314, 29);
+            this.toolboxPriceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxPriceLabel.Name = "toolboxPriceLabel";
-            this.toolboxPriceLabel.Size = new System.Drawing.Size(209, 16);
+            this.toolboxPriceLabel.Size = new System.Drawing.Size(191, 15);
             this.toolboxPriceLabel.TabIndex = 7;
             this.toolboxPriceLabel.Text = "Toolbox components price: 0 €/kg";
             // 
             // toolboxWeightTextBox
             // 
-            this.toolboxWeightTextBox.Location = new System.Drawing.Point(639, 7);
-            this.toolboxWeightTextBox.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.toolboxWeightTextBox.Location = new System.Drawing.Point(497, 6);
+            this.toolboxWeightTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.toolboxWeightTextBox.Name = "toolboxWeightTextBox";
-            this.toolboxWeightTextBox.Size = new System.Drawing.Size(89, 22);
+            this.toolboxWeightTextBox.Size = new System.Drawing.Size(68, 20);
             this.toolboxWeightTextBox.TabIndex = 6;
             this.toolboxWeightTextBox.Text = "0";
             this.toolboxWeightTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -423,28 +447,30 @@ namespace Janitor_V1
             // toolboxWeightLabel
             // 
             this.toolboxWeightLabel.AutoSize = true;
-            this.toolboxWeightLabel.Location = new System.Drawing.Point(419, 10);
+            this.toolboxWeightLabel.Location = new System.Drawing.Point(314, 8);
+            this.toolboxWeightLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxWeightLabel.Name = "toolboxWeightLabel";
-            this.toolboxWeightLabel.Size = new System.Drawing.Size(175, 16);
+            this.toolboxWeightLabel.Size = new System.Drawing.Size(183, 15);
             this.toolboxWeightLabel.TabIndex = 5;
-            this.toolboxWeightLabel.Text = "Toolbox components weight";
+            this.toolboxWeightLabel.Text = "Toolbox components weight, kg:";
             // 
             // toolboxTypeLabel
             // 
             this.toolboxTypeLabel.AutoSize = true;
-            this.toolboxTypeLabel.Location = new System.Drawing.Point(267, 10);
+            this.toolboxTypeLabel.Location = new System.Drawing.Point(200, 8);
+            this.toolboxTypeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolboxTypeLabel.Name = "toolboxTypeLabel";
-            this.toolboxTypeLabel.Size = new System.Drawing.Size(89, 16);
+            this.toolboxTypeLabel.Size = new System.Drawing.Size(79, 15);
             this.toolboxTypeLabel.TabIndex = 4;
             this.toolboxTypeLabel.Text = "Toolbox type:";
             // 
             // useStainlessSteel
             // 
             this.useStainlessSteel.AutoSize = true;
-            this.useStainlessSteel.Location = new System.Drawing.Point(271, 57);
-            this.useStainlessSteel.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.useStainlessSteel.Location = new System.Drawing.Point(203, 46);
+            this.useStainlessSteel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.useStainlessSteel.Name = "useStainlessSteel";
-            this.useStainlessSteel.Size = new System.Drawing.Size(115, 20);
+            this.useStainlessSteel.Size = new System.Drawing.Size(107, 19);
             this.useStainlessSteel.TabIndex = 3;
             this.useStainlessSteel.Text = "Stainless steel";
             this.useStainlessSteel.UseVisualStyleBackColor = true;
@@ -454,10 +480,10 @@ namespace Janitor_V1
             // 
             this.useBlackSteel.AutoSize = true;
             this.useBlackSteel.Checked = true;
-            this.useBlackSteel.Location = new System.Drawing.Point(271, 32);
-            this.useBlackSteel.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.useBlackSteel.Location = new System.Drawing.Point(203, 26);
+            this.useBlackSteel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.useBlackSteel.Name = "useBlackSteel";
-            this.useBlackSteel.Size = new System.Drawing.Size(94, 20);
+            this.useBlackSteel.Size = new System.Drawing.Size(87, 19);
             this.useBlackSteel.TabIndex = 2;
             this.useBlackSteel.TabStop = true;
             this.useBlackSteel.Text = "Black steel";
@@ -467,18 +493,20 @@ namespace Janitor_V1
             // totalPartsCostLabel
             // 
             this.totalPartsCostLabel.AutoSize = true;
-            this.totalPartsCostLabel.Location = new System.Drawing.Point(13, 39);
+            this.totalPartsCostLabel.Location = new System.Drawing.Point(10, 32);
+            this.totalPartsCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsCostLabel.Name = "totalPartsCostLabel";
-            this.totalPartsCostLabel.Size = new System.Drawing.Size(157, 16);
+            this.totalPartsCostLabel.Size = new System.Drawing.Size(145, 15);
             this.totalPartsCostLabel.TabIndex = 1;
             this.totalPartsCostLabel.Text = "Total cost of the parts: 0 €";
             // 
             // totalPartsLabel
             // 
             this.totalPartsLabel.AutoSize = true;
-            this.totalPartsLabel.Location = new System.Drawing.Point(13, 10);
+            this.totalPartsLabel.Location = new System.Drawing.Point(10, 8);
+            this.totalPartsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalPartsLabel.Name = "totalPartsLabel";
-            this.totalPartsLabel.Size = new System.Drawing.Size(146, 16);
+            this.totalPartsLabel.Size = new System.Drawing.Size(136, 15);
             this.totalPartsLabel.TabIndex = 0;
             this.totalPartsLabel.Text = "Total number of parts: 0";
             // 
@@ -489,7 +517,7 @@ namespace Janitor_V1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -502,8 +530,9 @@ namespace Janitor_V1
             this.splitContainer2.Panel2.AutoScroll = true;
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer2.Panel2.Controls.Add(this.panel2);
-            this.splitContainer2.Size = new System.Drawing.Size(1172, 585);
-            this.splitContainer2.SplitterDistance = 933;
+            this.splitContainer2.Size = new System.Drawing.Size(879, 475);
+            this.splitContainer2.SplitterDistance = 648;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
             this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             // 
@@ -515,8 +544,8 @@ namespace Janitor_V1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeListView2.CellEditUseWholeCell = false;
             this.treeListView2.HideSelection = false;
-            this.treeListView2.Location = new System.Drawing.Point(3, 27);
-            this.treeListView2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.treeListView2.Location = new System.Drawing.Point(2, 22);
+            this.treeListView2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.treeListView2.Name = "treeListView2";
             this.treeListView2.SelectColumnsMenuStaysOpen = false;
             this.treeListView2.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -524,7 +553,7 @@ namespace Janitor_V1
             this.treeListView2.ShowGroups = false;
             this.treeListView2.ShowImagesOnSubItems = true;
             this.treeListView2.ShowItemToolTips = true;
-            this.treeListView2.Size = new System.Drawing.Size(927, 555);
+            this.treeListView2.Size = new System.Drawing.Size(644, 452);
             this.treeListView2.TabIndex = 4;
             this.treeListView2.UseCompatibleStateImageBehavior = false;
             this.treeListView2.UseFilterIndicator = true;
@@ -541,9 +570,9 @@ namespace Janitor_V1
             // 
             this.seachTextBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.seachTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.seachTextBox2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.seachTextBox2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox2.Name = "seachTextBox2";
-            this.seachTextBox2.Size = new System.Drawing.Size(933, 22);
+            this.seachTextBox2.Size = new System.Drawing.Size(648, 20);
             this.seachTextBox2.TabIndex = 5;
             this.seachTextBox2.TextChanged += new System.EventHandler(this.seachTextBox_TextChanged);
             // 
@@ -551,15 +580,18 @@ namespace Janitor_V1
             // 
             this.panel2.BackColor = System.Drawing.Color.LightGray;
             this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Controls.Add(this.exportPurchasedPartsButton);
+            this.panel2.Controls.Add(this.exportSheetPartsToWordButton);
+            this.panel2.Controls.Add(this.exportExelButton2);
             this.panel2.Controls.Add(this.generateDXFandPDFbutton);
             this.panel2.Controls.Add(this.readPropertiesButton2);
             this.panel2.Controls.Add(this.openInSolidworksButton2);
             this.panel2.Controls.Add(this.takePictureButton2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(214, 666);
+            this.panel2.Size = new System.Drawing.Size(207, 541);
             this.panel2.TabIndex = 0;
             // 
             // pictureBox2
@@ -567,21 +599,58 @@ namespace Janitor_V1
             this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 128);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox2.Location = new System.Drawing.Point(0, 185);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(214, 148);
+            this.pictureBox2.Size = new System.Drawing.Size(207, 120);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
+            // 
+            // exportPurchasedPartsButton
+            // 
+            this.exportPurchasedPartsButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.exportPurchasedPartsButton.Enabled = false;
+            this.exportPurchasedPartsButton.Location = new System.Drawing.Point(0, 158);
+            this.exportPurchasedPartsButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.exportPurchasedPartsButton.Name = "exportPurchasedPartsButton";
+            this.exportPurchasedPartsButton.Size = new System.Drawing.Size(207, 27);
+            this.exportPurchasedPartsButton.TabIndex = 9;
+            this.exportPurchasedPartsButton.Text = "Export purchased parts";
+            this.exportPurchasedPartsButton.UseVisualStyleBackColor = true;
+            this.exportPurchasedPartsButton.Click += new System.EventHandler(this.exportPurchasedPartsButton_Click);
+            // 
+            // exportSheetPartsToWordButton
+            // 
+            this.exportSheetPartsToWordButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.exportSheetPartsToWordButton.Enabled = false;
+            this.exportSheetPartsToWordButton.Location = new System.Drawing.Point(0, 131);
+            this.exportSheetPartsToWordButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.exportSheetPartsToWordButton.Name = "exportSheetPartsToWordButton";
+            this.exportSheetPartsToWordButton.Size = new System.Drawing.Size(207, 27);
+            this.exportSheetPartsToWordButton.TabIndex = 8;
+            this.exportSheetPartsToWordButton.Text = "Export sheet parts";
+            this.exportSheetPartsToWordButton.UseVisualStyleBackColor = true;
+            this.exportSheetPartsToWordButton.Click += new System.EventHandler(this.exportSheetPartsToWordButton_Click);
+            // 
+            // exportExelButton2
+            // 
+            this.exportExelButton2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.exportExelButton2.Location = new System.Drawing.Point(0, 104);
+            this.exportExelButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.exportExelButton2.Name = "exportExelButton2";
+            this.exportExelButton2.Size = new System.Drawing.Size(207, 27);
+            this.exportExelButton2.TabIndex = 7;
+            this.exportExelButton2.Text = "Export view as Exel";
+            this.exportExelButton2.UseVisualStyleBackColor = true;
+            this.exportExelButton2.Click += new System.EventHandler(this.exportExelButton_Click);
             // 
             // generateDXFandPDFbutton
             // 
             this.generateDXFandPDFbutton.Dock = System.Windows.Forms.DockStyle.Top;
             this.generateDXFandPDFbutton.Enabled = false;
-            this.generateDXFandPDFbutton.Location = new System.Drawing.Point(0, 95);
-            this.generateDXFandPDFbutton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.generateDXFandPDFbutton.Location = new System.Drawing.Point(0, 77);
+            this.generateDXFandPDFbutton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.generateDXFandPDFbutton.Name = "generateDXFandPDFbutton";
-            this.generateDXFandPDFbutton.Size = new System.Drawing.Size(214, 33);
+            this.generateDXFandPDFbutton.Size = new System.Drawing.Size(207, 27);
             this.generateDXFandPDFbutton.TabIndex = 6;
             this.generateDXFandPDFbutton.Text = "Generate DXF and PDF";
             this.generateDXFandPDFbutton.UseVisualStyleBackColor = true;
@@ -591,10 +660,10 @@ namespace Janitor_V1
             // 
             this.readPropertiesButton2.Dock = System.Windows.Forms.DockStyle.Top;
             this.readPropertiesButton2.Enabled = false;
-            this.readPropertiesButton2.Location = new System.Drawing.Point(0, 62);
-            this.readPropertiesButton2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.readPropertiesButton2.Location = new System.Drawing.Point(0, 50);
+            this.readPropertiesButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton2.Name = "readPropertiesButton2";
-            this.readPropertiesButton2.Size = new System.Drawing.Size(214, 33);
+            this.readPropertiesButton2.Size = new System.Drawing.Size(207, 27);
             this.readPropertiesButton2.TabIndex = 5;
             this.readPropertiesButton2.Text = "Read properties";
             this.readPropertiesButton2.UseVisualStyleBackColor = true;
@@ -604,10 +673,10 @@ namespace Janitor_V1
             // 
             this.openInSolidworksButton2.Dock = System.Windows.Forms.DockStyle.Top;
             this.openInSolidworksButton2.Enabled = false;
-            this.openInSolidworksButton2.Location = new System.Drawing.Point(0, 31);
-            this.openInSolidworksButton2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.openInSolidworksButton2.Location = new System.Drawing.Point(0, 25);
+            this.openInSolidworksButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton2.Name = "openInSolidworksButton2";
-            this.openInSolidworksButton2.Size = new System.Drawing.Size(214, 31);
+            this.openInSolidworksButton2.Size = new System.Drawing.Size(207, 25);
             this.openInSolidworksButton2.TabIndex = 0;
             this.openInSolidworksButton2.Text = "Open selected item";
             this.openInSolidworksButton2.UseVisualStyleBackColor = true;
@@ -618,9 +687,9 @@ namespace Janitor_V1
             this.takePictureButton2.Dock = System.Windows.Forms.DockStyle.Top;
             this.takePictureButton2.Enabled = false;
             this.takePictureButton2.Location = new System.Drawing.Point(0, 0);
-            this.takePictureButton2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.takePictureButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.takePictureButton2.Name = "takePictureButton2";
-            this.takePictureButton2.Size = new System.Drawing.Size(214, 31);
+            this.takePictureButton2.Size = new System.Drawing.Size(207, 25);
             this.takePictureButton2.TabIndex = 4;
             this.takePictureButton2.Text = "Take picture";
             this.takePictureButton2.UseVisualStyleBackColor = true;
@@ -630,11 +699,11 @@ namespace Janitor_V1
             // 
             this.tabPageAssemblies.Controls.Add(this.panel6);
             this.tabPageAssemblies.Controls.Add(this.splitContainer3);
-            this.tabPageAssemblies.Location = new System.Drawing.Point(4, 25);
-            this.tabPageAssemblies.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.tabPageAssemblies.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAssemblies.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tabPageAssemblies.Name = "tabPageAssemblies";
-            this.tabPageAssemblies.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPageAssemblies.Size = new System.Drawing.Size(1177, 671);
+            this.tabPageAssemblies.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.tabPageAssemblies.Size = new System.Drawing.Size(881, 543);
             this.tabPageAssemblies.TabIndex = 3;
             this.tabPageAssemblies.Text = "Assemblies";
             this.tabPageAssemblies.UseVisualStyleBackColor = true;
@@ -650,27 +719,29 @@ namespace Janitor_V1
             this.panel6.Controls.Add(this.individualComponentsAssemblyLabel);
             this.panel6.Controls.Add(this.rootChildNodeAssemblyTime);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(3, 589);
-            this.panel6.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel6.Location = new System.Drawing.Point(2, 476);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1171, 81);
+            this.panel6.Size = new System.Drawing.Size(877, 66);
             this.panel6.TabIndex = 1;
             // 
             // totalAssemblyCostLabel
             // 
             this.totalAssemblyCostLabel.AutoSize = true;
-            this.totalAssemblyCostLabel.Location = new System.Drawing.Point(440, 63);
+            this.totalAssemblyCostLabel.Location = new System.Drawing.Point(358, 47);
+            this.totalAssemblyCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.totalAssemblyCostLabel.Name = "totalAssemblyCostLabel";
-            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(151, 16);
+            this.totalAssemblyCostLabel.Size = new System.Drawing.Size(137, 15);
             this.totalAssemblyCostLabel.TabIndex = 8;
             this.totalAssemblyCostLabel.Text = "Total assembly cost: 0 €";
             // 
             // assemblyCostLabel
             // 
             this.assemblyCostLabel.AutoSize = true;
-            this.assemblyCostLabel.Location = new System.Drawing.Point(440, 36);
+            this.assemblyCostLabel.Location = new System.Drawing.Point(358, 27);
+            this.assemblyCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.assemblyCostLabel.Name = "assemblyCostLabel";
-            this.assemblyCostLabel.Size = new System.Drawing.Size(129, 16);
+            this.assemblyCostLabel.Size = new System.Drawing.Size(117, 15);
             this.assemblyCostLabel.TabIndex = 7;
             this.assemblyCostLabel.Text = "Assembly cost: 0 €/h";
             // 
@@ -678,19 +749,20 @@ namespace Janitor_V1
             // 
             this.combinedAssemblyDurationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.combinedAssemblyDurationLabel.AutoSize = true;
-            this.combinedAssemblyDurationLabel.Location = new System.Drawing.Point(440, 9);
+            this.combinedAssemblyDurationLabel.Location = new System.Drawing.Point(358, 7);
+            this.combinedAssemblyDurationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.combinedAssemblyDurationLabel.Name = "combinedAssemblyDurationLabel";
-            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(185, 16);
+            this.combinedAssemblyDurationLabel.Size = new System.Drawing.Size(187, 15);
             this.combinedAssemblyDurationLabel.TabIndex = 6;
-            this.combinedAssemblyDurationLabel.Text = "Combined assembly duration:";
+            this.combinedAssemblyDurationLabel.Text = "Combined assembly duration: 0h";
             // 
             // assemblyToParentTextBox
             // 
             this.assemblyToParentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.assemblyToParentTextBox.Location = new System.Drawing.Point(295, 58);
-            this.assemblyToParentTextBox.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.assemblyToParentTextBox.Location = new System.Drawing.Point(266, 44);
+            this.assemblyToParentTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.assemblyToParentTextBox.Name = "assemblyToParentTextBox";
-            this.assemblyToParentTextBox.Size = new System.Drawing.Size(89, 22);
+            this.assemblyToParentTextBox.Size = new System.Drawing.Size(68, 20);
             this.assemblyToParentTextBox.TabIndex = 5;
             this.assemblyToParentTextBox.Text = "0";
             this.assemblyToParentTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -700,19 +772,20 @@ namespace Janitor_V1
             // 
             this.assemblyToParentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.assemblyToParentLabel.AutoSize = true;
-            this.assemblyToParentLabel.Location = new System.Drawing.Point(12, 63);
+            this.assemblyToParentLabel.Location = new System.Drawing.Point(9, 47);
+            this.assemblyToParentLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.assemblyToParentLabel.Name = "assemblyToParentLabel";
-            this.assemblyToParentLabel.Size = new System.Drawing.Size(173, 16);
+            this.assemblyToParentLabel.Size = new System.Drawing.Size(174, 15);
             this.assemblyToParentLabel.TabIndex = 4;
-            this.assemblyToParentLabel.Text = "Assembly to parent duration";
+            this.assemblyToParentLabel.Text = "Assembly to parent duration, h:";
             // 
             // individualComponentsAssemblyTextBox
             // 
             this.individualComponentsAssemblyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.individualComponentsAssemblyTextBox.Location = new System.Drawing.Point(295, 33);
-            this.individualComponentsAssemblyTextBox.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.individualComponentsAssemblyTextBox.Location = new System.Drawing.Point(266, 24);
+            this.individualComponentsAssemblyTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.individualComponentsAssemblyTextBox.Name = "individualComponentsAssemblyTextBox";
-            this.individualComponentsAssemblyTextBox.Size = new System.Drawing.Size(89, 22);
+            this.individualComponentsAssemblyTextBox.Size = new System.Drawing.Size(68, 20);
             this.individualComponentsAssemblyTextBox.TabIndex = 3;
             this.individualComponentsAssemblyTextBox.Text = "0";
             this.individualComponentsAssemblyTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -722,21 +795,23 @@ namespace Janitor_V1
             // 
             this.individualComponentsAssemblyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.individualComponentsAssemblyLabel.AutoSize = true;
-            this.individualComponentsAssemblyLabel.Location = new System.Drawing.Point(12, 36);
+            this.individualComponentsAssemblyLabel.Location = new System.Drawing.Point(9, 27);
+            this.individualComponentsAssemblyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.individualComponentsAssemblyLabel.Name = "individualComponentsAssemblyLabel";
-            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(254, 16);
+            this.individualComponentsAssemblyLabel.Size = new System.Drawing.Size(249, 15);
             this.individualComponentsAssemblyLabel.TabIndex = 2;
-            this.individualComponentsAssemblyLabel.Text = "Individual components assembly duration";
+            this.individualComponentsAssemblyLabel.Text = "Individual components assembly duration, h:";
             // 
             // rootChildNodeAssemblyTime
             // 
             this.rootChildNodeAssemblyTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rootChildNodeAssemblyTime.AutoSize = true;
-            this.rootChildNodeAssemblyTime.Location = new System.Drawing.Point(12, 9);
+            this.rootChildNodeAssemblyTime.Location = new System.Drawing.Point(9, 7);
+            this.rootChildNodeAssemblyTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rootChildNodeAssemblyTime.Name = "rootChildNodeAssemblyTime";
-            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(167, 16);
+            this.rootChildNodeAssemblyTime.Size = new System.Drawing.Size(168, 15);
             this.rootChildNodeAssemblyTime.TabIndex = 1;
-            this.rootChildNodeAssemblyTime.Text = "Child node assembly time: ";
+            this.rootChildNodeAssemblyTime.Text = "Child node assembly time: 0h";
             // 
             // splitContainer3
             // 
@@ -744,7 +819,7 @@ namespace Janitor_V1
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -757,8 +832,9 @@ namespace Janitor_V1
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer3.Panel2.Controls.Add(this.panel3);
-            this.splitContainer3.Size = new System.Drawing.Size(1172, 583);
-            this.splitContainer3.SplitterDistance = 894;
+            this.splitContainer3.Size = new System.Drawing.Size(879, 474);
+            this.splitContainer3.SplitterDistance = 670;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             this.splitContainer3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             // 
@@ -766,9 +842,9 @@ namespace Janitor_V1
             // 
             this.seachTextBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.seachTextBox3.Location = new System.Drawing.Point(0, 0);
-            this.seachTextBox3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.seachTextBox3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox3.Name = "seachTextBox3";
-            this.seachTextBox3.Size = new System.Drawing.Size(894, 22);
+            this.seachTextBox3.Size = new System.Drawing.Size(670, 20);
             this.seachTextBox3.TabIndex = 6;
             this.seachTextBox3.TextChanged += new System.EventHandler(this.seachTextBox_TextChanged);
             // 
@@ -780,8 +856,8 @@ namespace Janitor_V1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeListView3.CellEditUseWholeCell = false;
             this.treeListView3.HideSelection = false;
-            this.treeListView3.Location = new System.Drawing.Point(3, 27);
-            this.treeListView3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.treeListView3.Location = new System.Drawing.Point(2, 22);
+            this.treeListView3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.treeListView3.Name = "treeListView3";
             this.treeListView3.SelectColumnsMenuStaysOpen = false;
             this.treeListView3.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
@@ -789,7 +865,7 @@ namespace Janitor_V1
             this.treeListView3.ShowGroups = false;
             this.treeListView3.ShowImagesOnSubItems = true;
             this.treeListView3.ShowItemToolTips = true;
-            this.treeListView3.Size = new System.Drawing.Size(887, 553);
+            this.treeListView3.Size = new System.Drawing.Size(666, 450);
             this.treeListView3.TabIndex = 5;
             this.treeListView3.UseCompatibleStateImageBehavior = false;
             this.treeListView3.UseFilterIndicator = true;
@@ -805,14 +881,15 @@ namespace Janitor_V1
             // panel3
             // 
             this.panel3.Controls.Add(this.pictureBox3);
+            this.panel3.Controls.Add(this.exportExelButton3);
             this.panel3.Controls.Add(this.readPropertiesButton3);
             this.panel3.Controls.Add(this.openInSolidworksButton3);
             this.panel3.Controls.Add(this.takePictureButton3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(253, 780);
+            this.panel3.Size = new System.Drawing.Size(185, 634);
             this.panel3.TabIndex = 0;
             // 
             // pictureBox3
@@ -820,21 +897,32 @@ namespace Janitor_V1
             this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 96);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 105);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(253, 148);
+            this.pictureBox3.Size = new System.Drawing.Size(185, 120);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
+            // 
+            // exportExelButton3
+            // 
+            this.exportExelButton3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.exportExelButton3.Location = new System.Drawing.Point(0, 78);
+            this.exportExelButton3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.exportExelButton3.Name = "exportExelButton3";
+            this.exportExelButton3.Size = new System.Drawing.Size(185, 27);
+            this.exportExelButton3.TabIndex = 6;
+            this.exportExelButton3.Text = "Export view as Exel";
+            this.exportExelButton3.UseVisualStyleBackColor = true;
+            this.exportExelButton3.Click += new System.EventHandler(this.exportExelButton_Click);
             // 
             // readPropertiesButton3
             // 
             this.readPropertiesButton3.Dock = System.Windows.Forms.DockStyle.Top;
             this.readPropertiesButton3.Enabled = false;
-            this.readPropertiesButton3.Location = new System.Drawing.Point(0, 63);
-            this.readPropertiesButton3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.readPropertiesButton3.Location = new System.Drawing.Point(0, 51);
+            this.readPropertiesButton3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton3.Name = "readPropertiesButton3";
-            this.readPropertiesButton3.Size = new System.Drawing.Size(253, 33);
+            this.readPropertiesButton3.Size = new System.Drawing.Size(185, 27);
             this.readPropertiesButton3.TabIndex = 5;
             this.readPropertiesButton3.Text = "Read properties";
             this.readPropertiesButton3.UseVisualStyleBackColor = true;
@@ -844,10 +932,10 @@ namespace Janitor_V1
             // 
             this.openInSolidworksButton3.Dock = System.Windows.Forms.DockStyle.Top;
             this.openInSolidworksButton3.Enabled = false;
-            this.openInSolidworksButton3.Location = new System.Drawing.Point(0, 31);
-            this.openInSolidworksButton3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.openInSolidworksButton3.Location = new System.Drawing.Point(0, 25);
+            this.openInSolidworksButton3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton3.Name = "openInSolidworksButton3";
-            this.openInSolidworksButton3.Size = new System.Drawing.Size(253, 32);
+            this.openInSolidworksButton3.Size = new System.Drawing.Size(185, 26);
             this.openInSolidworksButton3.TabIndex = 0;
             this.openInSolidworksButton3.Text = "Open selected item";
             this.openInSolidworksButton3.UseVisualStyleBackColor = true;
@@ -858,9 +946,9 @@ namespace Janitor_V1
             this.takePictureButton3.Dock = System.Windows.Forms.DockStyle.Top;
             this.takePictureButton3.Enabled = false;
             this.takePictureButton3.Location = new System.Drawing.Point(0, 0);
-            this.takePictureButton3.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.takePictureButton3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.takePictureButton3.Name = "takePictureButton3";
-            this.takePictureButton3.Size = new System.Drawing.Size(253, 31);
+            this.takePictureButton3.Size = new System.Drawing.Size(185, 25);
             this.takePictureButton3.TabIndex = 4;
             this.takePictureButton3.Text = "Take picture";
             this.takePictureButton3.UseVisualStyleBackColor = true;
@@ -897,17 +985,17 @@ namespace Janitor_V1
             this.panel7.Controls.Add(this.pricesButton);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.panel7.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1188, 36);
+            this.panel7.Size = new System.Drawing.Size(891, 29);
             this.panel7.TabIndex = 1;
             // 
             // deviceButton
             // 
-            this.deviceButton.Location = new System.Drawing.Point(81, 1);
-            this.deviceButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.deviceButton.Location = new System.Drawing.Point(61, 1);
+            this.deviceButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.deviceButton.Name = "deviceButton";
-            this.deviceButton.Size = new System.Drawing.Size(209, 31);
+            this.deviceButton.Size = new System.Drawing.Size(157, 25);
             this.deviceButton.TabIndex = 2;
             this.deviceButton.Text = "Parent device calculation";
             this.deviceButton.UseVisualStyleBackColor = true;
@@ -917,10 +1005,10 @@ namespace Janitor_V1
             // 
             this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button5.Location = new System.Drawing.Point(296, 4);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.button5.Location = new System.Drawing.Point(222, 3);
+            this.button5.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(31, 28);
+            this.button5.Size = new System.Drawing.Size(23, 23);
             this.button5.TabIndex = 1;
             this.toolTip.SetToolTip(this.button5, "Recalculate node assembling duration");
             this.button5.UseVisualStyleBackColor = true;
@@ -928,10 +1016,10 @@ namespace Janitor_V1
             // 
             // pricesButton
             // 
-            this.pricesButton.Location = new System.Drawing.Point(3, 1);
-            this.pricesButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.pricesButton.Location = new System.Drawing.Point(2, 1);
+            this.pricesButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.pricesButton.Name = "pricesButton";
-            this.pricesButton.Size = new System.Drawing.Size(73, 31);
+            this.pricesButton.Size = new System.Drawing.Size(55, 25);
             this.pricesButton.TabIndex = 0;
             this.pricesButton.Text = "Prices";
             this.pricesButton.UseVisualStyleBackColor = true;
@@ -939,13 +1027,13 @@ namespace Janitor_V1
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1188, 742);
+            this.ClientSize = new System.Drawing.Size(891, 603);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.MinimumSize = new System.Drawing.Size(887, 397);
+            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.MinimumSize = new System.Drawing.Size(670, 331);
             this.Name = "MainForm";
             this.Text = "Janitor";
             this.tabControl1.ResumeLayout(false);
@@ -1054,6 +1142,11 @@ namespace Janitor_V1
         private System.Windows.Forms.Button toolboxRefreshButton;
         private ToolTip toolTip;
         private Button generateDXFandPDFbutton;
+        private Button exportExelButton1;
+        private Button exportExelButton2;
+        private Button exportExelButton3;
+        private Button exportSheetPartsToWordButton;
+        private Button exportPurchasedPartsButton;
     }
 }
 

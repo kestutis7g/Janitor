@@ -11,6 +11,8 @@ using Janitor_V1.Models;
 using Janitor_V1.Utils;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
+using Button = System.Windows.Forms.Button;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace Janitor_V1
 {
@@ -1046,12 +1048,16 @@ namespace Janitor_V1
                         this.takePictureButton2.Enabled = true;
                         this.readPropertiesButton2.Enabled = true;
                         this.generateDXFandPDFbutton.Enabled = true;
+                        this.exportSheetPartsToWordButton.Enabled = true;
+                        this.exportPurchasedPartsButton.Enabled = true;
                     }
                     else
                     {
                         this.takePictureButton2.Enabled = false;
                         this.readPropertiesButton2.Enabled = false;
                         this.generateDXFandPDFbutton.Enabled = false;
+                        this.exportSheetPartsToWordButton.Enabled = false;
+                        this.exportPurchasedPartsButton.Enabled = false;
                     }
                     break;
                 case "treeListView3":
@@ -1241,12 +1247,83 @@ namespace Janitor_V1
                 {
                     node.SetStatusMessage(StatusMessage.Success);
                 }
-
             }
             else
             {
                 MessageBox.Show(node.GetComponentName() + " is not sheet type part!");
             }
+        }
+
+        private void exportExelButton_Click(object sender, EventArgs e)
+        {
+            List<Node> filteredObjects = new List<Node>();
+            List<OLVColumn> activeColumns = new List<OLVColumn>();
+            string name = "";
+            switch ((sender as Button).Name)
+            {
+                case "exportExelButton1":
+                    filteredObjects = treeListView1.FilteredObjects.Cast<Node>().ToList();
+                    activeColumns = treeListView1.AllColumns.Where(col => col.IsVisible).ToList();
+                    name = "generalTabView";
+                    break;
+                case "exportExelButton2":
+                    filteredObjects = treeListView2.FilteredObjects.Cast<Node>().ToList();
+                    activeColumns = treeListView2.AllColumns.Where(col => col.IsVisible).ToList();
+                    name = "partsTabView";
+                    break;
+                case "exportExelButton3":
+                    filteredObjects = treeListView3.FilteredObjects.Cast<Node>().ToList();
+                    activeColumns = treeListView3.AllColumns.Where(col => col.IsVisible).ToList();
+                    name = "assembliesTabView";
+                    break;
+                default:
+                    return;
+            }
+            activeColumns = activeColumns.Where(x => x.Text != "ItemNumber").
+                OrderBy(x => x.DisplayIndex).ToList();
+
+            var exporter = new ExportWordAndExel();
+            
+            bool success = exporter.ExportViewAsExel(filteredObjects, activeColumns, Path.Combine(ProjectDirectory, "Exel"), name);
+            if (success)
+            {
+                MessageBox.Show("Exel generated successfuly!");
+            }
+        }
+
+        private void exportSheetPartsToWordButton_Click(object sender, EventArgs e)
+        {
+            List<Node> checkedItems = new List<Node>();
+
+            foreach (Node node in treeListView2.CheckedObjects)
+            {
+                if (node.ComponentType == NodeType.Part)
+                {
+                    checkedItems.Add(node);
+                }
+            }
+
+            var sheetParts = checkedItems.Where(x => x.GetSheetThickness() > 0 && 
+                                                  x.GetStatusMessage() == StatusMessage.Success).ToList();
+
+            var exporter = new ExportWordAndExel();
+            exporter.ExportSheetPartsToWord(sheetParts, WorkingDirectory, ProjectDirectory);
+        }
+
+        private void exportPurchasedPartsButton_Click(object sender, EventArgs e)
+        {
+            List<Node> checkedItems = new List<Node>();
+
+            foreach (Node node in treeListView2.CheckedObjects)
+            {
+                if(node.ComponentType == NodeType.Part)
+                {
+                    checkedItems.Add(node);
+                }
+            }
+
+            var exporter = new ExportWordAndExel();
+            exporter.ExportPurchasedPartsToWord(checkedItems, WorkingDirectory, ProjectDirectory);
         }
     }
 }

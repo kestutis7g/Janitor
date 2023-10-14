@@ -141,6 +141,7 @@ namespace Janitor_V1
                 this.tabControl1.TabPages.RemoveByKey("manufacturingTabPage");
                 this.tabControl1.TabPages.RemoveByKey("stripsTabPage");
                 this.tabControl1.TabPages.RemoveByKey("purchasesTabPage");
+                this.tabControl1.TabPages.RemoveByKey("partGeneralTabPage");
             }
         }
         /// <summary>
@@ -159,6 +160,12 @@ namespace Janitor_V1
                 partDetailsPanel.Visible = false;
                 this.tabControl1.Height = assemblyDetailsPanel.Location.Y;
             }
+        }
+
+        private void FillGeneralTab()
+        {
+            this.descriptionTextBox.Text = Data.GetDescription();
+            this.notesTextBox.Text = Data.GetNotes();
         }
 
         private void FillManufacturingTab()
@@ -195,14 +202,11 @@ namespace Janitor_V1
         private void FillPurchasesTab()
         {
             //Perkamų komponentų tabo textboxų užpildymas
-            this.purchaseDescriptionTextBox.Text =
-                Data.Part.OtherPart.Description.ToString();
-
             this.supplierTextBox.Text =
                 Data.Part.OtherPart.Supplier.ToString();
 
-            this.componentArticleTextBox.Text =
-                Data.Part.OtherPart.ComponentArticle.ToString();
+            this.vendorNoTextBox.Text =
+                Data.Part.OtherPart.VendorNo.ToString();
 
             this.technicalParametersTextBox.Text =
                 Data.Part.OtherPart.TechnicalParameters.ToString();
@@ -211,7 +215,7 @@ namespace Janitor_V1
                 Data.Part.OtherPart.PurchaseCost.ToString();
             
             this.markupCostPurchaseTextBox.Text =
-                Data.Part.OtherPart.MarkupCostPurchase.ToString();
+                Data.Part.Markup.ToString();
         }
 
         private void FillWeldingTab()
@@ -269,7 +273,25 @@ namespace Janitor_V1
         private void SavePart() 
         {
             //part tipo komponentų properčių surašymas į Solidworks
-            //šį metodą reikia papildyti 
+            //šį metodą reikia papildyti
+            double tempDouble = 0;
+
+            this.Data.Part.Description = this.descriptionTextBox.Text;
+            this.Data.Part.Notes = this.notesTextBox.Text;
+
+            this.Data.Part.OtherPart.Supplier = this.supplierTextBox.Text;
+            this.Data.Part.OtherPart.VendorNo = this.vendorNoTextBox.Text;
+            this.Data.Part.OtherPart.TechnicalParameters = this.technicalParametersTextBox.Text;
+
+            if(double.TryParse(this.purchaseCostTextBox.Text, out tempDouble))
+            {
+                this.Data.Part.OtherPart.PurchaseCost = tempDouble;
+            }
+            if(double.TryParse(this.markupCostPurchaseTextBox.Text, out tempDouble))
+            {
+                this.Data.Part.Markup = tempDouble;
+            }
+
             //image
             this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
                 "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
@@ -281,11 +303,44 @@ namespace Janitor_V1
                 "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
                 "Description"] = this.Data.GetDescription();
+            
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Uzrasai", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Uzrasai"] = this.Data.GetNotes();
+            
+            //purchase
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Tiekejas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Tiekejas"] = this.Data.Part.OtherPart.Supplier;
+
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Uzsakymo kodas", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Uzsakymo kodas"] = this.Data.Part.OtherPart.VendorNo;
+
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Techniniai parametrai", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Techniniai parametrai"] = this.Data.Part.OtherPart.TechnicalParameters;
+
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Pirkimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Pirkimo kaina"] = this.Data.Part.OtherPart.PurchaseCost.ToString();
+
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Musu dedamas antkainis", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Musu dedamas antkainis"] = this.Data.Part.Markup.ToString();
         }
         private void ReloadPart()
         {
             //Perkrauna tabus, pvz įrašius laikus. Perkrauna tabų text boxus
             propertyGrid1.SelectedObject = Data.Part;
+            FillGeneralTab();
+
             if(this.Data.Part.PartType == PartType.Other)
             {
                 FillManufacturingTab();
@@ -325,6 +380,9 @@ namespace Janitor_V1
 
             this.Data.Assembly.OtherCosts = cost;
             this.Data.Assembly.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
+
+            this.Data.Assembly.Description = this.descriptionTextBox.Text;
+            this.Data.Assembly.Notes = this.notesTextBox.Text;
 
             //welding
             this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
@@ -373,11 +431,17 @@ namespace Janitor_V1
                 "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
                 "Description"] = this.Data.GetDescription();
+            
+            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Uzrasai", (int)swCustomInfoType_e.swCustomInfoText, "");
+            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                "Uzrasai"] = this.Data.GetNotes();
         }
         private void ReloadAssembly()
         {
             //Perkrauna assemblingui skirtus textboxus
             propertyGrid1.SelectedObject = Data.Assembly;
+            FillGeneralTab();
             FillWeldingTab();
             FillAssemblyTab();
             FillOtherCostsTab();

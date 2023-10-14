@@ -41,6 +41,7 @@ namespace Janitor_V1.Forms
             this.Device.DesigningTotalPricePerUnit = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration / 
                 (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
             this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
+            this.calculatedDesigningCost1TextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
 
 
             //welding tab
@@ -55,6 +56,7 @@ namespace Janitor_V1.Forms
 
             this.Device.WeldingTotalPrice = this.Device.WeldingCostWithoutVAT * this.Device.PlannedWeldingDuration;
             this.calculatedWeldingCostTextBox.Text = this.Device.WeldingTotalPrice.ToString();
+            this.calculatedWeldingCost1TextBox.Text = this.Device.WeldingTotalPrice.ToString();
 
             //assembly and packing tab
             if (Device.WorkManagementCost == 0)
@@ -105,15 +107,22 @@ namespace Janitor_V1.Forms
 
             this.packagingTotalCostTextBox.Text = this.Device.PackagingTotalCost.ToString();
 
+            this.calculatedAssemblyTabCostTextBox.Text = (this.Device.WorkManagementTotalCostPerUnit +
+                                                        this.Device.SupplyTotalCostPerUnit +
+                                                        this.Device.AssemblyTotalCost +
+                                                        this.Device.PackagingTotalCost).ToString();
+
             //parts tab
             this.numberOfPartsTextBox.Text = this.Device.NumberOfParts.ToString();
             this.totalPartsCostTextBox.Text = this.Device.TotalPartsCost.ToString();
             this.totalToolboxWeightTextBox.Text = this.Device.TotalToolboxWeight.ToString();
             this.totalToolboxCostTextBox.Text = this.Device.TotalToolboxCost.ToString();
             this.totalPartsAndToolboxCostTextBox.Text = this.Device.TotalPartsAndToolboxCost.ToString();
+            this.totalPartsAndToolboxCost1TextBox.Text = this.Device.TotalPartsAndToolboxCost.ToString();
 
             //other costs
             this.otherCostsTextBox.Text = this.Device.OtherCosts.ToString();
+            this.otherCosts1TextBox.Text = this.Device.OtherCosts.ToString();
             this.otherCostsDescriptionTextBox.Text = this.Device.OtherCostsDescription.ToString();
 
             //footer
@@ -168,6 +177,7 @@ namespace Janitor_V1.Forms
             this.Device.DesigningTotalPricePerUnit = this.Device.DesigningCostWithoutVAT * this.Device.PlannedDesigningDuration /
                 (this.Device.AmountOfDevices == 0 ? 1 : this.Device.AmountOfDevices);
             this.calculatedDesigningCostTextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
+            this.calculatedDesigningCost1TextBox.Text = this.Device.DesigningTotalPricePerUnit.ToString();
 
             //welding tab
             if (double.TryParse(this.weldingCostTextBox.Text, out tempDouble))
@@ -177,6 +187,7 @@ namespace Janitor_V1.Forms
             
             this.Device.WeldingTotalPrice = this.Device.WeldingCostWithoutVAT * this.Device.PlannedWeldingDuration;
             this.calculatedWeldingCostTextBox.Text = this.Device.WeldingTotalPrice.ToString();
+            this.calculatedWeldingCost1TextBox.Text = this.Device.WeldingTotalPrice.ToString();
 
             //assembly
             if (double.TryParse(this.workManagementCostTextBox.Text, out tempDouble))
@@ -246,11 +257,17 @@ namespace Janitor_V1.Forms
             this.Device.PackagingTotalCost = (this.Device.PackingCost * this.Device.TotalPackagingDuration) + this.Device.PackagingMaterialCost;
             this.packagingTotalCostTextBox.Text = this.Device.PackagingTotalCost.ToString();
 
+            this.calculatedAssemblyTabCostTextBox.Text = (this.Device.WorkManagementTotalCostPerUnit +
+                                                        this.Device.SupplyTotalCostPerUnit +
+                                                        this.Device.AssemblyTotalCost +
+                                                        this.Device.PackagingTotalCost).ToString();
+
             //other costs
             if (double.TryParse(this.otherCostsTextBox.Text, out tempDouble))
             {
                 this.Device.OtherCosts = tempDouble;
             }
+            this.otherCosts1TextBox.Text = this.otherCostsTextBox.Text;
             this.Device.OtherCostsDescription = this.otherCostsDescriptionTextBox.Text;
 
             //footer

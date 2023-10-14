@@ -124,6 +124,19 @@ namespace Janitor_V1.Models
             }
             return "Unknown";
         }
+        public string GetNotes()
+        {
+            //šis metodas gražina komponento aprašymą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Notes;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return Assembly.Notes;
+            }
+            return "Unknown";
+        }
 
         public string GetFileLocation()
         {

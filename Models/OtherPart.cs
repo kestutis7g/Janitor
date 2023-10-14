@@ -7,11 +7,6 @@ namespace Janitor_V1.Models
     public class OtherPart
     {
         //Detalės tipo OTHER properčiai
-        [Category("General"),
-        Description("Description")]
-        public string Description { get; set; }
-
-
         [Category("Manufacturing"),
         Description("MaterialWeight")]
         public double MaterialWeight { get; set; }
@@ -61,32 +56,24 @@ namespace Janitor_V1.Models
         [Category("Strip"),
         Description("StripPurchaseCost")]
         public double StripPurchaseCost { get; set; }
-        
-        [Category("Strip"),
-        Description("MarkupForStrip")]
-        public double MarkupForStrip { get; set; }
 
         //###########################################################
 
         [Category("Purchase"),
         Description("StripMaterialCost")]
-        public double Supplier { get; set; }
+        public string Supplier { get; set; }
 
         [Category("Purchase"),
-        Description("ComponentArticle")]
-        public double ComponentArticle { get; set; }
+        Description("Vendor number")]
+        public string VendorNo { get; set; }
 
         [Category("Purchase"),
         Description("TechnicalParameters")]
-        public double TechnicalParameters { get; set; }
+        public string TechnicalParameters { get; set; }
 
         [Category("Purchase"),
         Description("PurchaseCost")]
         public double PurchaseCost { get; set; }
-
-        [Category("Purchase"),
-        Description("MarkupCostPurchase")]
-        public double MarkupCostPurchase { get; set; }
 
     }
 }
