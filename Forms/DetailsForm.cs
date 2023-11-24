@@ -384,58 +384,11 @@ namespace Janitor_V1
             this.Data.Assembly.Description = this.descriptionTextBox.Text;
             this.Data.Assembly.Notes = this.notesTextBox.Text;
 
-            //welding
             this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Planuojama suvirinimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(), 
-                "Planuojama suvirinimo trukme_val"] = this.Data.Assembly.WeldingDuration.ToString();
-            //assembly
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Pomazgiu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
+                "Meta", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Pomazgiu sumontavimo trukme_val"] = this.Data.Assembly.ChildNodeAssemblyDuration.ToString();
+                "Meta"] = this.Data.Assembly.GetEncodedString();
 
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Palaidu komponentu sumontavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Palaidu komponentu sumontavimo trukme_val"] = this.Data.Assembly.IndividualComponentAssemblyDuration.ToString();
-
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Sumontavimo i kita mazga trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Sumontavimo i kita mazga trukme_val"] = this.Data.Assembly.AssemblyToParentNodeDuration.ToString();
-            
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Sumine mazgo planuojama montavimo trukme_val", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Sumine mazgo planuojama montavimo trukme_val"] = this.Data.Assembly.CombinedAssemblyTime.ToString();
-            //other costs
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "KITI kastai_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "KITI kastai_EUR"] = this.Data.Assembly.OtherCosts.ToString();
-            
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Kitu kastu aprasas", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Kitu kastu aprasas"] = this.Data.Assembly.OtherCostsDescription;
-            
-            //image
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Paveikslelio failas"] = this.Data.GetImageLocation();
-
-            //general
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Description", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Description"] = this.Data.GetDescription();
-            
-            this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
-                "Uzrasai", (int)swCustomInfoType_e.swCustomInfoText, "");
-            this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
-                "Uzrasai"] = this.Data.GetNotes();
         }
         private void ReloadAssembly()
         {
@@ -499,10 +452,10 @@ namespace Janitor_V1
             {
                 Data.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, Data.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, Data.GetSwModel(), Data.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", Data.GetComponentName() + "(" + Data.GetReferencedConfiguration() + ")");
 
-                Data.GetSwModel().AddCustomInfo3(Data.GetReferencedConfiguration(),
-                    "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
-                Data.GetSwModel().CustomInfo2[Data.GetReferencedConfiguration(),
-                    "Paveikslelio failas"] = Data.Assembly.ImageLocation;
+                this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                "Meta", (int)swCustomInfoType_e.swCustomInfoText, "");
+                this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                    "Meta"] = this.Data.Assembly.GetEncodedString();
             }
             else if (Data.ComponentType == NodeType.Part)
             {

@@ -46,19 +46,21 @@
             // 
             this.workDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.workDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.workDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.workDataGridView.Location = new System.Drawing.Point(2, 2);
+            this.workDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.workDataGridView.Name = "workDataGridView";
             this.workDataGridView.RowHeadersWidth = 62;
             this.workDataGridView.RowTemplate.Height = 28;
-            this.workDataGridView.Size = new System.Drawing.Size(663, 503);
+            this.workDataGridView.Size = new System.Drawing.Size(439, 322);
             this.workDataGridView.TabIndex = 0;
             // 
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(421, 548);
+            this.saveButton.Location = new System.Drawing.Point(281, 356);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(116, 42);
+            this.saveButton.Size = new System.Drawing.Size(77, 27);
             this.saveButton.TabIndex = 1;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -67,9 +69,10 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(549, 548);
+            this.cancelButton.Location = new System.Drawing.Point(366, 356);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(116, 42);
+            this.cancelButton.Size = new System.Drawing.Size(77, 27);
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -77,22 +80,26 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.workPriceTabPage);
             this.tabControl1.Controls.Add(this.materialPriceTabPage);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(677, 542);
+            this.tabControl1.Size = new System.Drawing.Size(451, 352);
             this.tabControl1.TabIndex = 3;
             // 
             // workPriceTabPage
             // 
             this.workPriceTabPage.Controls.Add(this.workDataGridView);
-            this.workPriceTabPage.Location = new System.Drawing.Point(4, 29);
+            this.workPriceTabPage.Location = new System.Drawing.Point(4, 22);
+            this.workPriceTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.workPriceTabPage.Name = "workPriceTabPage";
-            this.workPriceTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.workPriceTabPage.Size = new System.Drawing.Size(669, 509);
+            this.workPriceTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.workPriceTabPage.Size = new System.Drawing.Size(443, 326);
             this.workPriceTabPage.TabIndex = 0;
             this.workPriceTabPage.Text = "Work";
             this.workPriceTabPage.UseVisualStyleBackColor = true;
@@ -100,10 +107,11 @@
             // materialPriceTabPage
             // 
             this.materialPriceTabPage.Controls.Add(this.materialDataGridView);
-            this.materialPriceTabPage.Location = new System.Drawing.Point(4, 29);
+            this.materialPriceTabPage.Location = new System.Drawing.Point(4, 22);
+            this.materialPriceTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.materialPriceTabPage.Name = "materialPriceTabPage";
-            this.materialPriceTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.materialPriceTabPage.Size = new System.Drawing.Size(669, 509);
+            this.materialPriceTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialPriceTabPage.Size = new System.Drawing.Size(443, 326);
             this.materialPriceTabPage.TabIndex = 1;
             this.materialPriceTabPage.Text = "Material";
             this.materialPriceTabPage.UseVisualStyleBackColor = true;
@@ -112,21 +120,23 @@
             // 
             this.materialDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.materialDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.materialDataGridView.Location = new System.Drawing.Point(2, 2);
+            this.materialDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.materialDataGridView.Name = "materialDataGridView";
             this.materialDataGridView.RowHeadersWidth = 62;
             this.materialDataGridView.RowTemplate.Height = 28;
-            this.materialDataGridView.Size = new System.Drawing.Size(663, 503);
+            this.materialDataGridView.Size = new System.Drawing.Size(439, 322);
             this.materialDataGridView.TabIndex = 0;
             // 
             // PricesForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 596);
+            this.ClientSize = new System.Drawing.Size(451, 387);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "PricesForm";
             this.Text = "Prices";
             ((System.ComponentModel.ISupportInitialize)(this.workDataGridView)).EndInit();

@@ -2,8 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Janitor_V1.Models;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Janitor_V1.Utils
 {
@@ -41,6 +43,29 @@ namespace Janitor_V1.Utils
 
             modelDocExt = swModel.Extension;
             return modelDocExt.ToolboxPartType;
+        }
+        public static bool CheckIfSheetMetalComponent(ModelDoc2 swModel)
+        {
+            string searchStr = "sheet-metal";
+            bool status = false;
+
+            IPartDoc swPart = (IPartDoc)swModel;
+            IFeature swFeature = (IFeature)swPart.FirstFeature();
+
+            while (swFeature != null)
+            {
+                string featureName = swFeature.Name;
+
+                if (featureName.ToLower().Contains(searchStr))
+                {
+                    status = true;
+                    break;
+                }
+
+                swFeature = (IFeature)swFeature.GetNextFeature();
+            }
+
+            return status;
         }
 
         public static double WeightOfComponent(ISldWorks swApp,string componentPath, string Configuration)

@@ -409,6 +409,10 @@ namespace Janitor_V1
             var colAmount = new OLVColumn("Amount", "Amount");
             colAmount.AspectGetter = x => (x as Node).DuplicateAmount;
             colAmount.Width = 100;
+            
+            //var colSupplier = new OLVColumn("Supplier", "Supplier");
+            //colAmount.AspectGetter = x => (x as Node).Part.;
+            //colAmount.Width = 100;
 
             var colDescription = new OLVColumn("Description", "Description");
             colDescription.AspectGetter = x => (x as Node).GetDescription();
@@ -890,6 +894,12 @@ namespace Janitor_V1
                 else if (item.ComponentType == NodeType.Assembly)
                 {
                     Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
+
+
+                    //PartDoc part = (PartDoc)swApp.ActiveDoc;
+           //         bool boolstatus = part.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
+
+            //        boolstatus = swModel.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
                 }
             }
         }
@@ -995,9 +1005,9 @@ namespace Janitor_V1
                     item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
                     //įrašo į properčius nuotraukos lokaciją
                     item.GetSwModel().AddCustomInfo3(item.GetReferencedConfiguration(),
-                        "Paveikslelio failas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                        "Meta", (int)swCustomInfoType_e.swCustomInfoText, "");
                     item.GetSwModel().CustomInfo2[item.GetReferencedConfiguration(),
-                        "Paveikslelio failas"] = item.Assembly.ImageLocation;
+                        "Meta"] = item.Assembly.GetEncodedString();
                 }
                 else if (item.ComponentType == NodeType.Part)
                 {
@@ -1047,6 +1057,7 @@ namespace Janitor_V1
                     {
                         this.takePictureButton2.Enabled = true;
                         this.readPropertiesButton2.Enabled = true;
+                        this.processPartButton.Enabled = true;
                         this.generateDXFandPDFbutton.Enabled = true;
                         this.exportSheetPartsToWordButton.Enabled = true;
                         this.exportPurchasedPartsButton.Enabled = true;
@@ -1055,6 +1066,7 @@ namespace Janitor_V1
                     {
                         this.takePictureButton2.Enabled = false;
                         this.readPropertiesButton2.Enabled = false;
+                        this.processPartButton.Enabled = false;
                         this.generateDXFandPDFbutton.Enabled = false;
                         this.exportSheetPartsToWordButton.Enabled = false;
                         this.exportPurchasedPartsButton.Enabled = false;
@@ -1324,6 +1336,20 @@ namespace Janitor_V1
 
             var exporter = new ExportWordAndExel();
             exporter.ExportPurchasedPartsToWord(checkedItems, WorkingDirectory, ProjectDirectory);
+        }
+
+        private void processPartButton_Click(object sender, EventArgs e)
+        {
+            var partUtils = new PartUtils();
+
+            foreach (Node item in treeListView2.CheckedObjects)
+            {
+                if (item.ComponentType == NodeType.Part)
+                {
+                    partUtils.BaziniuProperciuSurasymasVIENAI_Konfiguracijai(item.Part);
+                }
+            }
+
         }
     }
 }

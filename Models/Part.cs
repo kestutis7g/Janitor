@@ -8,7 +8,7 @@ namespace Janitor_V1.Models
     public enum PartType
     {
         //parto tipo enumeratorius
-        Sheet, //kol kas šito tipo dar neatskyrėm, bet turbūt reikės
+        Sheet,
         Toolbox,
         Other
     }

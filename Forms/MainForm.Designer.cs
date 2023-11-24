@@ -70,6 +70,7 @@ namespace Janitor_V1
             this.exportSheetPartsToWordButton = new System.Windows.Forms.Button();
             this.exportExelButton2 = new System.Windows.Forms.Button();
             this.generateDXFandPDFbutton = new System.Windows.Forms.Button();
+            this.processPartButton = new System.Windows.Forms.Button();
             this.readPropertiesButton2 = new System.Windows.Forms.Button();
             this.openInSolidworksButton2 = new System.Windows.Forms.Button();
             this.takePictureButton2 = new System.Windows.Forms.Button();
@@ -182,7 +183,7 @@ namespace Janitor_V1
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(879, 475);
-            this.splitContainer1.SplitterDistance = 659;
+            this.splitContainer1.SplitterDistance = 661;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
@@ -205,7 +206,7 @@ namespace Janitor_V1
             this.treeListView1.ShowGroups = false;
             this.treeListView1.ShowImagesOnSubItems = true;
             this.treeListView1.ShowItemToolTips = true;
-            this.treeListView1.Size = new System.Drawing.Size(655, 451);
+            this.treeListView1.Size = new System.Drawing.Size(657, 451);
             this.treeListView1.TabIndex = 3;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.UseFilterIndicator = true;
@@ -224,7 +225,7 @@ namespace Janitor_V1
             this.seachTextBox1.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox1.Name = "seachTextBox1";
-            this.seachTextBox1.Size = new System.Drawing.Size(659, 20);
+            this.seachTextBox1.Size = new System.Drawing.Size(661, 20);
             this.seachTextBox1.TabIndex = 4;
             this.seachTextBox1.TextChanged += new System.EventHandler(this.seachTextBox_TextChanged);
             // 
@@ -240,7 +241,7 @@ namespace Janitor_V1
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(196, 513);
+            this.panel1.Size = new System.Drawing.Size(194, 513);
             this.panel1.TabIndex = 2;
             // 
             // pictureBox1
@@ -250,7 +251,7 @@ namespace Janitor_V1
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Location = new System.Drawing.Point(0, 106);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(196, 120);
+            this.pictureBox1.Size = new System.Drawing.Size(194, 120);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -260,7 +261,7 @@ namespace Janitor_V1
             this.exportExelButton1.Location = new System.Drawing.Point(0, 79);
             this.exportExelButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.exportExelButton1.Name = "exportExelButton1";
-            this.exportExelButton1.Size = new System.Drawing.Size(196, 27);
+            this.exportExelButton1.Size = new System.Drawing.Size(194, 27);
             this.exportExelButton1.TabIndex = 4;
             this.exportExelButton1.Text = "Export view as Exel";
             this.exportExelButton1.UseVisualStyleBackColor = true;
@@ -273,7 +274,7 @@ namespace Janitor_V1
             this.readPropertiesButton1.Location = new System.Drawing.Point(0, 52);
             this.readPropertiesButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton1.Name = "readPropertiesButton1";
-            this.readPropertiesButton1.Size = new System.Drawing.Size(196, 27);
+            this.readPropertiesButton1.Size = new System.Drawing.Size(194, 27);
             this.readPropertiesButton1.TabIndex = 3;
             this.readPropertiesButton1.Text = "Read properties";
             this.readPropertiesButton1.UseVisualStyleBackColor = true;
@@ -286,7 +287,7 @@ namespace Janitor_V1
             this.openInSolidworksButton1.Location = new System.Drawing.Point(0, 25);
             this.openInSolidworksButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton1.Name = "openInSolidworksButton1";
-            this.openInSolidworksButton1.Size = new System.Drawing.Size(196, 27);
+            this.openInSolidworksButton1.Size = new System.Drawing.Size(194, 27);
             this.openInSolidworksButton1.TabIndex = 0;
             this.openInSolidworksButton1.Text = "Open selected item";
             this.openInSolidworksButton1.UseVisualStyleBackColor = true;
@@ -299,7 +300,7 @@ namespace Janitor_V1
             this.takePictureButton1.Location = new System.Drawing.Point(0, 0);
             this.takePictureButton1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.takePictureButton1.Name = "takePictureButton1";
-            this.takePictureButton1.Size = new System.Drawing.Size(196, 25);
+            this.takePictureButton1.Size = new System.Drawing.Size(194, 25);
             this.takePictureButton1.TabIndex = 1;
             this.takePictureButton1.Text = "Take picture";
             this.takePictureButton1.UseVisualStyleBackColor = true;
@@ -531,7 +532,7 @@ namespace Janitor_V1
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.LightGray;
             this.splitContainer2.Panel2.Controls.Add(this.panel2);
             this.splitContainer2.Size = new System.Drawing.Size(879, 475);
-            this.splitContainer2.SplitterDistance = 648;
+            this.splitContainer2.SplitterDistance = 650;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
             this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
@@ -553,7 +554,7 @@ namespace Janitor_V1
             this.treeListView2.ShowGroups = false;
             this.treeListView2.ShowImagesOnSubItems = true;
             this.treeListView2.ShowItemToolTips = true;
-            this.treeListView2.Size = new System.Drawing.Size(644, 452);
+            this.treeListView2.Size = new System.Drawing.Size(646, 452);
             this.treeListView2.TabIndex = 4;
             this.treeListView2.UseCompatibleStateImageBehavior = false;
             this.treeListView2.UseFilterIndicator = true;
@@ -572,7 +573,7 @@ namespace Janitor_V1
             this.seachTextBox2.Location = new System.Drawing.Point(0, 0);
             this.seachTextBox2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.seachTextBox2.Name = "seachTextBox2";
-            this.seachTextBox2.Size = new System.Drawing.Size(648, 20);
+            this.seachTextBox2.Size = new System.Drawing.Size(650, 20);
             this.seachTextBox2.TabIndex = 5;
             this.seachTextBox2.TextChanged += new System.EventHandler(this.seachTextBox_TextChanged);
             // 
@@ -584,6 +585,7 @@ namespace Janitor_V1
             this.panel2.Controls.Add(this.exportSheetPartsToWordButton);
             this.panel2.Controls.Add(this.exportExelButton2);
             this.panel2.Controls.Add(this.generateDXFandPDFbutton);
+            this.panel2.Controls.Add(this.processPartButton);
             this.panel2.Controls.Add(this.readPropertiesButton2);
             this.panel2.Controls.Add(this.openInSolidworksButton2);
             this.panel2.Controls.Add(this.takePictureButton2);
@@ -591,7 +593,7 @@ namespace Janitor_V1
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(207, 541);
+            this.panel2.Size = new System.Drawing.Size(205, 541);
             this.panel2.TabIndex = 0;
             // 
             // pictureBox2
@@ -599,9 +601,9 @@ namespace Janitor_V1
             this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 185);
+            this.pictureBox2.Location = new System.Drawing.Point(0, 212);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(207, 120);
+            this.pictureBox2.Size = new System.Drawing.Size(205, 120);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
@@ -609,10 +611,10 @@ namespace Janitor_V1
             // 
             this.exportPurchasedPartsButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.exportPurchasedPartsButton.Enabled = false;
-            this.exportPurchasedPartsButton.Location = new System.Drawing.Point(0, 158);
+            this.exportPurchasedPartsButton.Location = new System.Drawing.Point(0, 185);
             this.exportPurchasedPartsButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.exportPurchasedPartsButton.Name = "exportPurchasedPartsButton";
-            this.exportPurchasedPartsButton.Size = new System.Drawing.Size(207, 27);
+            this.exportPurchasedPartsButton.Size = new System.Drawing.Size(205, 27);
             this.exportPurchasedPartsButton.TabIndex = 9;
             this.exportPurchasedPartsButton.Text = "Export purchased parts";
             this.exportPurchasedPartsButton.UseVisualStyleBackColor = true;
@@ -622,10 +624,10 @@ namespace Janitor_V1
             // 
             this.exportSheetPartsToWordButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.exportSheetPartsToWordButton.Enabled = false;
-            this.exportSheetPartsToWordButton.Location = new System.Drawing.Point(0, 131);
+            this.exportSheetPartsToWordButton.Location = new System.Drawing.Point(0, 158);
             this.exportSheetPartsToWordButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.exportSheetPartsToWordButton.Name = "exportSheetPartsToWordButton";
-            this.exportSheetPartsToWordButton.Size = new System.Drawing.Size(207, 27);
+            this.exportSheetPartsToWordButton.Size = new System.Drawing.Size(205, 27);
             this.exportSheetPartsToWordButton.TabIndex = 8;
             this.exportSheetPartsToWordButton.Text = "Export sheet parts";
             this.exportSheetPartsToWordButton.UseVisualStyleBackColor = true;
@@ -634,10 +636,10 @@ namespace Janitor_V1
             // exportExelButton2
             // 
             this.exportExelButton2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.exportExelButton2.Location = new System.Drawing.Point(0, 104);
+            this.exportExelButton2.Location = new System.Drawing.Point(0, 131);
             this.exportExelButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.exportExelButton2.Name = "exportExelButton2";
-            this.exportExelButton2.Size = new System.Drawing.Size(207, 27);
+            this.exportExelButton2.Size = new System.Drawing.Size(205, 27);
             this.exportExelButton2.TabIndex = 7;
             this.exportExelButton2.Text = "Export view as Exel";
             this.exportExelButton2.UseVisualStyleBackColor = true;
@@ -647,14 +649,27 @@ namespace Janitor_V1
             // 
             this.generateDXFandPDFbutton.Dock = System.Windows.Forms.DockStyle.Top;
             this.generateDXFandPDFbutton.Enabled = false;
-            this.generateDXFandPDFbutton.Location = new System.Drawing.Point(0, 77);
+            this.generateDXFandPDFbutton.Location = new System.Drawing.Point(0, 104);
             this.generateDXFandPDFbutton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.generateDXFandPDFbutton.Name = "generateDXFandPDFbutton";
-            this.generateDXFandPDFbutton.Size = new System.Drawing.Size(207, 27);
+            this.generateDXFandPDFbutton.Size = new System.Drawing.Size(205, 27);
             this.generateDXFandPDFbutton.TabIndex = 6;
             this.generateDXFandPDFbutton.Text = "Generate DXF and PDF";
             this.generateDXFandPDFbutton.UseVisualStyleBackColor = true;
             this.generateDXFandPDFbutton.Click += new System.EventHandler(this.generateDXFandPDFbutton_Click);
+            // 
+            // processPartButton
+            // 
+            this.processPartButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.processPartButton.Enabled = false;
+            this.processPartButton.Location = new System.Drawing.Point(0, 77);
+            this.processPartButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.processPartButton.Name = "processPartButton";
+            this.processPartButton.Size = new System.Drawing.Size(205, 27);
+            this.processPartButton.TabIndex = 10;
+            this.processPartButton.Text = "Process part";
+            this.processPartButton.UseVisualStyleBackColor = true;
+            this.processPartButton.Click += new System.EventHandler(this.processPartButton_Click);
             // 
             // readPropertiesButton2
             // 
@@ -663,7 +678,7 @@ namespace Janitor_V1
             this.readPropertiesButton2.Location = new System.Drawing.Point(0, 50);
             this.readPropertiesButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.readPropertiesButton2.Name = "readPropertiesButton2";
-            this.readPropertiesButton2.Size = new System.Drawing.Size(207, 27);
+            this.readPropertiesButton2.Size = new System.Drawing.Size(205, 27);
             this.readPropertiesButton2.TabIndex = 5;
             this.readPropertiesButton2.Text = "Read properties";
             this.readPropertiesButton2.UseVisualStyleBackColor = true;
@@ -676,7 +691,7 @@ namespace Janitor_V1
             this.openInSolidworksButton2.Location = new System.Drawing.Point(0, 25);
             this.openInSolidworksButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openInSolidworksButton2.Name = "openInSolidworksButton2";
-            this.openInSolidworksButton2.Size = new System.Drawing.Size(207, 25);
+            this.openInSolidworksButton2.Size = new System.Drawing.Size(205, 25);
             this.openInSolidworksButton2.TabIndex = 0;
             this.openInSolidworksButton2.Text = "Open selected item";
             this.openInSolidworksButton2.UseVisualStyleBackColor = true;
@@ -689,7 +704,7 @@ namespace Janitor_V1
             this.takePictureButton2.Location = new System.Drawing.Point(0, 0);
             this.takePictureButton2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.takePictureButton2.Name = "takePictureButton2";
-            this.takePictureButton2.Size = new System.Drawing.Size(207, 25);
+            this.takePictureButton2.Size = new System.Drawing.Size(205, 25);
             this.takePictureButton2.TabIndex = 4;
             this.takePictureButton2.Text = "Take picture";
             this.takePictureButton2.UseVisualStyleBackColor = true;
@@ -1147,6 +1162,7 @@ namespace Janitor_V1
         private Button exportExelButton3;
         private Button exportSheetPartsToWordButton;
         private Button exportPurchasedPartsButton;
+        private Button processPartButton;
     }
 }
 
