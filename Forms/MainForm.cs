@@ -167,6 +167,11 @@ namespace Janitor_V1
             colDescription.AspectGetter = x => (x as Node).GetDescription();
             colDescription.Width = 100;
 
+            var colNotes = new OLVColumn("Notes", "Notes");
+            colNotes.AspectGetter = x => (x as Node).GetNotes();
+            colNotes.Width = 100;
+            colNotes.IsVisible = false;
+
             var colSurfaceArea = new OLVColumn("SurfaceArea", "SurfaceArea");
             colSurfaceArea.AspectGetter = x => (x as Node).GetSurfaceArea();
             colSurfaceArea.Width = 100;
@@ -231,6 +236,7 @@ namespace Janitor_V1
             this.treeListView1.AllColumns.Add(colWeldingDuration);
             this.treeListView1.AllColumns.Add(colFileLocation);
             this.treeListView1.AllColumns.Add(colDescription);
+            this.treeListView1.AllColumns.Add(colNotes);
             this.treeListView1.AllColumns.Add(colSurfaceArea);
             this.treeListView1.AllColumns.Add(colWeight);
             this.treeListView1.AllColumns.Add(colWelded);
@@ -313,7 +319,7 @@ namespace Janitor_V1
             colCombinedAssemblyTime.AspectGetter = x => (x as Node).GetCombinedAssemblyTimeString();
             colAssemblyToParentNodeDuration.ToolTipText = "Combined assembling time";
             colCombinedAssemblyTime.Width = 100;
-            
+
             var colWeldingDuration = new OLVColumn("Welding duration", "Welding duration");
             colWeldingDuration.AspectGetter = x => (x as Node).GetWeldingDurationString();
             colWeldingDuration.ToolTipText = "Welding duration";
@@ -328,6 +334,11 @@ namespace Janitor_V1
             colDescription.AspectGetter = x => (x as Node).GetDescription();
             colDescription.Width = 100;
             colDescription.IsVisible = false;
+
+            var colNotes = new OLVColumn("Notes", "Notes");
+            colNotes.AspectGetter = x => (x as Node).GetNotes();
+            colNotes.Width = 100;
+            colNotes.IsVisible = false;
 
             // add the columns to the tree
             this.treeListView3.Columns.Add(colItemNumber);
@@ -357,6 +368,7 @@ namespace Janitor_V1
             this.treeListView3.AllColumns.Add(colWeldingDuration);
             this.treeListView3.AllColumns.Add(colFileLocation);
             this.treeListView3.AllColumns.Add(colDescription);
+            this.treeListView3.AllColumns.Add(colNotes);
 
             // set the tree roots (filter only Assembly type nodes)
             this.treeListView3.Roots = Data.Where(x => x.ComponentType.ToString() == "Assembly");
@@ -405,18 +417,27 @@ namespace Janitor_V1
             var colPartType = new OLVColumn("PartType", "PartType");
             colPartType.AspectGetter = x => (x as Node).GetPartType();
             colPartType.Width = 100;
-            
+
             var colAmount = new OLVColumn("Amount", "Amount");
             colAmount.AspectGetter = x => (x as Node).DuplicateAmount;
             colAmount.Width = 100;
-            
-            //var colSupplier = new OLVColumn("Supplier", "Supplier");
-            //colAmount.AspectGetter = x => (x as Node).Part.;
-            //colAmount.Width = 100;
+
+            var colSupplier = new OLVColumn("Supplier", "Supplier");
+            colSupplier.AspectGetter = x => (x as Node).GetSupplier();
+            colSupplier.Width = 100;
+
+            var colVendorNo = new OLVColumn("VendorNo", "VendorNo");
+            colVendorNo.AspectGetter = x => (x as Node).GetVendorNo();
+            colVendorNo.Width = 100;
 
             var colDescription = new OLVColumn("Description", "Description");
             colDescription.AspectGetter = x => (x as Node).GetDescription();
             colDescription.Width = 100;
+
+            var colNotes = new OLVColumn("Notes", "Notes");
+            colNotes.AspectGetter = x => (x as Node).GetNotes();
+            colNotes.Width = 100;
+            colNotes.IsVisible = false;
 
             var colComponentID = new OLVColumn("ComponentID", "ComponentID");
             colComponentID.AspectGetter = x => (x as Node).GetComponentID();
@@ -468,6 +489,8 @@ namespace Janitor_V1
             this.treeListView2.Columns.Add(colReferencedConfiguration);
             this.treeListView2.Columns.Add(colPartType);
             this.treeListView2.Columns.Add(colAmount);
+            this.treeListView2.Columns.Add(colSupplier);
+            this.treeListView2.Columns.Add(colVendorNo);
             this.treeListView2.Columns.Add(colDescription);
             //this.treeListView3.Columns.Add(colComponentID);
             this.treeListView2.Columns.Add(colSurfaceArea);
@@ -485,7 +508,10 @@ namespace Janitor_V1
             this.treeListView2.AllColumns.Add(colReferencedConfiguration);
             this.treeListView2.AllColumns.Add(colPartType);
             this.treeListView2.AllColumns.Add(colAmount);
+            this.treeListView2.AllColumns.Add(colSupplier);
+            this.treeListView2.AllColumns.Add(colVendorNo);
             this.treeListView2.AllColumns.Add(colDescription);
+            this.treeListView2.AllColumns.Add(colNotes);
             this.treeListView2.AllColumns.Add(colComponentID);
             this.treeListView2.AllColumns.Add(colSurfaceArea);
             this.treeListView2.AllColumns.Add(colWeight);
@@ -590,7 +616,7 @@ namespace Janitor_V1
             var node = new Node();
             node.ComponentType = type;
 
-            if(type == NodeType.Part)
+            if (type == NodeType.Part)
             {
                 node.ItemNumber = info[0];
                 node.Part.ComponentName = info[1];
@@ -599,7 +625,7 @@ namespace Janitor_V1
                 node.Part.FileLocation = info[9];
                 return node;
             }
-            else if(type == NodeType.Assembly)
+            else if (type == NodeType.Assembly)
             {
                 node.ItemNumber = info[0];
                 node.Assembly.ComponentName = info[1];
@@ -667,7 +693,7 @@ namespace Janitor_V1
         private void RefreshCalculations()
         {
             //apatinio lango formoje reikšmių perskaičiavimas
-            if(!Initialized)
+            if (!Initialized)
             {
                 return;
             }
@@ -684,26 +710,26 @@ namespace Janitor_V1
             this.Device.ChildNodeAssemblyDuration = Calculations.rootChildNodeAssemblyDuration;
 
             this.Device.TotalAssemblyDuration = this.Device.ChildNodeAssemblyDuration + this.Device.IndividualComponentsAssembly + this.Device.AssemblyToParentDuration;
-            if(this.Device.AssemblyCost == 0)
+            if (this.Device.AssemblyCost == 0)
             {
                 this.Device.AssemblyCost = this.Prices.GetById(3).Value;
             }
             this.Device.AssemblyTotalCost = this.Device.AssemblyCost * this.Device.TotalAssemblyDuration;
 
 
-            rootChildNodeAssemblyTime.Text     = "Child node assembly time: " + this.Device.ChildNodeAssemblyDuration + "h";
-            combinedAssemblyDurationLabel.Text = "Combined assembly duration: " + this.Device.TotalAssemblyDuration + "h";
-            assemblyCostLabel.Text             = "Assembly cost: " + this.Device.AssemblyCost + " €/h";
-            totalAssemblyCostLabel.Text        = "Total assembly cost: " + this.Device.AssemblyTotalCost + " €";
-            totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + this.Device.AssemblyTotalCost + " €";
+            rootChildNodeAssemblyTime.Text = "Child node assembly time: " + Math.Round(this.Device.ChildNodeAssemblyDuration, 2) + "h";
+            combinedAssemblyDurationLabel.Text = "Combined assembly duration: " + Math.Round(this.Device.TotalAssemblyDuration, 2) + "h";
+            assemblyCostLabel.Text = "Assembly cost: " + Math.Round(this.Device.AssemblyCost, 2) + " €/h";
+            totalAssemblyCostLabel.Text = "Total assembly cost: " + Math.Round(this.Device.AssemblyTotalCost, 2) + " €";
+            totalAssemblyCostGeneralLabel.Text = "Total assembly cost: " + Math.Round(this.Device.AssemblyTotalCost, 2) + " €";
 
             //PARTS TAB
             this.Device.NumberOfParts = Calculations.totalParts;
             this.Device.TotalPartsCost = Calculations.totalPartsCost;
             this.Device.TotalToolboxWeight = Calculations.toolboxWeight;
 
-            totalPartsLabel.Text     = "Total number of parts: " + this.Device.NumberOfParts;
-            totalPartsCostLabel.Text = "Total cost of the parts: " + this.Device.TotalPartsCost + " €";
+            totalPartsLabel.Text = "Total number of parts: " + this.Device.NumberOfParts;
+            totalPartsCostLabel.Text = "Total cost of the parts: " + Math.Round(this.Device.TotalPartsCost, 2) + " €";
 
             double toolboxPrice = 0;
 
@@ -728,13 +754,13 @@ namespace Janitor_V1
             this.Device.TotalPartsAndToolboxCost = Calculations.totalPartsCost + this.Device.TotalToolboxCost;
 
             toolboxPriceLabel.Text = "Toolbox price: " + toolboxPrice + " €/kg";
-            toolboxTotalPriceLabel.Text = "Toolbox price: " + this.Device.TotalToolboxCost + " €";
+            toolboxTotalPriceLabel.Text = "Toolbox price: " + Math.Round(this.Device.TotalToolboxCost, 2) + " €";
 
-            
-            totalPartsTabCostTextBox.Text        = this.Device.TotalPartsAndToolboxCost.ToString();
-            totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: " + this.Device.TotalPartsAndToolboxCost + " €";
 
-            finalPriceLabel.Text = "Final price: " + (this.Device.TotalPartsAndToolboxCost + this.Device.AssemblyTotalCost) + " €";
+            totalPartsTabCostTextBox.Text = this.Device.TotalPartsAndToolboxCost.ToString();
+            totalPartsTabCostGeneralLabel.Text = "Total parts and toolbox cost: " + Math.Round(this.Device.TotalPartsAndToolboxCost, 2) + " €";
+
+            finalPriceLabel.Text = "Final price: " + Math.Round((this.Device.TotalPartsAndToolboxCost + this.Device.AssemblyTotalCost), 2) + " €";
         }
 
         /// <summary>
@@ -777,7 +803,7 @@ namespace Janitor_V1
                 {
                     treeListView_ItemActivate(this.treeListView1, e);
                 }
-                else if(tabControl1.SelectedTab.Name == "tabPageParts")
+                else if (tabControl1.SelectedTab.Name == "tabPageParts")
                 {
                     treeListView_ItemActivate(this.treeListView2, e);
                 }
@@ -786,7 +812,7 @@ namespace Janitor_V1
                     treeListView_ItemActivate(this.treeListView3, e);
                 }
             }
-            else if(toolStripMenuItem.Name == "OpenInSolidworksMenuItem")
+            else if (toolStripMenuItem.Name == "OpenInSolidworksMenuItem")
             {
                 openItemButton_Click(sender, e);
             }
@@ -794,7 +820,7 @@ namespace Janitor_V1
 
         private void OpenItemDetailedView(Node item, bool showControls = false)
         {
-            var detailsForm = new DetailsForm(this.WorkingDirectory, this.ProjectDirectory, item, this.PartsData, () => UpdateWindow(), this.SwApp, showControls);
+            var detailsForm = new DetailsForm(this.WorkingDirectory, this.ProjectDirectory, item, this.treeListView2.FilteredObjects.Cast<Node>().ToList(), () => UpdateWindow(), this.SwApp, showControls);
             detailsForm.Show();
         }
         private void seachTextBox_TextChanged(object sender, EventArgs e)
@@ -887,19 +913,19 @@ namespace Janitor_V1
             //Komponento atidarymas Solidworkse
             foreach (Node item in (sender as TreeListView).SelectedObjects)
             {
-                if (item.ComponentType == NodeType.Part) 
+                if (item.ComponentType == NodeType.Part)
                 {
                     Solidworks_control_tools.OpenItem(this.SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)item.GetReferencedConfiguration());
                 }
                 else if (item.ComponentType == NodeType.Assembly)
                 {
-                    Solidworks_control_tools.OpenItem(this.SwApp,item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
+                    Solidworks_control_tools.OpenItem(this.SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)item.GetReferencedConfiguration());
 
 
                     //PartDoc part = (PartDoc)swApp.ActiveDoc;
-           //         bool boolstatus = part.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
+                    //         bool boolstatus = part.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
 
-            //        boolstatus = swModel.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
+                    //        boolstatus = swModel.SetUserPreferenceToggle((int)swUserPreferenceToggle_e.swViewDisplayHideAllTypes, true);
                 }
             }
         }
@@ -940,7 +966,7 @@ namespace Janitor_V1
             //LEntelės aitemo pasirinkimo eventas (parodo nuotrauką dešinėje)
             var selected = (sender as TreeListView).SelectedObject as Node;
 
-            if(selected != null)
+            if (selected != null)
             {
                 switch ((sender as TreeListView).Name)
                 {
@@ -976,7 +1002,7 @@ namespace Janitor_V1
                 default:
                     break;
             }
-            
+
         }
 
         private void takePicture_Click(object sender, EventArgs e)
@@ -1002,7 +1028,7 @@ namespace Janitor_V1
             {
                 if (item.ComponentType == NodeType.Assembly)
                 {
-                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp,  item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
+                    item.Assembly.ImageLocation = Solidworks_control_tools.TakePictureOfItem(SwApp, item.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, item.GetSwModel(), item.GetReferencedConfiguration(), this.ProjectDirectory + "Images\\", item.GetComponentName() + "(" + item.GetReferencedConfiguration() + ")");
                     //įrašo į properčius nuotraukos lokaciją
                     item.GetSwModel().AddCustomInfo3(item.GetReferencedConfiguration(),
                         "Meta", (int)swCustomInfoType_e.swCustomInfoText, "");
@@ -1169,7 +1195,7 @@ namespace Janitor_V1
         {
             //atnaujina Toolbox komponentų svorį
             double toolboxWeight = 0;
-            foreach(Node node in Data.Where(x => x.ComponentType == NodeType.Part && 
+            foreach (Node node in Data.Where(x => x.ComponentType == NodeType.Part &&
                                                  x.Part.PartType == PartType.Toolbox))
             {
                 node.Part.Weight = Solidworks_control_tools.WeightOfComponent(SwApp, node.GetFileLocation(), node.GetReferencedConfiguration());
@@ -1202,9 +1228,9 @@ namespace Janitor_V1
                     return;
                 }
             }
-            if(node.Part.SheetThickness != 0)
+            if (node.Part.SheetThickness != 0)
             {
-                var allMirrors = 
+                var allMirrors =
                     PartsData.Where(x => (x.GetComponentName().ToLower().StartsWith("mirror") ||
                                           x.GetComponentName().ToLower().EndsWith("mirror")) &&
                                           x.GetReferencedConfiguration() == node.GetReferencedConfiguration());
@@ -1216,16 +1242,16 @@ namespace Janitor_V1
                     if (name.ToLower().StartsWith("mirror") &&
                         name.Substring(6) == node.GetComponentName())
                     { isMirror = true; }
-                    
-                    if(name.ToLower().StartsWith("mirror_") &&
+
+                    if (name.ToLower().StartsWith("mirror_") &&
                         name.Substring(7) == node.GetComponentName())
                     { isMirror = true; }
-                    
-                    if(name.ToLower().EndsWith("mirror") &&
+
+                    if (name.ToLower().EndsWith("mirror") &&
                         name.Substring(0, name.Length - 6) == node.GetComponentName())
                     { isMirror = true; }
-                    
-                    if(name.ToLower().EndsWith("_mirror") &&
+
+                    if (name.ToLower().EndsWith("_mirror") &&
                         name.Substring(0, name.Length - 7) == node.GetComponentName())
                     { isMirror = true; }
 
@@ -1237,8 +1263,8 @@ namespace Janitor_V1
                 }
 
                 var exporter = new ExportDXFandPDF();
-                var success = exporter.ProcessComponent(SwApp, node.GetSwModel(), 
-                                                        node.GetReferencedConfiguration(), 
+                var success = exporter.ProcessComponent(SwApp, node.GetSwModel(),
+                                                        node.GetReferencedConfiguration(),
                                                         node.DuplicateAmount + mirrorAmount);
                 if (!success)
                 {
@@ -1295,7 +1321,7 @@ namespace Janitor_V1
                 OrderBy(x => x.DisplayIndex).ToList();
 
             var exporter = new ExportWordAndExel();
-            
+
             bool success = exporter.ExportViewAsExel(filteredObjects, activeColumns, Path.Combine(ProjectDirectory, "Exel"), name);
             if (success)
             {
@@ -1315,7 +1341,7 @@ namespace Janitor_V1
                 }
             }
 
-            var sheetParts = checkedItems.Where(x => x.GetSheetThickness() > 0 && 
+            var sheetParts = checkedItems.Where(x => x.GetSheetThickness() > 0 &&
                                                   x.GetStatusMessage() == StatusMessage.Success).ToList();
 
             var exporter = new ExportWordAndExel();
@@ -1328,7 +1354,7 @@ namespace Janitor_V1
 
             foreach (Node node in treeListView2.CheckedObjects)
             {
-                if(node.ComponentType == NodeType.Part)
+                if (node.ComponentType == NodeType.Part)
                 {
                     checkedItems.Add(node);
                 }

@@ -19,6 +19,9 @@ namespace Janitor_V1
         private SldWorks SwApp;
         private int index;
 
+        private Dictionary<string, TabPage> TabPages = new Dictionary<string, TabPage>();
+
+
         public DetailsForm(string workingDirectory, string projectDirectory, Node data, List<Node> list, Action updateMainForm, SldWorks swApp, bool showControls)
         {
             //komponentų properčių peržiūrėjimo lango kodas
@@ -43,6 +46,14 @@ namespace Janitor_V1
 
         private void DetailsForm_Load(object sender, System.EventArgs e)
         {
+            this.TabPages.Add("weldingTabPage", this.tabControl1.TabPages["weldingTabPage"]);
+            this.TabPages.Add("assemblyTabPage", this.tabControl1.TabPages["assemblyTabPage"]);
+            this.TabPages.Add("otherCostsTabPage", this.tabControl1.TabPages["otherCostsTabPage"]);
+            this.TabPages.Add("manufacturingTabPage", this.tabControl1.TabPages["manufacturingTabPage"]);
+            this.TabPages.Add("stripsTabPage", this.tabControl1.TabPages["stripsTabPage"]);
+            this.TabPages.Add("purchasesTabPage", this.tabControl1.TabPages["purchasesTabPage"]);
+            this.TabPages.Add("generalTabPage", this.tabControl1.TabPages["generalTabPage"]);
+            this.TabPages.Add("propertiesTabPage", this.tabControl1.TabPages["propertiesTabPage"]);
             InitializeData();
         }
 
@@ -120,6 +131,7 @@ namespace Janitor_V1
         /// <param name="formType"></param>
         private void RemoveTabs(string formType)
         {
+            this.tabControl1.TabPages.Clear();
             //tabų išjungimas pagal komponento tipą
             if (formType == "part")
             {
@@ -129,19 +141,30 @@ namespace Janitor_V1
                 this.tabControl1.TabPages.RemoveByKey("manufacturingTabPage");
                 this.tabControl1.TabPages.RemoveByKey("stripsTabPage");
                 this.tabControl1.TabPages.RemoveByKey("purchasesTabPage");
+                this.tabControl1.TabPages.Add(TabPages["generalTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["propertiesTabPage"]);
             }
             else if (formType == "otherpart")
             {
                 this.tabControl1.TabPages.RemoveByKey("weldingTabPage");
                 this.tabControl1.TabPages.RemoveByKey("assemblyTabPage");
                 this.tabControl1.TabPages.RemoveByKey("otherCostsTabPage");
+                this.tabControl1.TabPages.Add(TabPages["manufacturingTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["stripsTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["purchasesTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["generalTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["propertiesTabPage"]);
             }
             else if(formType == "assembly")
             {
+                this.tabControl1.TabPages.Add(TabPages["weldingTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["assemblyTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["otherCostsTabPage"]);
                 this.tabControl1.TabPages.RemoveByKey("manufacturingTabPage");
                 this.tabControl1.TabPages.RemoveByKey("stripsTabPage");
                 this.tabControl1.TabPages.RemoveByKey("purchasesTabPage");
-                this.tabControl1.TabPages.RemoveByKey("partGeneralTabPage");
+                this.tabControl1.TabPages.Add(TabPages["generalTabPage"]);
+                this.tabControl1.TabPages.Add(TabPages["propertiesTabPage"]);
             }
         }
         /// <summary>
@@ -467,6 +490,18 @@ namespace Janitor_V1
             }
 
             this.pictureBox1.BackgroundImage = Data.GetBigImage(this.WorkingDirectory);
+        }
+
+        private void openInSolidworksButton_Click(object sender, EventArgs e)
+        {
+            if (Data.ComponentType == NodeType.Part)
+            {
+                Solidworks_control_tools.OpenItem(this.SwApp, Data.GetFileLocation(), (int)swDocumentTypes_e.swDocPART, (string)Data.GetReferencedConfiguration());
+            }
+            else if (Data.ComponentType == NodeType.Assembly)
+            {
+                Solidworks_control_tools.OpenItem(this.SwApp, Data.GetFileLocation(), (int)swDocumentTypes_e.swDocASSEMBLY, (string)Data.GetReferencedConfiguration());
+            }
         }
     }
 }

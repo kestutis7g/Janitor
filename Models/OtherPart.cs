@@ -60,7 +60,7 @@ namespace Janitor_V1.Models
         //###########################################################
 
         [Category("Purchase"),
-        Description("StripMaterialCost")]
+        Description("Supplier")]
         public string Supplier { get; set; }
 
         [Category("Purchase"),

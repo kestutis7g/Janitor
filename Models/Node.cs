@@ -480,6 +480,26 @@ namespace Janitor_V1.Models
             }
             return null;
         }
+        public string GetSupplier()
+        {
+            //gražina perkamos detales tiekeja
+            if (this.ComponentType == NodeType.Part && this.Part.PartType == PartType.Other)
+            {
+                return Part.OtherPart.Supplier;
+            }
+
+            return "";
+        }
+        public string GetVendorNo()
+        {
+            //gražina perkamos detales tiekejo numeri
+            if (this.ComponentType == NodeType.Part && this.Part.PartType == PartType.Other)
+            {
+                return Part.OtherPart.VendorNo;
+            }
+
+            return "";
+        }
 
         public ModelDoc2 GetSwModel()
         {
