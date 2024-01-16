@@ -712,7 +712,7 @@ namespace Janitor_V1
             this.Device.TotalAssemblyDuration = this.Device.ChildNodeAssemblyDuration + this.Device.IndividualComponentsAssembly + this.Device.AssemblyToParentDuration;
             if (this.Device.AssemblyCost == 0)
             {
-                this.Device.AssemblyCost = this.Prices.GetById(3).Value;
+                this.Device.AssemblyCost = this.Prices.GetPriceById(3, "WorkPrices").Value;
             }
             this.Device.AssemblyTotalCost = this.Device.AssemblyCost * this.Device.TotalAssemblyDuration;
 
@@ -736,10 +736,10 @@ namespace Janitor_V1
             switch (StainlessSteelToolbox)
             {
                 case false:
-                    toolboxPrice = this.Prices.GetById(10).Value;
+                    toolboxPrice = this.Prices.GetPriceById(1, "MaterialPrices").Value;
                     break;
                 case true:
-                    toolboxPrice = this.Prices.GetById(11).Value;
+                    toolboxPrice = this.Prices.GetPriceById(2, "MaterialPrices").Value;
                     break;
                 default:
                     toolboxPrice = 0;
@@ -1083,7 +1083,7 @@ namespace Janitor_V1
                     {
                         this.takePictureButton2.Enabled = true;
                         this.readPropertiesButton2.Enabled = true;
-                        this.processPartButton.Enabled = true;
+                        this.batchSheetPartProcessingButton.Enabled = true;
                         this.generateDXFandPDFbutton.Enabled = true;
                         this.exportSheetPartsToWordButton.Enabled = true;
                         this.exportPurchasedPartsButton.Enabled = true;
@@ -1092,7 +1092,7 @@ namespace Janitor_V1
                     {
                         this.takePictureButton2.Enabled = false;
                         this.readPropertiesButton2.Enabled = false;
-                        this.processPartButton.Enabled = false;
+                        this.batchSheetPartProcessingButton.Enabled = false;
                         this.generateDXFandPDFbutton.Enabled = false;
                         this.exportSheetPartsToWordButton.Enabled = false;
                         this.exportPurchasedPartsButton.Enabled = false;
@@ -1265,7 +1265,7 @@ namespace Janitor_V1
                 var exporter = new ExportDXFandPDF();
                 var success = exporter.ProcessComponent(SwApp, node.GetSwModel(),
                                                         node.GetReferencedConfiguration(),
-                                                        node.DuplicateAmount + mirrorAmount);
+                                                        node.DuplicateAmount + mirrorAmount, node.Part);
                 if (!success)
                 {
                     node.SetStatusMessage(StatusMessage.DXF_Error);
@@ -1364,18 +1364,42 @@ namespace Janitor_V1
             exporter.ExportPurchasedPartsToWord(checkedItems, WorkingDirectory, ProjectDirectory);
         }
 
-        private void processPartButton_Click(object sender, EventArgs e)
+        private void batchSheetPartProcessingButton_Click(object sender, EventArgs e)
         {
-            var partUtils = new PartUtils();
-
-            foreach (Node item in treeListView2.CheckedObjects)
+            using (var processingOptions = new SheetProcessingOptions(WorkingDirectory))
             {
-                if (item.ComponentType == NodeType.Part)
+                if (processingOptions.ShowDialog() == DialogResult.OK)
                 {
-                    partUtils.BaziniuProperciuSurasymasVIENAI_Konfiguracijai(item.Part);
+                    string material = processingOptions.Material;
+                    string cuttingType = processingOptions.CuttingType;
+                    string punchingType = processingOptions.PunchingType;
+                    string bendingType = processingOptions.BendingType;
+                    string paintingType = processingOptions.Painting ?? "";
+
+                    var partUtils = new PartUtils(this.WorkingDirectory, material, cuttingType, punchingType, bendingType, paintingType);
+
+                    var filteredObjects = treeListView2.FilteredObjects.Cast<Node>().ToList();
+                    var checkedObjects = treeListView2.CheckedObjects;
+
+                    foreach (Node item in filteredObjects) //apdirbami isfiltruoti ir pazymeti objektai
+                    {
+                        if (checkedObjects.IndexOf(item) >= 0 &&  item.ComponentType == NodeType.Part)
+                        {
+                            try
+                            {
+                                partUtils.BaziniuProperciuSurasymasVIENAI_Konfiguracijai(item.Part);
+                            }
+                            catch 
+                            {
+                                //neapdirbta detale praleidziama
+                            }
+                        }
+                    }
+
                 }
             }
 
+            
         }
     }
 }

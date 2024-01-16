@@ -32,7 +32,7 @@ namespace Janitor_V1.Forms
             //design tab
             if(Device.DesigningCostWithoutVAT == 0)
             {
-                this.Device.DesigningCostWithoutVAT = this.Prices.GetById(1).Value;
+                this.Device.DesigningCostWithoutVAT = this.Prices.GetPriceById(1, "WorkPrices").Value;
             }
             this.designingCostTextBox.Text = this.Device.DesigningCostWithoutVAT.ToString();
 
@@ -47,7 +47,7 @@ namespace Janitor_V1.Forms
             //welding tab
             if (Device.WeldingCostWithoutVAT == 0)
             {
-                this.Device.WeldingCostWithoutVAT = this.Prices.GetById(2).Value;
+                this.Device.WeldingCostWithoutVAT = this.Prices.GetPriceById(2, "WorkPrices").Value;
             }
             this.weldingCostTextBox.Text = this.Device.WeldingCostWithoutVAT.ToString();
 
@@ -61,7 +61,7 @@ namespace Janitor_V1.Forms
             //assembly and packing tab
             if (Device.WorkManagementCost == 0)
             {
-                this.Device.WorkManagementCost = this.Prices.GetById(4).Value;
+                this.Device.WorkManagementCost = this.Prices.GetPriceById(4, "WorkPrices").Value;
             }
             this.workManagementCostTextBox.Text = this.Device.WorkManagementCost.ToString();
 
@@ -71,7 +71,7 @@ namespace Janitor_V1.Forms
             //-------------------------
             if (Device.SupplyCost == 0)
             {
-                this.Device.SupplyCost = this.Prices.GetById(6).Value;
+                this.Device.SupplyCost = this.Prices.GetPriceById(6, "WorkPrices").Value;
             }
             this.supplyCostTextBox.Text = this.Device.SupplyCost.ToString();
 
@@ -81,7 +81,7 @@ namespace Janitor_V1.Forms
             //-------------------------
             if (Device.AssemblyCost == 0)
             {
-                this.Device.AssemblyCost = this.Prices.GetById(3).Value;
+                this.Device.AssemblyCost = this.Prices.GetPriceById(3, "WorkPrices").Value;
             }
             this.assemblyCostTextBox.Text = this.Device.AssemblyCost.ToString();
 
@@ -97,7 +97,7 @@ namespace Janitor_V1.Forms
             //-------------------------
             if (Device.PackingCost == 0)
             {
-                this.Device.PackingCost = this.Prices.GetById(8).Value;
+                this.Device.PackingCost = this.Prices.GetPriceById(8, "WorkPrices").Value;
             }
             this.packingCostTextBox.Text = this.Device.PackingCost.ToString();
 
@@ -123,7 +123,7 @@ namespace Janitor_V1.Forms
             //other costs
             this.otherCostsTextBox.Text = this.Device.OtherCosts.ToString();
             this.otherCosts1TextBox.Text = this.Device.OtherCosts.ToString();
-            this.otherCostsDescriptionTextBox.Text = this.Device.OtherCostsDescription.ToString();
+       //     this.otherCostsDescriptionTextBox.Text = this.Device.OtherCostsDescription.ToString();
 
             //footer
             this.Device.TotalPrice = this.Device.TotalPartsAndToolboxCost +

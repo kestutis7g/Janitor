@@ -3,15 +3,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Text;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Janitor_V1.Models;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
+using static OfficeOpenXml.ExcelErrorValue;
 
 namespace Janitor_V1.Utils
 {
     public class PartUtils
     {
+        private string Material { get; set; }
+        private string CuttingType { get; set; }
+        private string PunchingType { get; set; }
+        private string BendingType { get; set; }
+        private string PaintingType { get; set; }
+        private Prices Prices { get; set; }
+
+        public PartUtils(string workingDirectory, string material, string cuttingType, string punchingType, string bendingType, string paintingType) 
+        {
+            this.Material = material;
+            this.CuttingType = cuttingType;
+            this.PunchingType = punchingType;
+            this.BendingType = bendingType;
+            this.PaintingType = paintingType;
+            this.Prices = new Prices(workingDirectory);
+            this.Prices.Refresh();
+        }
         public void BaziniuProperciuSurasymasVIENAI_Konfiguracijai(Part part)
         {
             string KonfiguracijosVardas;
@@ -121,14 +140,15 @@ namespace Janitor_V1.Utils
                 {
                     CutListoProperciuIrasymasIrNuskaitymas(part);
 
-                    Dictionary<string, object> VisiParametrai = new Dictionary<string, object>();
-
-                    VisiParametrai.Add("SkardosStoris_mm", Convert.ToSingle(SkardosStoris_mm.Replace(",", ".")));
-                    VisiParametrai.Add("Lenkimu_Skaicius", Convert.ToInt32(Lenkimu_Skaicius));
-                    VisiParametrai.Add("Pramusimu_Skaicius", Pramusimu_Skaicius_INT);
-                    VisiParametrai.Add("Suminis_Pjuviu_Ilgis_mm", Suminis_Pjuviu_Ilgis_mm);
-                    VisiParametrai.Add("Dazymo_Plotas_mm2", Convert.ToDouble(Dazymo_Plotas_mm2.Replace(",", ".")));
-                    VisiParametrai.Add("Mase_g", Convert.ToDouble(Mase_g.Replace(",", ".")));
+                    Dictionary<string, object> VisiParametrai = new Dictionary<string, object>
+                    {
+                        { "SkardosStoris_mm", Convert.ToSingle(SkardosStoris_mm.Replace(",", ".")) },
+                        { "Lenkimu_Skaicius", Convert.ToInt32(Lenkimu_Skaicius) },
+                        { "Pramusimu_Skaicius", Pramusimu_Skaicius_INT },
+                        { "Suminis_Pjuviu_Ilgis_mm", Suminis_Pjuviu_Ilgis_mm },
+                        { "Dazymo_Plotas_mm2", Convert.ToDouble(Dazymo_Plotas_mm2.Replace(",", ".")) },
+                        { "Mase_g", Convert.ToDouble(Mase_g.Replace(",", ".")) }
+                    };
 
                     return VisiParametrai;
                 }
@@ -143,7 +163,7 @@ namespace Janitor_V1.Utils
         public void CutListoProperciuIrasymasIrNuskaitymas(Part part)
         {
             var cached = false; //??
-            bool value;
+            //bool value;
             object vCutLists = GetCutLists(part.swModel);
 
             if (vCutLists != null && ((Array)vCutLists).Length > 0)
@@ -152,22 +172,18 @@ namespace Janitor_V1.Utils
                 {
                     Feature swCutListFeat = (Feature)((Array)vCutLists).GetValue(I);
 
-                    IBodyFolder instance = (IBodyFolder)swCutListFeat.GetSpecificFeature2();
-                    value = instance.UpdateCutList();
-                    instance.SetAutomaticCutList(true);
-
                     CustomPropertyManager swCustPrpsMgr = swCutListFeat.CustomPropertyManager;
 
-                    object vPrpNames;
-                    object vPrpTypes;
-                    object vPrpVals;
-                    object vResVals;
-                    object vPrpsLink;
+                    //object vPrpNames;
+                    //object vPrpTypes;
+                    //object vPrpVals;
+                    //object vResVals;
+                    //object vPrpsLink;
 
-                    int prpsCount;
+                    //int prpsCount;
 
                     string prpVal;
-                    string prpResVal;
+                    //string prpResVal;
                     bool wasResolved;
                     bool isLinked;
                     long Res;
@@ -182,7 +198,7 @@ namespace Janitor_V1.Utils
                     Res = swCustPrpsMgr.Get6("Cut Outs", cached, out prpVal, out Pramusimu_Skaicius, out wasResolved, out isLinked);
                     Pramusimu_Skaicius_INT = Convert.ToInt32(Pramusimu_Skaicius) + 1;
 
-                    float SuminisPjuviuIlgis;
+                    //float SuminisPjuviuIlgis;
                     Res = swCustPrpsMgr.Get6("Cutting Length-Inner", cached, out prpVal, out Vidiniu_Pjuviu_Ilgis_mm, out wasResolved, out isLinked);
                     float VidPjuv = Convert.ToSingle(Vidiniu_Pjuviu_Ilgis_mm.Replace(",", "."));
 
@@ -223,6 +239,18 @@ namespace Janitor_V1.Utils
 
             while (swFeat != null)
             {
+                try
+                {
+                    IBodyFolder instance = (IBodyFolder)swFeat.GetSpecificFeature2();
+                    if (instance != null)
+                    {
+                        instance.SetAutomaticCutList(true);
+                        instance.UpdateCutList();
+                    }
+                }
+                catch { }
+                              
+                Debug.Print((swFeat.GetTypeName2()));
                 if (swFeat.GetTypeName2() == "CutListFolder")
                 {
                     if (!isInit)
@@ -263,128 +291,163 @@ namespace Janitor_V1.Utils
             public double SulenkimoKaina;
         }
 
-        public static PjovimoIrPramusimoKainos_Type[] oPjovimoIrPramusimoKainos = new PjovimoIrPramusimoKainos_Type[20];
-        public static LankstymoKainos_Type[] oLankstymoKainos = new LankstymoKainos_Type[20];
+        //public static PjovimoIrPramusimoKainos_Type[] oPjovimoIrPramusimoKainos = new PjovimoIrPramusimoKainos_Type[20];
+        //public static LankstymoKainos_Type[] oLankstymoKainos = new LankstymoKainos_Type[20];
 
-        public static float Kaina_EUR;
-        public static double Sumine_Detales_Kaina;
-        public static float Musu_dedamas_antkainis;
+        public float Kaina_EUR;
+        public double Sumine_Detales_Kaina;
+        public float Musu_dedamas_antkainis;
 
-        public static void PjovimoParametruUzpildymas()
+        //public static void PjovimoParametruUzpildymas()
+        //{
+        //    oPjovimoIrPramusimoKainos[0].SkardosStoris = 1;
+        //    oPjovimoIrPramusimoKainos[0].PjovimoKaina = 0.64;
+        //    oPjovimoIrPramusimoKainos[0].PramusimoKaina = 0.04;
+
+        //    oPjovimoIrPramusimoKainos[1].SkardosStoris = 2;
+        //    oPjovimoIrPramusimoKainos[1].PjovimoKaina = 0.9;
+        //    oPjovimoIrPramusimoKainos[1].PramusimoKaina = 0.06;
+        //    oPjovimoIrPramusimoKainos[2].SkardosStoris = 2.5;
+        //    oPjovimoIrPramusimoKainos[2].PjovimoKaina = 0.94;
+        //    oPjovimoIrPramusimoKainos[2].PramusimoKaina = 0.07;
+        //    oPjovimoIrPramusimoKainos[3].SkardosStoris = 3;
+        //    oPjovimoIrPramusimoKainos[3].PjovimoKaina = 0.97;
+        //    oPjovimoIrPramusimoKainos[3].PramusimoKaina = 0.08;
+        //    oPjovimoIrPramusimoKainos[4].SkardosStoris = 4;
+        //    oPjovimoIrPramusimoKainos[4].PjovimoKaina = 1.07;
+        //    oPjovimoIrPramusimoKainos[4].PramusimoKaina = 0.1;
+        //    oPjovimoIrPramusimoKainos[5].SkardosStoris = 5;
+        //    oPjovimoIrPramusimoKainos[5].PjovimoKaina = 1.39;
+        //    oPjovimoIrPramusimoKainos[5].PramusimoKaina = 0.12;
+        //    oPjovimoIrPramusimoKainos[6].SkardosStoris = 6;
+        //    oPjovimoIrPramusimoKainos[6].PjovimoKaina = 1.68;
+        //    oPjovimoIrPramusimoKainos[6].PramusimoKaina = 0.16;
+        //    oPjovimoIrPramusimoKainos[7].SkardosStoris = 8;
+        //    oPjovimoIrPramusimoKainos[7].PjovimoKaina = 2.79;
+        //    oPjovimoIrPramusimoKainos[7].PramusimoKaina = 0.18;
+        //    oPjovimoIrPramusimoKainos[8].SkardosStoris = 10;
+        //    oPjovimoIrPramusimoKainos[8].PjovimoKaina = 3.49;
+        //    oPjovimoIrPramusimoKainos[8].PramusimoKaina = 0.2;
+        //    oPjovimoIrPramusimoKainos[9].SkardosStoris = 12;
+        //    oPjovimoIrPramusimoKainos[9].PjovimoKaina = 5.14;
+        //    oPjovimoIrPramusimoKainos[9].PramusimoKaina = 0.25;
+        //    oPjovimoIrPramusimoKainos[10].SkardosStoris = 15;
+        //    oPjovimoIrPramusimoKainos[10].PjovimoKaina = 9.8;
+        //    oPjovimoIrPramusimoKainos[10].PramusimoKaina = 0.3;
+        //    oPjovimoIrPramusimoKainos[11].SkardosStoris = 20;
+        //    oPjovimoIrPramusimoKainos[11].PjovimoKaina = 18.16;
+        //    oPjovimoIrPramusimoKainos[11].PramusimoKaina = 0.4;
+        //    oPjovimoIrPramusimoKainos[12].SkardosStoris = 1.5;
+        //    oPjovimoIrPramusimoKainos[12].PjovimoKaina = 0.77;
+        //    oPjovimoIrPramusimoKainos[12].PramusimoKaina = 0.05;
+
+        //}
+
+        //public static void SulenkimoKainuSupildymas()
+        //{
+        //    oLankstymoKainos[0].SkardosStoris = 1;
+        //    oLankstymoKainos[0].SulenkimoKaina = 1.5;
+
+        //    oLankstymoKainos[1].SkardosStoris = 1.5;
+        //    oLankstymoKainos[1].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[2].SkardosStoris = 2;
+        //    oLankstymoKainos[2].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[3].SkardosStoris = 2.5;
+        //    oLankstymoKainos[3].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[4].SkardosStoris = 3;
+        //    oLankstymoKainos[4].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[5].SkardosStoris = 4;
+        //    oLankstymoKainos[5].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[6].SkardosStoris = 5;
+        //    oLankstymoKainos[6].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[7].SkardosStoris = 6;
+        //    oLankstymoKainos[7].SulenkimoKaina = 1.5;
+        //    oLankstymoKainos[8].SkardosStoris = 8;
+        //    oLankstymoKainos[8].SulenkimoKaina = 1.5;
+        //}
+
+        public double PjovimoKainosParinkimas(float iSkardosStoris)
         {
-            oPjovimoIrPramusimoKainos[0].SkardosStoris = 1;
-            oPjovimoIrPramusimoKainos[0].PjovimoKaina = 0.64;
-            oPjovimoIrPramusimoKainos[0].PramusimoKaina = 0.04;
+            //PjovimoParametruUzpildymas();
+            //for (int i = 0; i < oPjovimoIrPramusimoKainos.Length; i++)
+            //{
+            //    if (oPjovimoIrPramusimoKainos[i].SkardosStoris == iSkardosStoris)
+            //    {
+            //        return oPjovimoIrPramusimoKainos[i].PjovimoKaina;
+            //    }
+            //}
+            //return 0;
 
-            oPjovimoIrPramusimoKainos[1].SkardosStoris = 2;
-            oPjovimoIrPramusimoKainos[1].PjovimoKaina = 0.9;
-            oPjovimoIrPramusimoKainos[1].PramusimoKaina = 0.06;
-            oPjovimoIrPramusimoKainos[2].SkardosStoris = 2.5;
-            oPjovimoIrPramusimoKainos[2].PjovimoKaina = 0.94;
-            oPjovimoIrPramusimoKainos[2].PramusimoKaina = 0.07;
-            oPjovimoIrPramusimoKainos[3].SkardosStoris = 3;
-            oPjovimoIrPramusimoKainos[3].PjovimoKaina = 0.97;
-            oPjovimoIrPramusimoKainos[3].PramusimoKaina = 0.08;
-            oPjovimoIrPramusimoKainos[4].SkardosStoris = 4;
-            oPjovimoIrPramusimoKainos[4].PjovimoKaina = 1.07;
-            oPjovimoIrPramusimoKainos[4].PramusimoKaina = 0.1;
-            oPjovimoIrPramusimoKainos[5].SkardosStoris = 5;
-            oPjovimoIrPramusimoKainos[5].PjovimoKaina = 1.39;
-            oPjovimoIrPramusimoKainos[5].PramusimoKaina = 0.12;
-            oPjovimoIrPramusimoKainos[6].SkardosStoris = 6;
-            oPjovimoIrPramusimoKainos[6].PjovimoKaina = 1.68;
-            oPjovimoIrPramusimoKainos[6].PramusimoKaina = 0.16;
-            oPjovimoIrPramusimoKainos[7].SkardosStoris = 8;
-            oPjovimoIrPramusimoKainos[7].PjovimoKaina = 2.79;
-            oPjovimoIrPramusimoKainos[7].PramusimoKaina = 0.18;
-            oPjovimoIrPramusimoKainos[8].SkardosStoris = 10;
-            oPjovimoIrPramusimoKainos[8].PjovimoKaina = 3.49;
-            oPjovimoIrPramusimoKainos[8].PramusimoKaina = 0.2;
-            oPjovimoIrPramusimoKainos[9].SkardosStoris = 12;
-            oPjovimoIrPramusimoKainos[9].PjovimoKaina = 5.14;
-            oPjovimoIrPramusimoKainos[9].PramusimoKaina = 0.25;
-            oPjovimoIrPramusimoKainos[10].SkardosStoris = 15;
-            oPjovimoIrPramusimoKainos[10].PjovimoKaina = 9.8;
-            oPjovimoIrPramusimoKainos[10].PramusimoKaina = 0.3;
-            oPjovimoIrPramusimoKainos[11].SkardosStoris = 20;
-            oPjovimoIrPramusimoKainos[11].PjovimoKaina = 18.16;
-            oPjovimoIrPramusimoKainos[11].PramusimoKaina = 0.4;
-            oPjovimoIrPramusimoKainos[12].SkardosStoris = 1.5;
-            oPjovimoIrPramusimoKainos[12].PjovimoKaina = 0.77;
-            oPjovimoIrPramusimoKainos[12].PramusimoKaina = 0.05;
-
-        }
-
-        public static void SulenkimoKainuSupildymas()
-        {
-            oLankstymoKainos[0].SkardosStoris = 1;
-            oLankstymoKainos[0].SulenkimoKaina = 1.5;
-
-            oLankstymoKainos[1].SkardosStoris = 1.5;
-            oLankstymoKainos[1].SulenkimoKaina = 1.5;
-            oLankstymoKainos[2].SkardosStoris = 2;
-            oLankstymoKainos[2].SulenkimoKaina = 1.5;
-            oLankstymoKainos[3].SkardosStoris = 2.5;
-            oLankstymoKainos[3].SulenkimoKaina = 1.5;
-            oLankstymoKainos[4].SkardosStoris = 3;
-            oLankstymoKainos[4].SulenkimoKaina = 1.5;
-            oLankstymoKainos[5].SkardosStoris = 4;
-            oLankstymoKainos[5].SulenkimoKaina = 1.5;
-            oLankstymoKainos[6].SkardosStoris = 5;
-            oLankstymoKainos[6].SulenkimoKaina = 1.5;
-            oLankstymoKainos[7].SkardosStoris = 6;
-            oLankstymoKainos[7].SulenkimoKaina = 1.5;
-            oLankstymoKainos[8].SkardosStoris = 8;
-            oLankstymoKainos[8].SulenkimoKaina = 1.5;
-        }
-
-        public static double PjovimoKainosParinkimas(float iSkardosStoris)
-        {
-            PjovimoParametruUzpildymas();
-            for (int i = 0; i < oPjovimoIrPramusimoKainos.Length; i++)
+            string[] cuttingType = CuttingType.Split(new string[] { " | " }, StringSplitOptions.None);
+            var processingPrice = this.Prices.GetProcessingPriceByParams("Pjovimas", Material, cuttingType[0], cuttingType[1], iSkardosStoris.ToString());
+            if(processingPrice != null)
             {
-                if (oPjovimoIrPramusimoKainos[i].SkardosStoris == iSkardosStoris)
-                {
-                    return oPjovimoIrPramusimoKainos[i].PjovimoKaina;
-                }
+                return processingPrice.Value;
             }
             return 0;
         }
 
-        public static double SulenkimoKainosParinkimas(float iSkardosStoris)
+        public double SulenkimoKainosParinkimas(float iSkardosStoris)
         {
-            if (iSkardosStoris > 8)
+            //if (iSkardosStoris > 8)
+            //{
+            //    return 0;
+            //}
+
+            //SulenkimoKainuSupildymas();
+            //for (int i = 0; i < oLankstymoKainos.Length; i++)
+            //{
+            //    if (oLankstymoKainos[i].SkardosStoris == iSkardosStoris)
+            //    {
+            //        return oLankstymoKainos[i].SulenkimoKaina;
+            //    }
+            //}
+
+            string[] bendingType = BendingType.Split(new string[] { " | " }, StringSplitOptions.None);
+            var processingPrice = this.Prices.GetProcessingPriceByParams("Lankstymas", Material, bendingType[0], bendingType[1], iSkardosStoris.ToString());
+            if (processingPrice != null)
+            {
+                return processingPrice.Value;
+            }
+            return 0;
+        }
+
+        public double PramusimoKainosParinkimas(float iSkardosStoris)
+        {
+            //PjovimoParametruUzpildymas();
+            //for (int i = 0; i < oPjovimoIrPramusimoKainos.Length; i++)
+            //{
+            //    if (oPjovimoIrPramusimoKainos[i].SkardosStoris == iSkardosStoris)
+            //    {
+            //        return oPjovimoIrPramusimoKainos[i].PramusimoKaina;
+            //    }
+            //}
+
+            string[] punchingType = PunchingType.Split(new string[] { " | " }, StringSplitOptions.None);
+            var processingPrice = this.Prices.GetProcessingPriceByParams("Pramušimas", Material, punchingType[0], punchingType[1], iSkardosStoris.ToString());
+            if (processingPrice != null)
+            {
+                return processingPrice.Value;
+            }
+            return 0;
+        }
+        public double DazymoKainosParinkimas()
+        {
+            if(PaintingType == "")
             {
                 return 0;
             }
 
-            SulenkimoKainuSupildymas();
-            for (int i = 0; i < oLankstymoKainos.Length; i++)
+            string[] paintingType = PaintingType.Split(new string[] { " | " }, StringSplitOptions.None);
+            var processingPrice = this.Prices.GetProcessingPriceByParams("Dažymas", "-", paintingType[0], paintingType[1], "100");
+            if (processingPrice != null)
             {
-                if (oLankstymoKainos[i].SkardosStoris == iSkardosStoris)
-                {
-                    return oLankstymoKainos[i].SulenkimoKaina;
-                }
+                return processingPrice.Value;
             }
-
             return 0;
         }
 
-        public static double PramusimoKainosParinkimas(float iSkardosStoris)
-        {
-            PjovimoParametruUzpildymas();
-            for (int i = 0; i < oPjovimoIrPramusimoKainos.Length; i++)
-            {
-                if (oPjovimoIrPramusimoKainos[i].SkardosStoris == iSkardosStoris)
-                {
-                    return oPjovimoIrPramusimoKainos[i].PramusimoKaina;
-                }
-            }
-
-            return 0;
-        }
-
-        public static void SkardinesDetalesKainosSuskaiciavimas(Part part, Dictionary<string, object> SurinktiSkardinesDetalesParametrai)
+        public void SkardinesDetalesKainosSuskaiciavimas(Part part, Dictionary<string, object> SurinktiSkardinesDetalesParametrai)
         {
             float Skardos_Storis = Convert.ToSingle(SurinktiSkardinesDetalesParametrai["SkardosStoris_mm"]);
             int Lenkimu_Skaicius = Convert.ToInt32(SurinktiSkardinesDetalesParametrai["Lenkimu_Skaicius"]);
@@ -393,12 +456,16 @@ namespace Janitor_V1.Utils
             double Pjovimo_Ilgis_m = Convert.ToDouble(SurinktiSkardinesDetalesParametrai["Suminis_Pjuviu_Ilgis_mm"]) / 1000;
             double DetalesMase_kg = Convert.ToDouble(SurinktiSkardinesDetalesParametrai["Mase_g"]) / 1000;
 
-            float MetaloKaina_Eur_uz_kg = 1.55f;
+            double MetaloKaina_Eur_uz_kg = Prices.GetPriceByName(Material, "MaterialPrices").Value;
 
-            double oDazymoMilteliniuBuduKaina = 14;
+            double oDazymoMilteliniuBuduKaina = DazymoKainosParinkimas();
+
             double Pjovimo_Kaina_Uz_1m = PjovimoKainosParinkimas(Skardos_Storis);
             double Skardos_Pramusimo_Kaina = PramusimoKainosParinkimas(Skardos_Storis);
             double Skardos_Sulenkimo_Kaina = SulenkimoKainosParinkimas(Skardos_Storis);
+
+            double Musu_dedamas_antkainis = Prices.GetPriceById(3, "MaterialPrices").Value;
+
             double Sumine_Detales_Kaina = (Pjovimo_Ilgis_m * Pjovimo_Kaina_Uz_1m + Pramusimu_Skaicius * Skardos_Pramusimo_Kaina + Lenkimu_Skaicius * Skardos_Sulenkimo_Kaina + oDazymoMilteliniuBuduKaina * Detales_Suminis_Plotas_m2 + (DetalesMase_kg * MetaloKaina_Eur_uz_kg * 1.2)); // 20proc eina i atraizas.
 
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Pavirsiaus plotas_m2", (int)swCustomInfoType_e.swCustomInfoText, "");
@@ -427,7 +494,6 @@ namespace Janitor_V1.Utils
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Pirkimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
             part.swModel.CustomInfo2[part.ReferencedConfiguration, "Pirkimo kaina"] = Math.Round(Sumine_Detales_Kaina, 2).ToString();
 
-            double Musu_dedamas_antkainis = 1.2;
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Musu dedamas antkainis", (int)swCustomInfoType_e.swCustomInfoText, "");
             part.swModel.CustomInfo2[part.ReferencedConfiguration, "Musu dedamas antkainis"] = Musu_dedamas_antkainis.ToString();
 

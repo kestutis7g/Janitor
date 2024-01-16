@@ -1,9 +1,13 @@
-﻿using SolidWorks.Interop.sldworks;
+﻿using Janitor_V1.Models;
+using netDxf;
+using netDxf.Entities;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Janitor_V1.Utils
@@ -30,14 +34,19 @@ namespace Janitor_V1.Utils
 
         const int FLAT_PATTERN_OPTIONS = (int)SheetMetalOptions_e.ExportBendLines + (int)SheetMetalOptions_e.ExportFlatPatternGeometry;
 
+        private string partName = "";
+        private string partConfiguration = "";
+
         private ISldWorks swApp;
         private string EksportuojamoBrezinioFailoPavadinimas;
         private int duplicateQuantity = 0;
 
-        public bool ProcessComponent(ISldWorks swApp, ModelDoc2 swModel, string configuration, int numberOfComponents)
+        public bool ProcessComponent(ISldWorks swApp, ModelDoc2 swModel, string configuration, int numberOfComponents, Part part)
         {
             this.swApp = swApp;
             this.duplicateQuantity = numberOfComponents;
+            this.partName = part.ComponentName;
+            this.partConfiguration = part.ReferencedConfiguration;
             try
             {
                 if (swModel == null)
@@ -477,6 +486,23 @@ namespace Janitor_V1.Utils
                     {
                         throw new Exception("Failed to export flat pattern");
                     }
+
+                    //dxf failo papildymas
+
+                    DxfDocument dxfDocument = DxfDocument.Load(outFilePath + ".dxf");
+                    MText partText = new MText(partName, new Vector3(-10, 10, 45), 3);
+                    //partText.Rotation = 90;
+                    dxfDocument.Entities.Add(partText);
+                    var lines = dxfDocument.Entities.All.ToList();
+
+                    CheckForOverlapping(partText, lines);
+
+                    //foreach (EntityObject entity in dxfDocument.Entities.All)
+                    //{
+                    //    int a = 0;
+                    //}
+                    dxfDocument.Save(outFilePath + ".dxf");
+
                 }
                 else
                 {
@@ -501,6 +527,19 @@ namespace Janitor_V1.Utils
                 }
             }
         }
+
+        private void CheckForOverlapping(MText text, List<EntityObject> entities)
+        {
+            foreach (EntityObject entity in entities)
+            {
+                
+                if(entity is Line line)
+                {
+                    int a = 0;
+                }
+            }
+        }
+
 
         public void CreateDirectories(string path)
         {

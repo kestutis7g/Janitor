@@ -276,7 +276,7 @@ namespace Janitor_V1.Utils
                 {
                     return;
                 }
-
+                var totalParts = 0;
                 for (int i = parts.Count - 1; i >= 0; i--)
                 {
                     Row newRow = table.Rows.Add(table.Rows[2]);
@@ -289,11 +289,14 @@ namespace Janitor_V1.Utils
                     newRow.Cells[6].Range.Text = parts[i].Part.OtherPart.VendorNo;
                     newRow.Cells[7].Range.Text = parts[i].DuplicateAmount.ToString();
                     newRow.Cells[8].Range.Text = parts[i].GetNotes();
+
+                    totalParts += parts[i].DuplicateAmount;
                 }
                 //DELETE TEMPLATE ROW
                 table.Rows[parts.Count + 2].Delete();
                 //ADD DATE
                 FindAndReplaceTextInWord(doc, "{date}", DateTime.Now.ToString("yyyy-MM-dd"));
+                FindAndReplaceTextInWord(doc, "{component_count}", totalParts.ToString());
 
                 doc.Save();
                 doc.ExportAsFixedFormat(pdfLocation, WdExportFormat.wdExportFormatPDF);
