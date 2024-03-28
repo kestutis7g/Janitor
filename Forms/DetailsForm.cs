@@ -20,6 +20,7 @@ namespace Janitor_V1
         private int index;
 
         private Dictionary<string, TabPage> TabPages = new Dictionary<string, TabPage>();
+        private string PreviouslyUsedTab { get; set; }
 
 
         public DetailsForm(string workingDirectory, string projectDirectory, Node data, List<Node> list, Action updateMainForm, SldWorks swApp, bool showControls)
@@ -34,6 +35,7 @@ namespace Janitor_V1
             this.ShowControls = showControls;
             this.UpdateMainForm = updateMainForm;
             this.SwApp = swApp;
+            this.PreviouslyUsedTab = "generalTabPage";
 
             if(!ShowControls)
             {
@@ -90,16 +92,20 @@ namespace Janitor_V1
         private void nextButton_Click(object sender, System.EventArgs e)
         {
             //eina per detales
+            PreviouslyUsedTab = tabControl1.SelectedTab.Name;
             Data = List[this.index + 1];
             InitializeData();
+            tabControl1.SelectTab(PreviouslyUsedTab);
             UpdateMainForm();
         }
 
         private void previousButton_Click(object sender, System.EventArgs e)
         {
             //eina per detales
-            Data = List[index - 1];
+            PreviouslyUsedTab = tabControl1.SelectedTab.Name;
+            Data = List[this.index - 1];
             InitializeData();
+            tabControl1.SelectTab(PreviouslyUsedTab);
             UpdateMainForm();
         }
 
@@ -239,6 +245,9 @@ namespace Janitor_V1
             
             this.markupCostPurchaseTextBox.Text =
                 Data.Part.Markup.ToString();
+            
+            this.totalPurchasePriceTextBox.Text =
+                (Data.Part.OtherPart.PurchaseCost * Data.Part.Markup).ToString();
         }
 
         private void FillWeldingTab()
@@ -357,6 +366,17 @@ namespace Janitor_V1
                 "Musu dedamas antkainis", (int)swCustomInfoType_e.swCustomInfoText, "");
             this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
                 "Musu dedamas antkainis"] = this.Data.Part.Markup.ToString();
+
+
+            if (this.Data.Part.PartType == PartType.Other)
+            {
+                this.Data.GetSwModel().AddCustomInfo3(this.Data.GetReferencedConfiguration(),
+                    "KAINA_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
+                this.Data.GetSwModel().CustomInfo2[this.Data.GetReferencedConfiguration(),
+                    "KAINA_EUR"] = Math.Round((double)(Data.Part.OtherPart.PurchaseCost * Data.Part.Markup), 2).ToString();
+
+                Data.Part.Price = Math.Round((double)(Data.Part.OtherPart.PurchaseCost * Data.Part.Markup), 2);
+            }
         }
         private void ReloadPart()
         {
@@ -438,21 +458,20 @@ namespace Janitor_V1
 
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //eventas, kuris užtikrina, kad Textboxe įrašomas realus skaičius
             double count = 0;
-            if ((e.KeyChar == ','))
-            {
-                e.KeyChar = '.';
-            }
 
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == '.')))
+                (e.KeyChar == '.') ||
+                (e.KeyChar == ',')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1) ||
+                (e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }

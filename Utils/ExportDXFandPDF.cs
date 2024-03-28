@@ -490,12 +490,51 @@ namespace Janitor_V1.Utils
                     //dxf failo papildymas
 
                     DxfDocument dxfDocument = DxfDocument.Load(outFilePath + ".dxf");
-                    MText partText = new MText(partName, new Vector3(-10, 10, 45), 3);
+                    var lines = dxfDocument.Entities.Lines.ToList();
+                    var arcs = dxfDocument.Entities.Arcs.ToList();
+                    var circles = dxfDocument.Entities.Circles.ToList();
+
+                    var points = new List<Vector3>();
+                    foreach (var item in lines)
+                    {
+                        points.Add(item.StartPoint);
+                        points.Add(item.EndPoint);
+                    }
+                    foreach (var item in arcs)
+                    {
+                        points.Add(new Vector3(item.Center.X - item.Radius, item.Center.Y, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X + item.Radius, item.Center.Y, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X, item.Center.Y - item.Radius, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X, item.Center.Y + item.Radius, item.Center.Z));
+                    }
+                    foreach (var item in circles)
+                    {
+                        points.Add(new Vector3(item.Center.X - item.Radius, item.Center.Y, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X + item.Radius, item.Center.Y, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X, item.Center.Y - item.Radius, item.Center.Z));
+                        points.Add(new Vector3(item.Center.X, item.Center.Y + item.Radius, item.Center.Z));
+                    }
+
+                    var minX = points.Min((x) => x.X);
+                    var maxX = points.Max((x) => x.X);
+                    var minY = points.Min((x) => x.Y);
+                    var maxY = points.Max((x) => x.Y);
+
+
+                    double divider = 30;
+                    // kiek kartu sumazina raides nuo detales gabarito
+                    var height = Math.Min((double)(maxX - minX) / divider, (double)(maxY - minY) / divider);
+
+                    MText partText = new MText(partName, new Vector3(-10, 10, 45), height);
+                    MText configurationText = new MText(partConfiguration, new Vector3(-10, 40, 45), height);
                     //partText.Rotation = 90;
                     dxfDocument.Entities.Add(partText);
-                    var lines = dxfDocument.Entities.All.ToList();
+                    dxfDocument.Entities.Add(configurationText);
 
-                    CheckForOverlapping(partText, lines);
+                    int a = 0;
+
+
+   
 
                     //foreach (EntityObject entity in dxfDocument.Entities.All)
                     //{
@@ -527,19 +566,6 @@ namespace Janitor_V1.Utils
                 }
             }
         }
-
-        private void CheckForOverlapping(MText text, List<EntityObject> entities)
-        {
-            foreach (EntityObject entity in entities)
-            {
-                
-                if(entity is Line line)
-                {
-                    int a = 0;
-                }
-            }
-        }
-
 
         public void CreateDirectories(string path)
         {

@@ -296,21 +296,20 @@ namespace Janitor_V1.Forms
 
         private void numbersOnlyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //eventas, kuris užtikrina, kad Textboxe įrašomas realus skaičius
             double count = 0;
-            if ((e.KeyChar == ','))
-            {
-                e.KeyChar = '.';
-            }
 
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == '.')))
+                (e.KeyChar == '.') ||
+                (e.KeyChar == ',')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1) ||
+                (e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }

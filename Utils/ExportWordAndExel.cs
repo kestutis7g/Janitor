@@ -19,6 +19,7 @@ namespace Janitor_V1.Utils
         {
             try 
             {
+                //activeColumns.Sort((x, y) =>  x.Text.CompareTo(y.Text));
                 ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
                 using (var package = new ExcelPackage())
                 {
@@ -130,11 +131,26 @@ namespace Janitor_V1.Utils
                     case "Price":
                         worksheet.Cells[row, cell].Value = node.GetPrice();
                         cell++; break;
+                    case "PurchasePrice":
+                        worksheet.Cells[row, cell].Value = node.GetPurchasePrice();
+                        cell++; break;
+                    case "Markup":
+                        worksheet.Cells[row, cell].Value = node.GetMarkup();
+                        cell++; break;
                     case "SheetThickness":
                         worksheet.Cells[row, cell].Value = node.GetSheetThickness();
                         cell++; break;
+                    case "Amount":
+                        worksheet.Cells[row, cell].Value = node.DuplicateAmount;
+                        cell++; break;
+                    case "Supplier":
+                        worksheet.Cells[row, cell].Value = node.GetSupplier();
+                        cell++; break;
+                    case "VendorNo":
+                        worksheet.Cells[row, cell].Value = node.GetVendorNo();
+                        cell++; break;
                     default:
-                        break;
+                        cell++; break;
                 }
             }
             //if(node.Children.Count > 0)

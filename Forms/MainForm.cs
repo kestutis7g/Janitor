@@ -471,6 +471,14 @@ namespace Janitor_V1
             var colPrice = new OLVColumn("Price", "Price");
             colPrice.AspectGetter = x => (x as Node).Part.Price;
             colPrice.Width = 100;
+            
+            var colPurchasePrice = new OLVColumn("PurchasePrice", "PurchasePrice");
+            colPurchasePrice.AspectGetter = x => (x as Node).Part.PurchasePrice;
+            colPurchasePrice.Width = 100;
+            
+            var colMarkup = new OLVColumn("Markup", "Markup");
+            colMarkup.AspectGetter = x => (x as Node).Part.Markup;
+            colMarkup.Width = 100;
 
             var colSheetThickness = new OLVColumn("SheetThickness", "SheetThickness");
             colSheetThickness.AspectGetter = x => (x as Node).Part.SheetThickness;
@@ -500,6 +508,8 @@ namespace Janitor_V1
             this.treeListView2.Columns.Add(colMaterial);
             this.treeListView2.Columns.Add(colCoverage);
             this.treeListView2.Columns.Add(colPrice);
+            this.treeListView2.Columns.Add(colPurchasePrice);
+            this.treeListView2.Columns.Add(colMarkup);
             this.treeListView2.Columns.Add(colSheetThickness);
 
             this.treeListView2.AllColumns.Add(colItemNumber);
@@ -520,6 +530,8 @@ namespace Janitor_V1
             this.treeListView2.AllColumns.Add(colMaterial);
             this.treeListView2.AllColumns.Add(colCoverage);
             this.treeListView2.AllColumns.Add(colPrice);
+            this.treeListView2.AllColumns.Add(colPurchasePrice);
+            this.treeListView2.AllColumns.Add(colMarkup);
             this.treeListView2.AllColumns.Add(colSheetThickness);
             this.treeListView2.AllColumns.Add(colFileLocation);
 
@@ -860,20 +872,18 @@ namespace Janitor_V1
         {
             //eventas, kuris užtikrina, kad Textboxe įrašomas realus skaičius
             double count = 0;
-            if ((e.KeyChar == ','))
-            {
-                e.KeyChar = '.';
-            }
-
+            
             if (!((char.IsDigit(e.KeyChar) && double.TryParse((sender as TextBox).Text + e.KeyChar, out count) && count >= 0) ||
                 (e.KeyChar == '\b') ||
-                (e.KeyChar == '.')))
+                (e.KeyChar == '.') ||
+                (e.KeyChar == ',')))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1) ||
+                (e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
@@ -1087,6 +1097,7 @@ namespace Janitor_V1
                         this.generateDXFandPDFbutton.Enabled = true;
                         this.exportSheetPartsToWordButton.Enabled = true;
                         this.exportPurchasedPartsButton.Enabled = true;
+                        this.setMarkupValueButton.Enabled = true;
                     }
                     else
                     {
@@ -1096,6 +1107,7 @@ namespace Janitor_V1
                         this.generateDXFandPDFbutton.Enabled = false;
                         this.exportSheetPartsToWordButton.Enabled = false;
                         this.exportPurchasedPartsButton.Enabled = false;
+                        this.setMarkupValueButton.Enabled = false;
                     }
                     break;
                 case "treeListView3":
@@ -1400,6 +1412,49 @@ namespace Janitor_V1
             }
 
             
+        }
+
+        private void setMarkupValueButton_Click(object sender, EventArgs e)
+        {
+            var valueForm = new InputForm();
+            if(DialogResult.OK != valueForm.ShowDialog())
+            {
+                return;
+            }
+
+            IList checkedItems;
+            checkedItems = treeListView2.CheckedObjects;
+
+            foreach (Node node in checkedItems)
+            {
+                SetPartMarkupValue(node, valueForm.Value);
+            }
+            RefreshCalculations();
+        }
+
+        private void SetPartMarkupValue(Node node, double markup)
+        {
+            if(node.ComponentType != NodeType.Part)
+            {
+                return;
+            }
+
+            node.Part.Markup = markup;
+
+            node.GetSwModel().AddCustomInfo3(node.GetReferencedConfiguration(),
+                "Musu dedamas antkainis", (int)swCustomInfoType_e.swCustomInfoText, "");
+            node.GetSwModel().CustomInfo2[node.GetReferencedConfiguration(),
+                "Musu dedamas antkainis"] = node.Part.Markup.ToString();
+
+            if (node.Part.PartType == PartType.Other)
+            {
+                node.GetSwModel().AddCustomInfo3(node.GetReferencedConfiguration(),
+                    "KAINA_EUR", (int)swCustomInfoType_e.swCustomInfoText, "");
+                node.GetSwModel().CustomInfo2[node.GetReferencedConfiguration(),
+                    "KAINA_EUR"] = Math.Round((double)(node.Part.OtherPart.PurchaseCost * node.Part.Markup), 2).ToString();
+
+                node.Part.Price = Math.Round((double)(node.Part.OtherPart.PurchaseCost * node.Part.Markup), 2);
+            }
         }
     }
 }

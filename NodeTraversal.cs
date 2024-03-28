@@ -165,7 +165,7 @@ namespace Janitor_V1
                     swModel, swChildComp.ReferencedConfiguration, "Virinimas");
 
                 node.Part.Material = ReadPropertiesFromSolidworks_stringOut(
-                    swModel, swChildComp.ReferencedConfiguration, "Medziaga");
+                    swModel, swChildComp.ReferencedConfiguration, "Material");
 
                 node.Part.Coverage = ReadPropertiesFromSolidworks_stringOut(
                     swModel, swChildComp.ReferencedConfiguration, "Padengimas");
@@ -493,7 +493,7 @@ namespace Janitor_V1
             int retVal;
 
             retVal = CustPropMgr.Get6(PropertyName,false,out ValOut,out ResValue,out WasResolved, out LinkedToProperty);
-            ResValue = ResValue.Replace(',', '.');
+            ResValue = ResValue.Replace('.', ',');
             double value = 0;
             double.TryParse(ResValue, out value);
             //MessageBox.Show("Komponento " + swModel.GetPathName() + " properčio " + PropertyName + " reikšmė: "+ResValue ).ToString();

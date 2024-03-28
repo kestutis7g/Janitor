@@ -454,6 +454,32 @@ namespace Janitor_V1.Models
             }
             return -999;
         }
+        public double? GetPurchasePrice()
+        {
+            //gražina detalės pirkimo kainą
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.PurchasePrice;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
+        public double? GetMarkup()
+        {
+            //gražina detalės antkaini
+            if (this.ComponentType == NodeType.Part)
+            {
+                return Part.Markup;
+            }
+            else if (this.ComponentType == NodeType.Assembly)
+            {
+                return null;
+            }
+            return -999;
+        }
         public double? GetSheetThickness()
         {
             //gražina detalės skardos storį

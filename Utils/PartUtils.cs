@@ -71,10 +71,10 @@ namespace Janitor_V1.Utils
                 part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Virinimas", (int)swCustomInfoType_e.swCustomInfoText, "");
                 part.swModel.CustomInfo2[part.ReferencedConfiguration, "Virinimas"] = "";
 
-                part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Medziaga", (int)swCustomInfoType_e.swCustomInfoText, "");
-                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Medziaga"] = DetalesMedziaga(part);
+                part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Material", (int)swCustomInfoType_e.swCustomInfoText, "");
+                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Material"] = DetalesMedziaga(part);
 
-                part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Padengimas", (int)swCustomInfoType_e.swCustomInfoText, "");
+                part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Padengimas", (int)swCustomInfoType_e.swCustomInfoText, PaintingType);
 
                 part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Pirkimo kaina", (int)swCustomInfoType_e.swCustomInfoText, "");
 
@@ -112,12 +112,12 @@ namespace Janitor_V1.Utils
 
             if (part.Bent == true)
             {
-                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lankstymas"] = "Taip";
+                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lankstymas"] = "true";
                 part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lenkimu skaicius"] = "\"" + "SW-Bends@@@Cut-List-Item1" + "@" + part.swModel.GetTitle() + "." + ExtentsionName + "\"";
             }
             else
             {
-                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lankstymas"] = "Ne";
+                part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lankstymas"] = "false";
                 part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lenkimu skaicius"] = "0";
             }
         }
@@ -478,8 +478,8 @@ namespace Janitor_V1.Utils
             part.swModel.CustomInfo2[part.ReferencedConfiguration, "Lenkimu skaicius"] = Lenkimu_Skaicius.ToString();
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Pramusimu skaicius", (int)swCustomInfoType_e.swCustomInfoText, "");
             part.swModel.CustomInfo2[part.ReferencedConfiguration, "Pramusimu skaicius"] = Pramusimu_Skaicius.ToString();
-            part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Medziaga", (int)swCustomInfoType_e.swCustomInfoText, "");
-            part.swModel.CustomInfo2[part.ReferencedConfiguration, "Medziaga"] = DetalesMedziaga(part);
+            part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Material", (int)swCustomInfoType_e.swCustomInfoText, "");
+            part.swModel.CustomInfo2[part.ReferencedConfiguration, "Material"] = DetalesMedziaga(part);
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Padengimas", (int)swCustomInfoType_e.swCustomInfoText, "");
             part.swModel.AddCustomInfo3(part.ReferencedConfiguration, "Metalo kaina_EUR uz kg", (int)swCustomInfoType_e.swCustomInfoText, "");
             part.swModel.CustomInfo2[part.ReferencedConfiguration, "Metalo kaina_EUR uz kg"] = MetaloKaina_Eur_uz_kg.ToString();
